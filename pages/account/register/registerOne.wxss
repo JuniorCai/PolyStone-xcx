@@ -1,0 +1,16 @@
+/* pages/account/register.wxss */
+
+
+.btn-verifyCode{
+  height: 30px;
+  width: 90px;
+  font-size: 12px;
+  background-color: #ffffff;
+  border:0;
+}
+
+.form-login-body .input-normal.verifyCode{
+  height: 30px;
+  line-height: 30px;
+  margin-bottom: 0
+}

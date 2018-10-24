@@ -8,3 +8,27 @@
   padding: 200rpx 0;
   box-sizing: border-box;
 } 
+
+.form-login-body{
+  padding:35px 20px 0 20px
+}
+
+.form-login-body .input-normal{
+  border-bottom:1px #E6E6E6 solid;
+  margin-bottom: 20px
+}
+
+.form-login-footer{
+  padding:20px
+}
+
+.btnColor-normal{
+  color:#ffffff;
+  border: 0;
+  background-color: #27AEFE;
+}
+
+.btn-submit{
+  height: 40px;
+  font-size: 16px
+}

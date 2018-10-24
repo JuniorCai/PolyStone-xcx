@@ -1,40 +1,44 @@
 {
-  "pages":[
+  "pages": [
+    "pages/account/register/registerOne",
     "pages/index/index",
     "pages/logs/logs",
     "pages/company/index",
     "pages/community/index",
-    "pages/center/index"
+    "pages/center/index",
+    "pages/account/login",
+    "pages/account/register/registerTwo"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
-    "backgroundColor":"#eeeeee",
+  "window": {
+    "backgroundTextStyle": "light",
+    "backgroundColor": "#eeeeee",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle":"black"
+    "navigationBarTextStyle": "black"
   },
-  "tabBar":{
-    "list":[
+  "tabBar": {
+    "list": [
       {
-        "pagePath":"pages/index/index",
-        "text":"首页"
-    }
-    ,{
-      "pagePath":"pages/company/index",
-    "text":"企业"
-    }
-    ,{
-      "pagePath":"pages/community/index",
-    "text":"圈子"
-    }
-    ,{
-      "pagePath":"pages/center/index",
-    "text":"我的"
-    }]
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/company/index",
+        "text": "企业"
+      },
+      {
+        "pagePath": "pages/community/index",
+        "text": "圈子"
+      },
+      {
+        "pagePath": "pages/center/index",
+        "text": "我的"
+      }
+    ]
   },
-  "networkTimeout":{
-    "request":10000,
-    "downloadFile":10000
+  "networkTimeout": {
+    "request": 10000,
+    "downloadFile": 10000
   },
-  "debug":true
+  "debug": true
 }
