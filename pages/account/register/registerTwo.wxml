@@ -1,13 +1,9 @@
 <form>
   <view class='form-login-body'>
-    <input type='text' class='input-normal' placeholder='手机号'></input>
-    <view>
-      <input type='text' style='float:left' class='input-normal verifyCode' placeholder='短信验证码'></input>
-      <!-- <view style='border:1px'></view> -->
-      <button  class='btn-verifyCode'  size='default'>获取验证码</button>
-    </view>
+    <input type='text' class='input-normal' placeholder='设置账号名(4-20位，注册成功后不能修改)'></input>
+     <input type='text' class='input-normal' placeholder='设置密码(6-20位字母、数字组合)'></input>
   </view>
   <view class='form-login-footer'>
-    <button form-type='submit' class='btnColor-normal btn-submit' size='default'>下一步</button>
+    <button form-type='submit' class='btnColor-normal btn-submit' size='default'>完成注册</button>
   </view>
 </form>

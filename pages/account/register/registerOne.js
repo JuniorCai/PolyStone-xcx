@@ -65,6 +65,6 @@ Page({
   },
 
   toStepTwo:function(){
-    wx.redirectTo({ url:"registerTwo"})
+    wx.navigateTo({ url: "registerTwo" })
   }
 })

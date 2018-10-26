@@ -1,1 +1,45 @@
-/* pages/center/index.wxss */
+@import '../../content/style/iconfont.wxss';
+
+.personBlock{
+  text-align: center;
+  background-color: #27AEFE;
+  height: 100px;
+  padding: 20px 0 0;
+}
+
+.personPic{
+  height: 50px;
+  width: 50px;
+}
+
+.personName{
+  margin-top: 10px;
+  display: block;
+  font-size: 12px;
+  color: #ffffff;
+}
+
+.centerQuickNavBlock{
+  height: 50px;
+  border-bottom: 1px solid  #e6e6e6;
+  margin-bottom: 5px;
+  padding: 0 10px;
+  display: flex;
+  background-color: #FFFFFF;
+}
+
+.centerQuickNavBlock .quickNav{
+  /* float:left; */
+  text-align: center;
+  flex-direction: row;
+  width: 25%;
+}
+
+.centerQuickNavBlock .quickNav .iconfont{
+  font-size: 24px;
+}
+
+.centerQuickNavBlock .quickNav .quickNavTxt{
+  font-size: 12px;
+  display: block;
+}

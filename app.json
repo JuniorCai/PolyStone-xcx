@@ -1,20 +1,20 @@
 {
   "pages": [
+    "pages/center/index",
     "pages/account/register/registerOne",
     "pages/index/index",
     "pages/logs/logs",
     "pages/company/index",
     "pages/community/index",
-    "pages/center/index",
     "pages/account/login",
     "pages/account/register/registerTwo"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "backgroundColor": "#eeeeee",
-    "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle": "black"
+    "navigationBarBackgroundColor": "#27AEFE",
+    "navigationBarTextStyle": "white"
   },
   "tabBar": {
     "list": [

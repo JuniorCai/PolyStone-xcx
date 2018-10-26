@@ -1,2 +1,22 @@
-<!--pages/center/index.wxml-->
-<text>pages/center/index.wxml</text>
+<view class='personBlock'>
+  <image class='personPic' mode='aspectFit' src='../../content/images/libai-1.jpg'></image>
+  <text class='personName'>点击登录</text>
+</view>
+<view class='centerQuickNavBlock'>
+  <navigator class='quickNav'>
+    <view class='iconfont icon-mingpian' style='color:#FF9800;font-size:28px;'></view>
+    <text class='quickNavTxt'>我的名片</text>
+  </navigator>
+  <navigator class='quickNav'>
+    <view class='iconfont icon-shoucang1' style='color:#27AEFE;font-size:28px;'></view>
+    <text class='quickNavTxt'>收藏</text>
+  </navigator>
+  <navigator class='quickNav'>
+    <view class='iconfont icon-quanzi:' style='color:#101010;font-size:28px;'></view>
+    <text class='quickNavTxt'>圈子</text>
+  </navigator>
+  <navigator class='quickNav'>
+    <view class='iconfont icon-zhuye' style='color:#8BC34A;font-size:28px;'></view>
+    <text class='quickNavTxt'>我的主页</text>
+  </navigator>
+</view>

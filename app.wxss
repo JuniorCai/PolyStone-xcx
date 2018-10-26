@@ -1,4 +1,8 @@
 /**app.wxss**/
+page{
+  background-color: #F5F5F5
+}
+
 .container {
   height: 100%;
   display: flex;
@@ -10,13 +14,19 @@
 } 
 
 .form-login-body{
-  padding:35px 20px 0 20px
+  padding:35px 20px 20px 20px
 }
 
 .form-login-body .input-normal{
   border-bottom:1px #E6E6E6 solid;
+  font-size: 14px;
   margin-bottom: 20px
 }
+
+.form-login-body .input-normal:last-child{
+  margin-bottom: 0;
+}
+
 
 .form-login-footer{
   padding:20px
