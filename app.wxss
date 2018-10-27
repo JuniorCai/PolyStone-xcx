@@ -14,13 +14,13 @@ page{
 } 
 
 .form-login-body{
-  padding:35px 20px 20px 20px
+  padding:70rpx 40rpx 40rpx
 }
 
 .form-login-body .input-normal{
-  border-bottom:1px #E6E6E6 solid;
-  font-size: 14px;
-  margin-bottom: 20px
+  border-bottom:2rpx #E6E6E6 solid;
+  font-size: 28rpx;
+  margin-bottom: 40rpx
 }
 
 .form-login-body .input-normal:last-child{
@@ -29,7 +29,7 @@ page{
 
 
 .form-login-footer{
-  padding:20px
+  padding:40rpx
 }
 
 .btnColor-normal{
@@ -39,6 +39,30 @@ page{
 }
 
 .btn-submit{
-  height: 40px;
-  font-size: 16px
+  height: 80rpx;
+  font-size: 32rpx
+}
+
+.areaListBlock{
+  margin-top: 20rpx;
+}
+
+.areaListBlock .listBody{
+  background-color: #ffffff;
+  line-height: 44rpx;
+  /* width: 100%; */
+  padding: 20rpx;
+  border-bottom: 2rpx solid #E6E6E6;
+}
+
+.areaListBlock .listBody:last-child{
+  border-bottom: none;
+}
+
+.areaListBlock .listBody .itemTitle{
+  font-size: 32rpx;
+}
+
+.areaListBlock .listBody .iconfont{
+  float: right;
 }

@@ -3,26 +3,32 @@
 .personBlock{
   text-align: center;
   background-color: #27AEFE;
-  height: 100px;
-  padding: 20px 0 0;
+  height: 200rpx;
+  padding: 40rpx 0 0;
 }
-
+/* 
 .personPic{
-  height: 50px;
-  width: 50px;
+  height: 100rpx;
+  width: 100rpx;
+} */
+
+.userinfo-avatar {
+  height: 128rpx;
+  width: 128rpx;
+  border-radius: 50%;
 }
 
 .personName{
-  margin-top: 10px;
+  margin-top: 20rpx;
   display: block;
-  font-size: 12px;
+  font-size: 24rpx;
   color: #ffffff;
 }
 
 .centerQuickNavBlock{
-  height: 50px;
-  border-bottom: 1px solid  #e6e6e6;
-  margin-bottom: 5px;
+  height: 100rpx;
+  border-bottom: 2rpx solid  #e6e6e6;
+  margin-bottom: 10rpx;
   padding: 0 10px;
   display: flex;
   background-color: #FFFFFF;

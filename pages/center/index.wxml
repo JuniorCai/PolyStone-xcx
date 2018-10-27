@@ -1,6 +1,17 @@
-<view class='personBlock'>
-  <image class='personPic' mode='aspectFit' src='../../content/images/libai-1.jpg'></image>
+<!-- <view class="userinfo">
+    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+    <block wx:else>
+      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    </block>
+  </view> -->
+<view class='personBlock' bindtap='onGetUserInfo' wx:if="{{!hasUserInfo}}">
+  <image class='userinfo-avatar' mode='cover' src='../../content/images/libai-1.jpg'></image>
   <text class='personName'>点击登录</text>
+</view>
+<view class='personBlock'  bindtap='onShowUserInfo' wx:else>
+  <image class='userinfo-avatar' mode='cover' src='{{userInfo.avatarUrl}}'></image>
+  <text class='personName'>{{userInfo.nickName}}</text>
 </view>
 <view class='centerQuickNavBlock'>
   <navigator class='quickNav'>
@@ -19,4 +30,30 @@
     <view class='iconfont icon-zhuye' style='color:#8BC34A;font-size:28px;'></view>
     <text class='quickNavTxt'>我的主页</text>
   </navigator>
+</view>
+<view class='areaListBlock'>
+  <view class='listHead' wx:if="{{hasListHead}}"></view>
+  <view class='listBody ' bindtap='onShowCommunityList'>
+    <text class='itemTitle' >圈子列表</text>
+    <text class='iconfont icon-you'></text>
+  </view>
+  <view class='listBody ' bindtap='onPublishCommunity'>
+    <text class='itemTitle' >发布供求</text>
+    <text class='iconfont icon-you'></text>
+  </view>
+</view>
+<view class='areaListBlock'>
+  <view class='listHead' wx:if="{{hasListHead}}"></view>
+  <view class='listBody ' bindtap='onShowAboutUs'>
+    <text class='itemTitle' >关于我们</text>
+    <text class='iconfont icon-you'></text>
+  </view>
+  <view class='listBody ' bindtap='onShowFeedBack'>
+    <text class='itemTitle' >意见反馈</text>
+    <text class='iconfont icon-you'></text>
+  </view>
+   <view class='listBody ' bindtap='onShowService'>
+    <text class='itemTitle' >联系客服</text>
+    <text class='iconfont icon-you'></text>
+  </view>
 </view>

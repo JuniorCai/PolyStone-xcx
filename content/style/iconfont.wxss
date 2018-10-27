@@ -1,11 +1,10 @@
-
 @font-face {
   font-family: 'iconfont';  /* project id 891189 */
-  src: url('//at.alicdn.com/t/font_891189_dvv80rvluqt.eot');
-  src: url('//at.alicdn.com/t/font_891189_dvv80rvluqt.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_891189_dvv80rvluqt.woff') format('woff'),
-  url('//at.alicdn.com/t/font_891189_dvv80rvluqt.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_891189_dvv80rvluqt.svg#iconfont') format('svg');
+  src: url('//at.alicdn.com/t/font_891189_dj3epnoadyb.eot');
+  src: url('//at.alicdn.com/t/font_891189_dj3epnoadyb.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_891189_dj3epnoadyb.woff') format('woff'),
+  url('//at.alicdn.com/t/font_891189_dj3epnoadyb.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_891189_dj3epnoadyb.svg#iconfont') format('svg');
 }
 
 
@@ -29,3 +28,13 @@
 .icon-mingpian:before { content: "\e60c"; }
 
 .icon-zhuye:before { content: "\e619"; }
+
+.icon-you1::after { content: "\e6c7"; }
+
+.icon-you:before { content: "\e601"; }
+
+
+
+
+
+
