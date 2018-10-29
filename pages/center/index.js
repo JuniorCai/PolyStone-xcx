@@ -74,6 +74,25 @@ Page({
       success: res => {
         console.info(res);
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
+        if(res.code){
+          wx.request({
+
+            url: 'http://localhost:6234/api/Auth/AuthLoginCode',
+
+            data: {
+                code: res.code
+            },
+            method: 'GET',
+            header: { 'content-type': 'application/json' },
+                  success: function (data) {
+        console.info(data);
+                  }
+              })
+        } else {
+
+          console.log('获取用户登录态失败！' + res.errMsg)
+
+        }
       }
     })
     // 获取用户信息
