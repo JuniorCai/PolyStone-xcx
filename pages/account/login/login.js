@@ -1,4 +1,4 @@
-// pages/account/register/pages/account/register/registerTwo.js
+// pages/account/login.js
 Page({
 
   /**

@@ -29,18 +29,22 @@ page{
 
 
 .form-login-footer{
-  padding:40rpx
+  padding:40rpx 80rpx
 }
 
-.btnColor-normal{
+
+.btnColor-normal.btn-submit{
+  height: 80rpx;
+  font-size: 32rpx;
   color:#ffffff;
   border: 0;
   background-color: #27AEFE;
 }
 
-.btn-submit{
-  height: 80rpx;
-  font-size: 32rpx
+.btn-disable.btn-submit {
+  color: #bebebe;
+  border: 0;
+  background-color: #F5F5F5;
 }
 
 .areaListBlock{
