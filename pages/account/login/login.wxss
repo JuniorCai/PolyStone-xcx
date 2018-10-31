@@ -1,5 +1,8 @@
 /* pages/account/login.wxss */
 @import '/content/style/iconfont.wxss';
+page{
+    background-color: #ffffff
+}
 .form-login-body{
   margin-top: 300rpx;
   padding: 0 80rpx;
@@ -17,7 +20,7 @@
 .form-login-body > view .input-normal{
   padding-left: 16rpx;
   border-bottom: solid 2rpx #e6e6e6;
-  font-size: 48rpx;
+  font-size: 40rpx;
   height: 30px;
   line-height: 48px;
 }

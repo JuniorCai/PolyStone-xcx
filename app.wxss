@@ -42,9 +42,9 @@ page{
 }
 
 .btn-disable.btn-submit {
-  color: #bebebe;
+  color: #ffffff;
   border: 0;
-  background-color: #F5F5F5;
+  background-color: #DDDDDD;
 }
 
 .areaListBlock{

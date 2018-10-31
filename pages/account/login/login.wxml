@@ -1,17 +1,17 @@
 <!--pages/account/login.wxml-->
-<form>
+<form bindsubmit='onLogin'>
+  <input type='text' hidden='true' name='loginType' value='1'></input>
   <view class='form-login-body'>
     <view class='phoneBlock'>
       <label class='iconfont icon-shouji' ></label>
-      <input class='input-normal' type='number' placeholder='手机号'></input>
+      <input id='phone' class='input-normal' name='phone' type='number' placeholder='手机号' bindblur='onCheckInput' bindinput='phoneInput'></input>
     </view>
     <view class='authBlock'>
       <label class='iconfont icon-yanzhengma' ></label>
-      <input type='number' class='input-normal verifyCode' placeholder='短信验证码'></input>
-      <button  class='btn-verifyCode'  size='default'>获取验证码</button>
+      <input id='phoneCode' type='password' name='password' class='input-normal verifyCode' placeholder='密码' bindblur='onCheckInput' bindinput='passwordInput'></input>
     </view>
   </view>
   <view class='form-login-footer'>
-    <button  class='btn-disable btn-submit ' bindtap='toStepTwo' size='default'>登录</button>
+    <button  class='{{disabled?"btn-disable btn-submit":"btnColor-normal btn-submit"}}' form-type='submit' disabled='{{disabled}}'  size='default'>登录</button>
   </view>
 </form>
