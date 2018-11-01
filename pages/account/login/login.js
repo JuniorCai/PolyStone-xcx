@@ -113,8 +113,31 @@ Page({
         data: this.data.loginModel,
           method: 'POST',
           header: { 'content-type': 'application/json' },
-          success: function (data) {
-          console.info(data);
+          success: function (result) {
+            if (result.data.success){
+              console.info(result.data)
+            }else{
+              var title = "";
+              switch (result.data.error.code){
+                case 100001:
+                  title = "手机号或密码不正确";
+                break;
+                case 100004:
+                  title = "账号已被禁用，请联系客服";
+                break;
+                default:
+                break;
+              }
+              wx.showToast({
+                title: title,
+                icon: 'none',
+                duration: 1500
+              })
+
+              setTimeout(function () {
+                wx.hideToast()
+              }, 2000)
+            }
         }
       })
     }
