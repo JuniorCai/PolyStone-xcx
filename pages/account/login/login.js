@@ -114,8 +114,21 @@ Page({
           method: 'POST',
           header: { 'content-type': 'application/json' },
           success: function (result) {
+
             if (result.data.success){
-              console.info(result.data)
+              wx.setStorageSync('ticketToken', result.data.result)
+              var bearerToken = 'Bearer '+result.data.result;
+              wx.request({
+                url:'http://localhost:6234/api/Account/GetCurrentUserInfo',
+                data:"",
+                method:"GET",
+                header: {
+                  'Content-Type': 'application/json',
+                  'Authorization': bearerToken},
+                success:function(info){
+                    var userInfo  = info;
+                }
+              })
             }else{
               var title = "";
               switch (result.data.error.code){
