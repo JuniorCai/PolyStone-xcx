@@ -33,7 +33,38 @@ App({
     //   }
     // })
   },
+  getUserInfo:function(){
+    var app = this;
+    var token = wx.getStorageSync('ticketToken');
+    return new Promise(function (resolve, reject) {
+      if(token.length>0){
+        var bearerToken = 'Bearer ' + token;
+          wx.request({
+            url: 'http://localhost:6234/api/Account/GetCurrentUserInfo',
+            data: "",
+            method: "GET",
+            header: {
+              'Content-Type': 'application/json',
+              'Authorization': bearerToken
+            },
+            success: function (info) {
+              if(info.data.success){
+                app.globalData.userInfo = info.data.result;
+                app.globalData.hasUserInfo = true;
+                resolve(true);
+              }else{
+                resolve(false);
+              }
+            },
+            fail:function(info){
+              reject(false);
+            }
+        })  
+      }
+    })
+  },
   globalData: {
-    userInfo: null
+    userInfo: null,
+    hasUserInfo:false
   }
 })

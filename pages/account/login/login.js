@@ -1,3 +1,5 @@
+const app = getApp()
+
 // pages/account/login.js
 Page({
 
@@ -17,7 +19,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    
   },
 
   /**
@@ -31,7 +33,14 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    let promise = app.getUserInfo();
+    promise.then(result => {
+      if (result) {
+        wx.switchTab({
+          url: '/pages/center/index',
+        })
+      }
+    });
   },
 
   /**
@@ -126,7 +135,13 @@ Page({
                   'Content-Type': 'application/json',
                   'Authorization': bearerToken},
                 success:function(info){
-                    var userInfo  = info;
+                  app.globalData.userInfo = info.data.result;
+                  app.globalData.hasUserInfo = true;
+                  wx.switchTab({
+                    url: '/pages/center/index',
+                  })
+                }, fail: function (ex) {
+                  var d = ex;
                 }
               })
             }else{
@@ -151,6 +166,8 @@ Page({
                 wx.hideToast()
               }, 2000)
             }
+        },fail:function(ex){
+          var d = ex;
         }
       })
     }

@@ -10,8 +10,8 @@
   <text class='personName'>点击登录</text>
 </view>
 <view class='personBlock'  bindtap='onShowUserInfo' wx:else>
-  <image class='userinfo-avatar' mode='cover' src='{{userInfo.avatarUrl}}'></image>
-  <text class='personName'>{{userInfo.nickName}}</text>
+  <image class='userinfo-avatar' mode='cover' src='{{userInfo.avatar}}'></image>
+  <text class='personName'>{{userInfo.userName}}</text>
 </view>
 <view class='centerQuickNavBlock'>
   <navigator class='quickNav'>
