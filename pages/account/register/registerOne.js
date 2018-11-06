@@ -151,6 +151,23 @@ Page({
           })
         }
 
-    },1000)
+    },1000);
+    var token = wx.getStorageSync('ticketToken');
+    var bearerToken = "Bearer "+token;
+    wx.request({
+      url: 'http://localhost:6234/api/Auth/SendPhoneCode',
+      data: { "phoneNumber": this.data.registerModel.phoneNum},
+      method: "POST",
+      header: {
+        'Content-Type': 'application/json',
+        'Authorization': bearerToken
+      },
+      success: function (info) {
+        var d = info;
+        
+      }, fail: function (ex) {
+        var d = ex;
+      }
+    })
   }
 })
