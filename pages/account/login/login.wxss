@@ -3,41 +3,24 @@
 page{
     background-color: #ffffff
 }
-.form-login-body{
-  margin-top: 300rpx;
-  padding: 0 80rpx;
-}
 
 .form-login-body > view{
   display:flex;
 }
 
 .form-login-body > view > label{
-  font-size: 60rpx;
+  font-size: 48rpx;
   margin-right: 4rpx;
+  margin-top: 4rpx
 }
 
-.form-login-body > view .input-normal{
+.form-login-body  .input-normal{
   padding-left: 16rpx;
-  border-bottom: solid 2rpx #e6e6e6;
-  font-size: 40rpx;
-  height: 30px;
-  line-height: 48px;
-}
-
-.form-login-body .phoneBlock .input-normal{
   width: 100%;
-  margin-bottom: 20rpx;
 }
 
-.form-login-body .authBlock .input-normal{
-  width: 80%
-}
-
-.btn-verifyCode{
-  height: 60rpx;
-  width: 240rpx;
-  font-size: 24rpx;
-  background-color: #ffffff;
-  border:0;
+.registerTip{
+  text-align: center;
+  font-size: 28rpx;
+  color: #3C3C3C;
 }

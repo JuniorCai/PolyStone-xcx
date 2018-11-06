@@ -1,13 +1,15 @@
 <form>
   <view class='form-login-body'>
-    <input type='text' class='input-normal' placeholder='手机号'></input>
-    <view>
-      <input type='text' style='float:left' class='input-normal verifyCode' placeholder='短信验证码'></input>
+    <view class='phoneBlock'>
+      <input type='text' class='input-normal' placeholder='手机号' bindblur='onCheckInput' bindinput='phoneInput'></input>
+    </view>
+    <view class='authBlock'>
+      <input type='text' style='float:left' class='input-normal verifyCode' placeholder='短信验证码' bindblur='onCheckInput' bindinput='codeInput'></input>
       <!-- <view style='border:1px'></view> -->
-      <button  class='btn-verifyCode'  size='default'>获取验证码</button>
+      <button  class='btn-verifyCode' disabled='{{countDownDisabled}}' size='default' bindtap='sendPhoneCode'>{{suffix}}</button>
     </view>
   </view>
   <view class='form-login-footer'>
-    <button  class='btnColor-normal btn-submit' bindtap='toStepTwo' size='default'>下一步</button>
+    <button  class='{{disabled?"btn-disable btn-submit":"btnColor-normal btn-submit"}}' bindtap='toStepTwo' disabled='{{disabled}}' size='default'>下一步</button>
   </view>
 </form>

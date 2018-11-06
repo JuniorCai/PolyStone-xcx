@@ -1,10 +1,12 @@
 /* pages/account/register.wxss */
-
+page{
+    background-color: #ffffff
+}
 
 .btn-verifyCode{
-  height: 30px;
-  width: 90px;
-  font-size: 12px;
+  height: 60rpx;
+  width: 240rpx;
+  font-size: 24rpx;
   background-color: #ffffff;
   border:0;
 }

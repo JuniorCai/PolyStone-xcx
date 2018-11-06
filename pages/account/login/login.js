@@ -19,7 +19,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    let promise = app.getUserInfo();
+    promise.then(result => {
+      if (result) {
+        wx.switchTab({
+          url: '/pages/center/index',
+        })
+      }
+    });
   },
 
   /**
@@ -33,14 +40,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    let promise = app.getUserInfo();
-    promise.then(result => {
-      if (result) {
-        wx.switchTab({
-          url: '/pages/center/index',
-        })
-      }
-    });
   },
 
   /**
@@ -94,9 +93,9 @@ Page({
         mask:true,
         duration:1500
       });
-      setTimeout(function(){
-        wx.hideToast()
-      },2000);
+      // setTimeout(function(){
+      //   wx.hideToast()
+      // },2000);
     } else if (this.data.loginModel.phone.length != 11){
       wx.showToast({
         title: '请输入11位手机号码!',
@@ -104,18 +103,18 @@ Page({
         duration: 1500
       })
 
-      setTimeout(function () {
-        wx.hideToast()
-      }, 2000)
+      // setTimeout(function () {
+      //   wx.hideToast()
+      // }, 2000)
     } else if (e.detail.value.password.length < 6 || e.detail.value.password.length > 20) {
       wx.showToast({
         title: '请输入6-20密码!',
         icon: 'none',
         duration: 1500
       })
-      setTimeout(function () {
-        wx.hideToast()
-      }, 2000)
+      // setTimeout(function () {
+      //   wx.hideToast()
+      // }, 2000)
     }else{
       wx.request({
         url: 'http://localhost:6234/api/Account/Authenticate',

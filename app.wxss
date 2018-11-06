@@ -14,17 +14,19 @@ page{
 } 
 
 .form-login-body{
-  padding:70rpx 40rpx 40rpx
+  margin-top: 100rpx;
+  padding: 0 80rpx;
 }
 
 .form-login-body .input-normal{
   border-bottom:2rpx #E6E6E6 solid;
-  font-size: 28rpx;
-  margin-bottom: 40rpx
+  font-size: 32rpx;
+  height: 30px;
+
 }
 
-.form-login-body .input-normal:last-child{
-  margin-bottom: 0;
+.form-login-body .phoneBlock{
+  margin-bottom: 20rpx;
 }
 
 
@@ -32,18 +34,18 @@ page{
   padding:40rpx 80rpx
 }
 
-
-.btnColor-normal.btn-submit{
+.form-login-footer .btn-submit{
   height: 80rpx;
   font-size: 32rpx;
-  color:#ffffff;
   border: 0;
+  color:#ffffff;
+}
+
+.btnColor-normal.btn-submit{
   background-color: #27AEFE;
 }
 
 .btn-disable.btn-submit {
-  color: #ffffff;
-  border: 0;
   background-color: #DDDDDD;
 }
 

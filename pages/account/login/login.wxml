@@ -4,7 +4,7 @@
   <view class='form-login-body'>
     <view class='phoneBlock'>
       <label class='iconfont icon-shouji' ></label>
-      <input id='phone' class='input-normal' name='phone' type='number' placeholder='手机号' bindblur='onCheckInput' bindinput='phoneInput'></input>
+      <input id='phone' class='input-normal' name='phone' type='number' placeholder='手机号' bindblur='onCheckInput' bindinput='phoneInput' disabled='{{countDownDisabled}}'></input>
     </view>
     <view class='authBlock'>
       <label class='iconfont icon-yanzhengma' ></label>
@@ -13,5 +13,8 @@
   </view>
   <view class='form-login-footer'>
     <button  class='{{disabled?"btn-disable btn-submit":"btnColor-normal btn-submit"}}' form-type='submit' disabled='{{disabled}}'  size='default'>登录</button>
+  </view>
+  <view class='registerTip'>
+    <navigator url='/pages/account/register/registerOne'>注册账号</navigator>
   </view>
 </form>

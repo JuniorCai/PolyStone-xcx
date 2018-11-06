@@ -1,9 +1,8 @@
 {
-  "pages": [
-        "pages/account/login/login",
-        
-    "pages/center/index",
+  "pages": [   
+    "pages/account/login/login",
     "pages/account/register/registerOne",
+    "pages/center/index",
     "pages/index/index",
     "pages/logs/logs",
     "pages/company/index",
