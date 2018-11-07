@@ -1,3 +1,5 @@
+const app = getApp()
+
 // pages/account/register.js
 Page({
 
@@ -150,7 +152,7 @@ Page({
 
     },1000);
     wx.request({
-      url: 'http://localhost:6234/api/Auth/SendPhoneCode',
+      url: app.globalData.baseUrl + '/api/Auth/SendPhoneCode',
       data: { "phoneNumber": this.data.registerModel.phoneNumber},
       method: "GET",
       header: {
@@ -185,7 +187,7 @@ Page({
   },
   toStepTwo: function () {
     wx.request({
-      url: 'http://localhost:6234/api/Auth/AuthPhoneCode',
+      url: app.globalData.baseUrl + '/api/Auth/AuthPhoneCode',
       data: this.data.registerModel,
       method: "POST",
       header: {

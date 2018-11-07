@@ -117,7 +117,7 @@ Page({
       // }, 2000)
     }else{
       wx.request({
-        url: 'http://localhost:6234/api/Account/Authenticate',
+        url: app.globalData.baseUrl+'/api/Account/Authenticate',
         data: this.data.loginModel,
           method: 'POST',
           header: { 'content-type': 'application/json' },
@@ -127,7 +127,7 @@ Page({
               wx.setStorageSync('ticketToken', result.data.result)
               var bearerToken = 'Bearer '+result.data.result;
               wx.request({
-                url:'http://localhost:6234/api/Account/GetCurrentUserInfo',
+                url: app.globalData.baseUrl +'/api/Account/GetCurrentUserInfo',
                 data:"",
                 method:"GET",
                 header: {

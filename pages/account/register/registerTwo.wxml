@@ -1,4 +1,4 @@
-<form>
+<form bindsubmit='formSubmit'>
   <view class='form-login-body'>
     <input type='text' class='input-normal' placeholder='设置账号名(4-20位，注册成功后不能修改)'></input>
      <input type='text' class='input-normal' placeholder='设置密码(6-20位字母、数字组合)'></input>

@@ -40,7 +40,7 @@ App({
       if(token.length>0){
         var bearerToken = 'Bearer ' + token;
           wx.request({
-            url: 'http://localhost:6234/api/Account/GetCurrentUserInfo',
+            url: app.globalData.baseUrl + '/api/Account/GetCurrentUserInfo',
             data: "",
             method: "GET",
             header: {
