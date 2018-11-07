@@ -10,8 +10,8 @@ Page({
     countDownDisabled:false,
     disabled: true,
     registerModel:{
-      phoneNum:"",
-      phoneCode:""
+      phoneNumber:"",
+      authCode:""
       }
   },
 
@@ -71,21 +71,18 @@ Page({
 
   },
 
-  toStepTwo:function(){
-    wx.navigateTo({ url: "registerTwo" })
-  },
   phoneInput: function (e) {
     this.setData({
-      "registerModel.phoneNum": e.detail.value,
+      "registerModel.phoneNumber": e.detail.value,
     });
   },
   codeInput: function (e) {
     this.setData({
-      "registerModel.phoneCode": e.detail.value,
+      "registerModel.authCode": e.detail.value,
     });
   },
   onCheckInput: function (e) {
-    if (this.data.registerModel.phoneNum.length == 0 || this.data.registerModel.phoneCode.length == 0) {
+    if (this.data.registerModel.phoneNumber.length == 0 || this.data.registerModel.authCode.length == 0) {
       this.setData({
         disabled: true
       })
@@ -96,7 +93,7 @@ Page({
     }
   },
   sendPhoneCode:function(){
-    if (this.data.registerModel.phoneNum.length == 0){
+    if (this.data.registerModel.phoneNumber.length == 0){
       wx.showToast({
         title: '手机号不能为空',
         mask:true,
@@ -105,7 +102,7 @@ Page({
       });
       return false;
     }
-    if(this.data.registerModel.phoneNum.length!=11){
+    if(this.data.registerModel.phoneNumber.length!=11){
       wx.showToast({
         title: '请输入11位长度手机号',
         mask: true,
@@ -115,7 +112,7 @@ Page({
       return false;
     }
     var phoneReg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1})|(17[0-9]{1}))+\d{8})$/;
-    if (!phoneReg.test(this.data.registerModel.phoneNum)) {
+    if (!phoneReg.test(this.data.registerModel.phoneNumber)) {
       wx.showToast({
         title: '手机号有误！',
         mask: true,
@@ -152,22 +149,69 @@ Page({
         }
 
     },1000);
-    var token = wx.getStorageSync('ticketToken');
-    var bearerToken = "Bearer "+token;
     wx.request({
       url: 'http://localhost:6234/api/Auth/SendPhoneCode',
-      data: { "phoneNumber": this.data.registerModel.phoneNum},
+      data: { "phoneNumber": this.data.registerModel.phoneNumber},
+      method: "GET",
+      header: {
+        'Content-Type': 'application/json',
+      },
+      success: function (info) {
+        if(info.data.result.code==2){
+          wx.showToast({
+            title: '验证码已发送',
+            mask: true,
+            icon: "success",
+            duration: 1500
+          })
+        }else{
+          wx.showToast({
+            title: info.data.result.msg,
+            mask: true,
+            icon: "none",
+            duration: 1500
+          })
+        }
+        
+      }, fail: function (ex) {
+        wx.showToast({
+          title: ex,
+          mask: true,
+          icon: "none",
+          duration: 1500
+        })
+      }
+    })
+  },
+  toStepTwo: function () {
+    wx.request({
+      url: 'http://localhost:6234/api/Auth/AuthPhoneCode',
+      data: this.data.registerModel,
       method: "POST",
       header: {
         'Content-Type': 'application/json',
-        'Authorization': bearerToken
       },
       success: function (info) {
-        var d = info;
-        
+        if (info.data.success) {
+          wx.navigateTo({ url: "registerTwo" })
+        } else {
+          wx.showToast({
+            title: "验证码不正确或已过期，请确认验证码或重新发送",
+            mask: true,
+            icon: "none",
+            duration: 1500
+          })
+        }
+
       }, fail: function (ex) {
-        var d = ex;
+        wx.showToast({
+          title: ex,
+          mask: true,
+          icon: "none",
+          duration: 1500
+        })
       }
     })
-  }
+  },
+
 })
