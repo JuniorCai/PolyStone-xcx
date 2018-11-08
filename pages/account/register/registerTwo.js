@@ -78,8 +78,18 @@ Page({
   onShareAppMessage: function () {
 
   },
+  userNameInput: function (e) {
+    this.setData({
+      "account.userName": e.detail.value,
+    });
+  },
+  passwordInput: function (e) {
+    this.setData({
+      "account.password": e.detail.value,
+    });
+  },
   formSubmit:function(e){
-    if(this.checkUserName()&&this.checkPassword()){
+    if (this.checkPassword()&&this.checkUserName()){
       postRegister();
     }
   },
@@ -126,22 +136,24 @@ Page({
     })
   },
   checkUserName:function(){
-    var regUserName = "^[a-zA-Z][a-zA-Z0-9_]{6-20}$";
+    var regUserName = /^[a-zA-Z][a-zA-Z0-9_]{3,19}$/;
     if (!regUserName.test(this.data.account.userName)){
         wx.showToast({
-          title: '用户名仅支持6-20位首位为英文，且是英文、数字或下划线的组合，',
+          title: '用户名长度为4-20位。仅支持英文、数字和下划线,且首位为英文',
           icon:"none",
           duration: 1500
         })
         return false;
     }
-    return this.checkUserNameDuplicate(this.data.account.userName);
-
+    let promise = this.checkUserNameDuplicate(this.data.account.userName);
+    promise.then(result => {
+      return result;
+    });
   },
   checkUserNameDuplicate:function(userName){
     let promise = new Promise(function (resolve, reject) {
       wx.request({
-        url: app.globalData.baseUrl + '/api/services/app/user/IsUserNameExist',
+        url: app.globalData.baseUrl + '/api/services/app/user/IsUserNameExist?userName='+userName,
         data: "",
         method: "POST",
         header: {
@@ -159,13 +171,11 @@ Page({
         }
       })
     });
-    promise.then(result => {
-      return result;
-    });
+    return promise;
   },
   checkPassword:function(){
-    var regUserName = "^[a-zA-Z0-9]{6-20}$";
-    if (!regUserName.test(this.data.account.userName)) {
+    var regUserName = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{5,19}$/;
+    if (!regUserName.test(this.data.account.password)) {
       wx.showToast({
         title: '登录密码仅支持6-20位英文、数字的组合',
         icon: "none",

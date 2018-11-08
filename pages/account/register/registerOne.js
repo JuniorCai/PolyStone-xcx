@@ -186,16 +186,17 @@ Page({
     })
   },
   toStepTwo: function () {
+    let that = this;
     wx.request({
       url: app.globalData.baseUrl + '/api/Auth/AuthPhoneCode',
-      data: this.data.registerModel,
+      data: that.data.registerModel,
       method: "POST",
       header: {
         'Content-Type': 'application/json',
       },
       success: function (info) {
         if (info.data.success) {
-          wx.navigateTo({ url: "registerTwo?phone=" + this.data.registerModel.phoneNumber + "&code=" + this.data.registerModel.authCode })
+          wx.navigateTo({ url: "registerTwo?phone=" + that.data.registerModel.phoneNumber + "&code=" + that.data.registerModel.authCode })
         } else {
           wx.showToast({
             title: "验证码不正确或已过期，请确认验证码或重新发送",
