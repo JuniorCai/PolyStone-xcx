@@ -89,14 +89,20 @@ Page({
     });
   },
   formSubmit:function(e){
-    if (this.checkPassword()&&this.checkUserName()){
-      postRegister();
-    }
+    let that = this;
+    let userNamePromise = that.checkUserName();
+    userNamePromise.then(result => {
+      if(result){
+        if (that.checkPassword()){
+          that.postRegister();
+        }
+      }
+    });
   },
   postRegister:function(){
     wx.request({
       url: app.globalData.baseUrl + '/api/Account/Register',
-      data: "",
+      data: this.data.account,
       method: "POST",
       header: {
         'Content-Type': 'application/json',
@@ -107,7 +113,7 @@ Page({
           var bearerToken = 'Bearer ' + result.data.result;
           wx.request({
             url: app.globalData.baseUrl + '/api/Account/GetCurrentUserInfo',
-            data: account,
+            data: "",
             method: "GET",
             header: {
               'Content-Type': 'application/json',
@@ -146,9 +152,7 @@ Page({
         return false;
     }
     let promise = this.checkUserNameDuplicate(this.data.account.userName);
-    promise.then(result => {
-      return result;
-    });
+    return promise;
   },
   checkUserNameDuplicate:function(userName){
     let promise = new Promise(function (resolve, reject) {
