@@ -1,4 +1,6 @@
-const app = getApp()
+var config = require("../../../utils/config.js") 
+const app = getApp();
+
 
 // pages/account/login.js
 Page({
@@ -117,7 +119,7 @@ Page({
       // }, 2000)
     }else{
       wx.request({
-        url: app.globalData.baseUrl+'/api/Account/Authenticate',
+        url: config.requestHost+'/api/Account/Authenticate',
         data: this.data.loginModel,
           method: 'POST',
           header: { 'content-type': 'application/json' },
@@ -127,7 +129,7 @@ Page({
               wx.setStorageSync('ticketToken', result.data.result)
               var bearerToken = 'Bearer '+result.data.result;
               wx.request({
-                url: app.globalData.baseUrl +'/api/Account/GetCurrentUserInfo',
+                url: config.requestHost +'/api/Account/GetCurrentUserInfo',
                 data:"",
                 method:"GET",
                 header: {

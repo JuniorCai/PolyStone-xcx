@@ -1,3 +1,5 @@
+var config = require("../../../utils/config.js") 
+
 const app = getApp();
 // pages/account/register/registerTwo.js
 Page({
@@ -101,7 +103,7 @@ Page({
   },
   postRegister:function(){
     wx.request({
-      url: app.globalData.baseUrl + '/api/Account/Register',
+      url: config.requestHost + '/api/Account/Register',
       data: this.data.account,
       method: "POST",
       header: {
@@ -112,7 +114,7 @@ Page({
           wx.setStorageSync('ticketToken', result.data.result)
           var bearerToken = 'Bearer ' + result.data.result;
           wx.request({
-            url: app.globalData.baseUrl + '/api/Account/GetCurrentUserInfo',
+            url: config.requestHost + '/api/Account/GetCurrentUserInfo',
             data: "",
             method: "GET",
             header: {
@@ -157,7 +159,7 @@ Page({
   checkUserNameDuplicate:function(userName){
     let promise = new Promise(function (resolve, reject) {
       wx.request({
-        url: app.globalData.baseUrl + '/api/services/app/user/IsUserNameExist?userName='+userName,
+        url: config.requestHost + '/api/services/app/user/IsUserNameExist?userName='+userName,
         data: "",
         method: "POST",
         header: {

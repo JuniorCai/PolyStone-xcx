@@ -1,3 +1,5 @@
+var config = require("../../../utils/config.js") 
+
 const app = getApp()
 
 // pages/account/register.js
@@ -152,7 +154,7 @@ Page({
 
     },1000);
     wx.request({
-      url: app.globalData.baseUrl + '/api/Auth/SendPhoneCode',
+      url: config.requestHost + '/api/Auth/SendPhoneCode',
       data: { "phoneNumber": this.data.registerModel.phoneNumber},
       method: "GET",
       header: {
@@ -188,7 +190,7 @@ Page({
   toStepTwo: function () {
     let that = this;
     wx.request({
-      url: app.globalData.baseUrl + '/api/Auth/AuthPhoneCode',
+      url: config.requestHost + '/api/Auth/AuthPhoneCode',
       data: that.data.registerModel,
       method: "POST",
       header: {

@@ -1,3 +1,5 @@
+var config = require("/utils/config.js") 
+
 //app.js
 App({
   onLaunch: function () {
@@ -40,7 +42,7 @@ App({
       if(token.length>0){
         var bearerToken = 'Bearer ' + token;
           wx.request({
-            url: app.globalData.baseUrl + '/api/Account/GetCurrentUserInfo',
+            url: config.requestHost + '/api/Account/GetCurrentUserInfo',
             data: "",
             method: "GET",
             header: {
@@ -65,7 +67,6 @@ App({
   },
   globalData: {
     userInfo: null,
-    hasUserInfo:false,
-    baseUrl:"http://localhost:6234"
+    hasUserInfo:false
   }
 })
