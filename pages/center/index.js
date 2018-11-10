@@ -132,5 +132,10 @@ Page({
     //   }
     // })
     
+  },
+  onShowUserInfo:function(){
+    wx.navigateTo({
+      url: 'userInfo/userInfo',
+    })
   }
 })

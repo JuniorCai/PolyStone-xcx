@@ -16,7 +16,7 @@
 <view class='centerQuickNavBlock'>
   <navigator class='quickNav'>
     <view class='iconfont icon-mingpian' style='color:#FF9800;font-size:28px;'></view>
-    <text class='quickNavTxt'>我的名片</text>
+    <text class='quickNavTxt'>企业信息</text>
   </navigator>
   <navigator class='quickNav'>
     <view class='iconfont icon-shoucang1' style='color:#27AEFE;font-size:28px;'></view>

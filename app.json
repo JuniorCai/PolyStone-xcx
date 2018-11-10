@@ -1,5 +1,6 @@
 {
-  "pages": [   
+  "pages": [
+        "pages/center/userInfo/userInfo",
     "pages/account/login/login",
     "pages/account/register/registerOne",
     "pages/center/index",
@@ -20,8 +21,8 @@
     "list": [
       {
         "pagePath": "pages/index/index",
-        "iconPath":"content/images/zhuye.png",
-        "selectedIconPath":"content/images/zhuye-active.png",
+        "iconPath": "content/images/zhuye.png",
+        "selectedIconPath": "content/images/zhuye-active.png",
         "text": "首页"
       },
       {

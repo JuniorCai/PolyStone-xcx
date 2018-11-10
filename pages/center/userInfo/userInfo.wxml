@@ -1,0 +1,30 @@
+<view class='areaListBlock'>
+  <view class='listHead' wx:if="{{hasListHead}}"></view>
+  <view class='listBody ' bindtap='onShowCommunityList'>
+    <text class='itemTitle' >头像</text>
+    <text class='iconfont icon-you'></text>
+  </view>
+  <view class='listBody ' bindtap='onPublishCommunity'>
+    <text class='itemTitle' >用户名</text>
+    <text class='iconfont icon-you'></text>
+  </view>
+  <view class='listBody ' bindtap='onPublishCommunity'>
+    <text class='itemTitle' >昵称</text>
+    <text class='iconfont icon-you'></text>
+  </view>
+  <view class='listBody ' bindtap='onPublishCommunity'>
+    <text class='itemTitle' >性别</text>
+    <text class='iconfont icon-you'></text>
+  </view>
+</view>
+<view class='areaListBlock'>
+  <view class='listHead' wx:if="{{hasListHead}}"></view>
+  <view class='listBody ' bindtap='onShowAboutUs'>
+    <text class='itemTitle' >手机号</text>
+    <text class='iconfont icon-you'></text>
+  </view>
+  <view class='listBody ' bindtap='onShowFeedBack'>
+    <text class='itemTitle' >密码修改</text>
+    <text class='iconfont icon-you'></text>
+  </view>
+</view>

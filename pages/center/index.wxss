@@ -28,7 +28,6 @@
 .centerQuickNavBlock{
   height: 100rpx;
   border-bottom: 2rpx solid  #e6e6e6;
-  margin-bottom: 10rpx;
   padding: 0 10px;
   display: flex;
   background-color: #FFFFFF;
