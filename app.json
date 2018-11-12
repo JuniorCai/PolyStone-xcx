@@ -49,5 +49,9 @@
     "request": 10000,
     "downloadFile": 10000
   },
+  "usingComponents": {
+    "van-cell": "customComponent/VantWeapp/cell/index",
+    "van-cell-group": "customComponent/VantWeapp/cell-group/index"
+  },
   "debug": true
 }
