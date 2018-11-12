@@ -8,8 +8,7 @@
     "pages/logs/logs",
     "pages/company/index",
     "pages/community/index",
-    "pages/account/register/registerTwo",
-    "customComponent/Cell-Show"
+    "pages/account/register/registerTwo"
   ],
   "window": {
     "backgroundTextStyle": "light",
