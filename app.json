@@ -1,6 +1,6 @@
 {
   "pages": [
-        "pages/center/userInfo/userInfo",
+    "pages/center/userInfo/userInfo",
     "pages/account/login/login",
     "pages/account/register/registerOne",
     "pages/center/index",
@@ -8,7 +8,8 @@
     "pages/logs/logs",
     "pages/company/index",
     "pages/community/index",
-    "pages/account/register/registerTwo"
+    "pages/account/register/registerTwo",
+    "customComponent/Cell-Show"
   ],
   "window": {
     "backgroundTextStyle": "light",

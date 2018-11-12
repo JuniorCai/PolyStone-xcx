@@ -1,30 +1,18 @@
-const app = getApp()
-
-// pages/center/UserInfo/userInfo.js
+// customComponent/Cell-Show.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    hasUserInfo: false,
-    userInfo: {}
+
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    if (!this.data.hasUserInfo && app.globalData.hasUserInfo) {
-      this.setData({
-        hasUserInfo: app.globalData.hasUserInfo,
-        userInfo: app.globalData.userInfo
-      })
-    }else{
-      // wx.redirectTo({
-      //   url: '../../account/login/login',
-      // })
-    }
+
   },
 
   /**

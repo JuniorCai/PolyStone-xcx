@@ -1,1 +1,1 @@
-/* pages/center/UserInfo/userInfo.wxss */
+@import '../../../content/style/iconfont.wxss';
