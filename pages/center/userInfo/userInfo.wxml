@@ -5,7 +5,6 @@
     <van-cell title="昵称" is-link url=""  value="{{userInfo.nickName}}"/>
     <van-cell title="性别" is-link url="" value="" border="{{false}}" />
   </van-cell-group>
-  
 </view>
 <view class='areaListBlock'>
    <van-cell-group>

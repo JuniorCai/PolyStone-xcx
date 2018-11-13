@@ -1,10 +1,3 @@
-<!-- <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
-  </view> -->
 <view class='personBlock' bindtap='onGetUserInfo' wx:if="{{!hasUserInfo}}">
   <image class='userinfo-avatar' mode='cover' src='../../content/images/libai-1.jpg'></image>
   <text class='personName'>点击登录</text>
@@ -32,28 +25,16 @@
   </navigator>
 </view>
 <view class='areaListBlock'>
-  <view class='listHead' wx:if="{{hasListHead}}"></view>
-  <view class='listBody ' bindtap='onShowCommunityList'>
-    <text class='itemTitle' >圈子列表</text>
-    <text class='iconfont icon-you'></text>
-  </view>
-  <view class='listBody ' bindtap='onPublishCommunity'>
-    <text class='itemTitle' >发布供求</text>
-    <text class='iconfont icon-you'></text>
-  </view>
+  <van-cell-group>
+    <van-cell title="圈子列表" is-link url="" />
+    <van-cell title="发布供求" is-link url=""  />
+  </van-cell-group>
 </view>
 <view class='areaListBlock'>
-  <view class='listHead' wx:if="{{hasListHead}}"></view>
-  <view class='listBody ' bindtap='onShowAboutUs'>
-    <text class='itemTitle' >关于我们</text>
-    <text class='iconfont icon-you'></text>
-  </view>
-  <view class='listBody ' bindtap='onShowFeedBack'>
-    <text class='itemTitle' >意见反馈</text>
-    <text class='iconfont icon-you'></text>
-  </view>
-   <view class='listBody ' bindtap='onShowService'>
-    <text class='itemTitle' >联系客服</text>
-    <text class='iconfont icon-you'></text>
-  </view>
+  <van-cell-group>
+    <van-cell title="关于我们" is-link url="" />
+    <van-cell title="意见反馈" is-link url=""  />
+    <van-cell title="联系客服" is-link url=""  />
+  </van-cell-group>
 </view>
+
