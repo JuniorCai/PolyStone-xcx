@@ -8,7 +8,8 @@
     "pages/logs/logs",
     "pages/company/index",
     "pages/community/index",
-    "pages/account/register/registerTwo"
+    "pages/account/register/registerTwo",
+    "pages/center/userInfo/changeAvatar/changeAvatar"
   ],
   "window": {
     "backgroundTextStyle": "light",
