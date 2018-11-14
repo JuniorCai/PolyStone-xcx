@@ -1,14 +1,17 @@
 <view class='areaListBlock'>
   <van-cell-group>
-    <van-cell title="头像" is-link  url="" />
-    <van-cell title="用户名"  url=""  value="{{userInfo.userName}}"/>
+    <van-cell title="头像" custom-class="avatarCell" center="{{true}}" bindclick="chooseAvatar" >
+      <view slot="right-icon">
+        <image class='userinfo-avatar' mode='cover' src='/content/images/libai-1.jpg'></image>
+      </view>
+    </van-cell>
+    <van-cell title="用户名"   value="{{userInfo.userName}}"/>
     <van-cell title="昵称" is-link url=""  value="{{userInfo.nickName}}"/>
-    <van-cell title="性别" is-link url="" value="" border="{{false}}" />
   </van-cell-group>
 </view>
 <view class='areaListBlock'>
    <van-cell-group>
-    <van-cell title="手机号" is-link url=""  value="{{userInfo.phoneNumber}}"/>
+    <van-cell title="手机号" is-link url=""  value="{{phoneNumberMix}}"/>
     <van-cell title="密码修改" is-link url="" border="{{false}}" />
   </van-cell-group>
 </view>

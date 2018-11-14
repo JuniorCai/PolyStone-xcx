@@ -1,1 +1,6 @@
 @import '../../../content/style/iconfont.wxss';
+.userinfo-avatar {
+  height: 80rpx;
+  width: 80rpx;
+  border-radius: 50%;
+}
