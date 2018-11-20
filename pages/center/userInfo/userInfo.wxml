@@ -6,7 +6,7 @@
       </view>
     </van-cell>
     <van-cell title="用户名"   value="{{userInfo.userName}}"/>
-    <van-cell title="昵称" is-link url=""  value="{{userInfo.nickName}}"/>
+    <van-cell title="昵称" is-link  bindclick="onChangeNickName" value="{{userInfo.nickName}}"/>
   </van-cell-group>
 </view>
 <view class='areaListBlock'>
@@ -15,3 +15,20 @@
     <van-cell title="密码修改" is-link url="" border="{{false}}" />
   </van-cell-group>
 </view>
+
+<van-dialog
+  use-slot
+  async-close
+  title="修改昵称"
+  show="{{ showChangeNickName }}"
+  show-cancel-button
+  bind:close="onClose"
+  bind:confirm="onConfirm"
+>
+<van-field
+  value="{{ userInfo.nickName }}"
+  label="昵称"
+  placeholder="请输入新昵称"
+/>
+
+</van-dialog>

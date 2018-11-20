@@ -1,4 +1,6 @@
 import Toast from "../../../customComponent/VantWeapp/toast/toast";
+import Dialog from "../../../customComponent/VantWeapp/dialog/dialog"
+var config = require("../../../utils/config.js") 
 
 const app = getApp()
 
@@ -11,7 +13,8 @@ Page({
   data: {
     hasUserInfo: false,
     userInfo: {},
-    phoneNumberMix:""
+    phoneNumberMix:"",
+    showChangeNickName:false,
   },
 
   /**
@@ -23,7 +26,7 @@ Page({
       this.setData({
         hasUserInfo: app.globalData.hasUserInfo,
         userInfo: app.globalData.userInfo,
-        phoneNumberMix: app.globalData.hasUserInfo.phoneNumber.substr(0, 3) + "****" + app.globalData.hasUserInfo.phoneNumber.substr(8, 4)
+        phoneNumberMix: app.globalData.userInfo.phoneNumber.substr(0, 3) + "****" + app.globalData.userInfo.phoneNumber.substr(8, 4)
       });
 
     }else{
@@ -93,17 +96,19 @@ Page({
         }); 
 
       // 这个是使用微信接口保存文件到数据库 
-      // wx.uploadFile({ 
-        // url: "", 
-        // filePath: filePath, 
-        // name: 'file',
-        // success: function (res) { 
-          // } 
-          // }) 
-          }, fail: function (error) { 
-                console.error("调用本地相册文件时出错");
-                console.warn(error) 
-             },
+      wx.uploadFile({ 
+        url: config.requestHost+"/api/Resource/Upload", 
+        filePath: filePath, 
+        name: 'file',
+        success: function (res) { 
+            console.info(res);
+          } 
+        }) 
+      }, 
+      fail: function (error) { 
+        console.error("调用本地相册文件时出错");
+        console.warn(error) 
+      },
       complete: function () {
         Toast.loading({
           duration: 5000,
@@ -114,5 +119,18 @@ Page({
         }
     });
 
+  },
+  onChangeNickName:function(){
+    this.setData({ showChangeNickName:true});
+  },
+  onClose:function(){
+    this.setData({ showChangeNickName: false });
+  },
+  onConfirm:function(){
+    //提交服务器更改信息
+
+    //更改本地昵称信息
+
+    //关闭弹窗
   }
 })

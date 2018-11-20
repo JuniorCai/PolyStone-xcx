@@ -1,15 +1,14 @@
 {
   "pages": [
+    "pages/center/index",
     "pages/center/userInfo/userInfo",
     "pages/account/login/login",
     "pages/account/register/registerOne",
-    "pages/center/index",
     "pages/index/index",
     "pages/logs/logs",
     "pages/company/index",
     "pages/community/index",
-    "pages/account/register/registerTwo",
-    "pages/center/userInfo/changeAvatar/changeAvatar"
+    "pages/account/register/registerTwo"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -51,9 +50,11 @@
     "downloadFile": 10000
   },
   "usingComponents": {
+    "van-field":"customComponent/VantWeapp/field/index",
     "van-cell": "customComponent/VantWeapp/cell/index",
     "van-cell-group": "customComponent/VantWeapp/cell-group/index",
-    "van-toast": "customComponent/VantWeapp/toast/index"
+    "van-toast": "customComponent/VantWeapp/toast/index",
+    "van-dialog":"customComponent/VantWeapp/dialog/index"
   },
   "debug": true
 }
