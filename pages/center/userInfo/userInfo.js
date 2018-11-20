@@ -101,7 +101,24 @@ Page({
         filePath: filePath, 
         name: 'file',
         success: function (res) { 
-            console.info(res);
+            var info = JSON.parse(res.data);
+            if (info.result.success){
+              that.setData({
+                "userInfo.avatar": info.result.msg, //把照片路径存到变量中， 
+              }); 
+                //提交保存
+                wx.request({
+                  url: config.requestHost +'/api/services/app/user/UpdateUser',
+                  data: that.data.userInfo,
+                  method: 'POST',
+                  header: { 'content-type': 'application/json' },
+                  success: function (result) {
+                      console.info (result);
+                  }
+                })
+            }else{
+
+            }
           } 
         }) 
       }, 
