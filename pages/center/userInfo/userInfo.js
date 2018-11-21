@@ -94,45 +94,61 @@ Page({
         that.setData({ 
           "userInfo.avatar": filePath, //把照片路径存到变量中， 
         }); 
+        var token = wx.getStorageSync('ticketToken');
+        var bearerToken = 'Bearer ' + token;
 
-      // 这个是使用微信接口保存文件到数据库 
-      wx.uploadFile({ 
-        url: config.requestHost+"/api/Resource/Upload", 
-        filePath: filePath, 
-        name: 'file',
-        success: function (res) { 
-            var info = JSON.parse(res.data);
-            if (info.result.success){
-              that.setData({
-                "userInfo.avatar": info.result.msg, //把照片路径存到变量中， 
-              }); 
+        // 这个是使用微信接口保存文件到数据库 
+        wx.uploadFile({ 
+          url: config.requestHost+"/api/Resource/Upload", 
+          filePath: filePath, 
+          name: 'file',
+          header: {
+            'Content-Type': 'application/json',
+            'Authorization': bearerToken
+          },
+          success: function (res) { 
+            if(res.statusCode==200){
+              var info = JSON.parse(res.data);
+              if (info.result.success) {
+                that.setData({
+                  "userInfo.avatar": info.result.msg, //把照片路径存到变量中， 
+                });
                 //提交保存
                 wx.request({
-                  url: config.requestHost +'/api/services/app/user/UpdateUser',
+                  url: config.requestHost + '/api/services/app/user/UpdateUser',
                   data: that.data.userInfo,
                   method: 'POST',
-                  header: { 'content-type': 'application/json' },
+                  header: {
+                    'Content-Type': 'application/json',
+                    'Authorization': bearerToken
+                  },
                   success: function (result) {
-                      console.info (result);
+                    app.globalData.userInfo = that.data.userInfo;
                   }
                 })
+              } else {
+
+              }
             }else{
-
+              //未返回200处理
+              if (res.statusCode == 401){
+                Toast.loading({
+                  duration: 5000,
+                  mask: true,
+                  message: "没有相关操作权限"
+                })
+              }
             }
-          } 
-        }) 
-      }, 
-      fail: function (error) { 
-        console.error("调用本地相册文件时出错");
-        console.warn(error) 
-      },
-      complete: function () {
-        Toast.loading({
-          duration: 5000,
-          mask: true,
-          message: "测试"
-        })
-
+              
+            } 
+          }) 
+        }, 
+        fail: function (error) { 
+          console.error("调用本地相册文件时出错");
+          console.warn(error) 
+        },
+        complete: function () {
+          
         }
     });
 

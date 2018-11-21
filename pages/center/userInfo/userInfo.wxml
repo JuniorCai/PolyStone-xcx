@@ -2,7 +2,7 @@
   <van-cell-group>
     <van-cell title="头像" custom-class="avatarCell" center="{{true}}" bindclick="chooseAvatar" >
       <view slot="right-icon">
-        <image class='userinfo-avatar' mode='cover' src='/content/images/libai-1.jpg'></image>
+        <image class='userinfo-avatar' mode='cover' src='{{userInfo.avatar}}'></image>
       </view>
     </van-cell>
     <van-cell title="用户名"   value="{{userInfo.userName}}"/>

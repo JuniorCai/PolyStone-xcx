@@ -1,3 +1,5 @@
+var config = require("/config.js") 
+
 /**
  * description: request处理基础类
  */
@@ -64,22 +66,22 @@ class request {
 export default request
 
 
-function PostRequestWithBearer(isIncludeBearer){
-  var token = "";
-  if (isIncludeBearer){
-    token = wx.getStorageSync('ticketToken');
-    if(token==""){
-      return ;
-    }
-  }
+// function PostRequestWithBearer(isIncludeBearer){
+//   var token = "";
+//   if (isIncludeBearer){
+//     token = wx.getStorageSync('ticketToken');
+//     if(token==""){
+//       return ;
+//     }
+//   }
 
-  wx.request({
-    url: config.requestHost + '/api/services/app/user/UpdateUser',
-    data: that.data.userInfo,
-    method: 'POST',
-    header: { 'content-type': 'application/json' },
-    success: function (result) {
+//   wx.request({
+//     url: config.requestHost + '/api/services/app/user/UpdateUser',
+//     data: that.data.userInfo,
+//     method: 'POST',
+//     header: { 'content-type': 'application/json' },
+//     success: function (result) {
       
-    }
-  })
-}
+//     }
+//   })
+// }

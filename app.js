@@ -1,3 +1,5 @@
+import request from "/utils/request.js"
+
 var config = require("/utils/config.js") 
 
 //app.js
@@ -68,5 +70,5 @@ App({
   globalData: {
     userInfo: null,
     hasUserInfo:false
-  }
+  }//,Request:new request()
 })
