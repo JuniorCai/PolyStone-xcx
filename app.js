@@ -69,6 +69,7 @@ App({
   },
   globalData: {
     userInfo: null,
-    hasUserInfo:false
+    hasUserInfo:false,
+    isUserChange:false
   }//,Request:new request()
 })

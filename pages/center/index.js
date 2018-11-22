@@ -16,6 +16,17 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    let promise = app.getUserInfo();
+    promise.then(result => {
+      if (result) {
+        app.globalData.isUserChange = false;
+
+        this.setData({
+          hasUserInfo: app.globalData.hasUserInfo,
+          userInfo: app.globalData.userInfo
+        })
+      }
+    });
   },
 
   /**
@@ -29,7 +40,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    if (!this.data.hasUserInfo && app.globalData.hasUserInfo) {
+    if ((!this.data.hasUserInfo && app.globalData.hasUserInfo) ||       (this.data.hasUserInfo && app.globalData.isUserChange)) {
+      app.globalData.isUserChange = false;
+
       this.setData({
         hasUserInfo: app.globalData.hasUserInfo,
         userInfo: app.globalData.userInfo

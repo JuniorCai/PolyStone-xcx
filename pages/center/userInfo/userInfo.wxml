@@ -29,6 +29,7 @@
   value="{{ userInfo.nickName }}"
   label="昵称"
   placeholder="请输入新昵称"
+  bindinput="onBindNickName"
 />
 
 </van-dialog>

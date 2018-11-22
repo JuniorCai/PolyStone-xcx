@@ -30,9 +30,9 @@ Page({
       });
 
     }else{
-      // wx.redirectTo({
-      //   url: '../../account/login/login',
-      // })
+      wx.redirectTo({
+        url: '../../account/login/login',
+      })
     }
   },
 
@@ -124,6 +124,8 @@ Page({
                   },
                   success: function (result) {
                     app.globalData.userInfo = that.data.userInfo;
+                    app.globalData.isUserChange = true;
+
                   }
                 })
               } else {
@@ -139,7 +141,6 @@ Page({
                 })
               }
             }
-              
             } 
           }) 
         }, 
@@ -159,10 +160,38 @@ Page({
   onClose:function(){
     this.setData({ showChangeNickName: false });
   },
-  onConfirm:function(){
+  onBindNickName:function(e){
+    this.setData({ "userInfo.nickName": e.detail });
+  },
+  onConfirm:function(event){
+    var that = this;
     //提交服务器更改信息
+    var token = wx.getStorageSync('ticketToken');
+    var bearerToken = 'Bearer ' + token;
+    wx.request({
+      url: config.requestHost + '/api/services/app/user/UpdateUser',
+      data: that.data.userInfo,
+      method: "POST",
+      header: {
+        'Content-Type': 'application/json',
+        'Authorization': bearerToken
+      },
+      success: function (info) {
+        //更改本地昵称信息
 
-    //更改本地昵称信息
+        app.globalData.userInfo = that.data.userInfo;
+        app.globalData.isUserChange = true;
+        wx.showToast({
+          title: "修改完成",
+          icon: 'none',
+          duration: 1500
+        })
+        that.setData({ showChangeNickName: false });
+
+      },
+      fail: function (info) {
+      }
+    })  
 
     //关闭弹窗
   }
