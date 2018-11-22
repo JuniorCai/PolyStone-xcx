@@ -34,7 +34,7 @@ page{
   padding:40rpx 80rpx
 }
 
-.form-login-footer .btn-submit{
+form .btn-submit{
   height: 80rpx;
   font-size: 32rpx;
   border: 0;

@@ -8,7 +8,8 @@
     "pages/logs/logs",
     "pages/company/index",
     "pages/community/index",
-    "pages/account/register/registerTwo"
+    "pages/account/register/registerTwo",
+    "pages/center/userInfo/changePhone/changePhone"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -50,11 +51,13 @@
     "downloadFile": 10000
   },
   "usingComponents": {
-    "van-field":"customComponent/VantWeapp/field/index",
+    "van-field": "customComponent/VantWeapp/field/index",
     "van-cell": "customComponent/VantWeapp/cell/index",
     "van-cell-group": "customComponent/VantWeapp/cell-group/index",
     "van-toast": "customComponent/VantWeapp/toast/index",
-    "van-dialog":"customComponent/VantWeapp/dialog/index"
+    "van-dialog": "customComponent/VantWeapp/dialog/index",
+    "van-row": "customComponent/VantWeapp/row/index",
+    "van-col": "customComponent/VantWeapp/col/index"
   },
   "debug": true
 }
