@@ -12,8 +12,12 @@ Page({
   data: {
     authModel:{
       authCode: "",
-      phoneNumber: ""
-    }
+      phoneNumber: "",
+    },
+    countDown: 60,
+    suffix: "获取验证码",
+    countDownDisabled: false
+
   },
 
   /**
@@ -71,7 +75,52 @@ Page({
   onShareAppMessage: function () {
 
   },
+  phoneInput: function (e) {
+    this.setData({
+      "authModel.phoneNumber": e.detail.value,
+    });
+  },
+  codeInput: function (e) {
+    this.setData({
+      "authModel.authCode": e.detail.value,
+    });
+  },
   sendAuthCode:function(){
-
+    checkNewPhoneExist().then(result => {
+      if (result) {
+        let codeHelper = new AuthCodeHelper(this);
+        codeHelper.sendAuthCode(this.data.phoneNumber)
+      }else{
+        wx.showToast({
+          title: '该手机号已被绑定',
+          mask: true,
+          icon: "none",
+          duration: 1500
+        });
+      }
+    });
+  },
+  checkNewPhoneExist:function(){
+    var that = this;
+    return new Promise(function(resolve,reject){
+      wx.request({
+        url: config.requestHost + '/api/services/app/user/IsPhoneExist',
+        data: { phoneNumber: that.data.authModel.phoneNumber},
+        method: "POST",
+        header: {
+          'Content-Type': 'application/json'
+        },
+        success: function (info) {
+          if (info.data.success) {
+            resolve(true);
+          } else {
+            resolve(false);
+          }
+        },
+        fail: function (info) {
+          reject(false);
+        }
+      })  
+    });
   }
 })
