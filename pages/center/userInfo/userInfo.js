@@ -47,7 +47,14 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    if (app.globalData.hasUserInfo && app.globalData.isUserChange) {
+      this.setData({
+        hasUserInfo: app.globalData.hasUserInfo,
+        userInfo: app.globalData.userInfo,
+        phoneNumberMix: app.globalData.userInfo.phoneNumber.substr(0, 3) + "****" + app.globalData.userInfo.phoneNumber.substr(8, 4)
+      });
 
+    }
   },
 
   /**

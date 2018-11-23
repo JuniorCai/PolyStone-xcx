@@ -57,7 +57,8 @@
     "van-toast": "customComponent/VantWeapp/toast/index",
     "van-dialog": "customComponent/VantWeapp/dialog/index",
     "van-row": "customComponent/VantWeapp/row/index",
-    "van-col": "customComponent/VantWeapp/col/index"
+    "van-col": "customComponent/VantWeapp/col/index",
+    "van-button": "customComponent/VantWeapp/button/index"
   },
   "debug": true
 }

@@ -1,4 +1,4 @@
-<form>
+<form bindsubmit="submitChangePhone">
   <view class='form-body'>
     <van-cell-group>
       <van-field
@@ -14,7 +14,7 @@
         placeholder="请输入短信验证码"
         border="{{ false }}"
         use-button-slot>
-        <van-button slot="button" size="small" type="primary" bindclick="sendAuthCode">发送验证码</van-button>
+        <van-button slot="button" size="small" form-type='submit' type="primary" disabled='{{countDownDisabled}}' bind:click="sendAuthCode">{{suffix}}</van-button>
       </van-field>
     </van-cell-group>
   </view>
