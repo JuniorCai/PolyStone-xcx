@@ -1,4 +1,7 @@
-var config = require("../../../utils/config.js") 
+import RequestHelper from "../../../utils/request.js";
+
+var config = require("../../../utils/config.js");
+
 const app = getApp();
 
 
@@ -118,59 +121,52 @@ Page({
       //   wx.hideToast()
       // }, 2000)
     }else{
-      wx.request({
-        url: config.requestHost+'/api/Account/Authenticate',
-        data: this.data.loginModel,
-          method: 'POST',
-          header: { 'content-type': 'application/json' },
-          success: function (result) {
-
-            if (result.data.success){
-              wx.setStorageSync('ticketToken', result.data.result)
-              var bearerToken = 'Bearer '+result.data.result;
-              wx.request({
-                url: config.requestHost +'/api/Account/GetCurrentUserInfo',
-                data:"",
-                method:"GET",
-                header: {
-                  'Content-Type': 'application/json',
-                  'Authorization': bearerToken},
-                success:function(info){
-                  app.globalData.userInfo = info.data.result;
-                  app.globalData.hasUserInfo = true;
-                  wx.switchTab({
-                    url: '/pages/center/index',
-                  })
-                }, fail: function (ex) {
-                  var d = ex;
-                }
+      var loginRequestHelper = new RequestHelper(false);
+      loginRequestHelper.postRequest('/api/Account/Authenticate', this.data.loginModel).then(res=>{
+        if (res.data.success) {
+          wx.setStorageSync('ticketToken', res.data.result)
+          var bearerToken = 'Bearer ' + res.data.result;
+          wx.request({
+            url: config.requestHost + '/api/Account/GetCurrentUserInfo',
+            data: "",
+            method: "GET",
+            header: {
+              'Content-Type': 'application/json',
+              'Authorization': bearerToken
+            },
+            success: function (info) {
+              app.globalData.userInfo = info.data.result;
+              app.globalData.hasUserInfo = true;
+              wx.switchTab({
+                url: '/pages/center/index',
               })
-            }else{
-              var title = "";
-              switch (result.data.error.code){
-                case 100001:
-                  title = "手机号或密码不正确";
-                break;
-                case 100004:
-                  title = "账号已被禁用，请联系客服";
-                break;
-                default:
-                break;
-              }
-              wx.showToast({
-                title: title,
-                icon: 'none',
-                duration: 1500
-              })
-
-              setTimeout(function () {
-                wx.hideToast()
-              }, 2000)
+            }, fail: function (ex) {
+              var d = ex;
             }
-        },fail:function(ex){
-          var d = ex;
+          })
+        } else {
+          var title = "";
+          switch (res.data.error.code) {
+            case 100001:
+              title = "手机号或密码不正确";
+              break;
+            case 100004:
+              title = "账号已被禁用，请联系客服";
+              break;
+            default:
+              break;
+          }
+          wx.showToast({
+            title: title,
+            icon: 'none',
+            duration: 1500
+          })
+
+          setTimeout(function () {
+            wx.hideToast()
+          }, 2000)
         }
-      })
+      });
     }
   },
   onCheckInput:function(e){

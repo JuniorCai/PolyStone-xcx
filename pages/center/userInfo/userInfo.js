@@ -1,5 +1,7 @@
 import Toast from "../../../customComponent/VantWeapp/toast/toast";
-import Dialog from "../../../customComponent/VantWeapp/dialog/dialog"
+import Dialog from "../../../customComponent/VantWeapp/dialog/dialog";
+import RequestHelper from "../../../utils/request.js";
+
 var config = require("../../../utils/config.js") 
 
 const app = getApp()
@@ -121,22 +123,17 @@ Page({
                   "userInfo.avatar": info.result.msg, //把照片路径存到变量中， 
                 });
                 //提交保存
-                wx.request({
-                  url: config.requestHost + '/api/services/app/user/UpdateUser',
-                  data: that.data.userInfo,
-                  method: 'POST',
-                  header: {
-                    'Content-Type': 'application/json',
-                    'Authorization': bearerToken
-                  },
-                  success: function (result) {
-                    app.globalData.userInfo = that.data.userInfo;
-                    app.globalData.isUserChange = true;
-
-                  }
-                })
+                var requestHelper = new RequestHelper(true);
+                requestHelper.postRequest('/api/services/app/user/UpdateUser', that.data.userInfo).then(res=>{
+                  app.globalData.userInfo = that.data.userInfo;
+                  app.globalData.isUserChange = true;
+                });
               } else {
-
+                Toast.loading({
+                  duration: 5000,
+                  mask: true,
+                  message: info.result.msg
+                })
               }
             }else{
               //未返回200处理
@@ -173,33 +170,33 @@ Page({
   onConfirm:function(event){
     var that = this;
     //提交服务器更改信息
-    var token = wx.getStorageSync('ticketToken');
-    var bearerToken = 'Bearer ' + token;
-    wx.request({
-      url: config.requestHost + '/api/services/app/user/UpdateUser',
-      data: that.data.userInfo,
-      method: "POST",
-      header: {
-        'Content-Type': 'application/json',
-        'Authorization': bearerToken
-      },
-      success: function (info) {
-        //更改本地昵称信息
-
-        app.globalData.userInfo = that.data.userInfo;
-        app.globalData.isUserChange = true;
-        wx.showToast({
-          title: "修改完成",
-          icon: 'none',
-          duration: 1500
-        })
-        that.setData({ showChangeNickName: false });
-
-      },
-      fail: function (info) {
-      }
-    })  
-
-    //关闭弹窗
+    var requestHelper = new RequestHelper(true);
+    requestHelper.postRequest('/api/services/app/user/UpdateUser', that.data.userInfo).then(res => {
+      //更改本地昵称信息
+      app.globalData.userInfo = that.data.userInfo;
+      app.globalData.isUserChange = true;
+      wx.showToast({
+        title: "修改完成",
+        icon: 'none',
+        duration: 1500
+      })
+      that.setData({ showChangeNickName: false });
+    });
+  },
+  logout:function(){
+    try{
+      wx.clearStorageSync()
+      app.globalData.userInfo = {};
+      app.globalData.isUserChange = true;
+      app.globalData.hasUserInfo = false;
+      this.data.hasUserInfo = false;
+      this.data.userInfo = {};
+    }catch(e){
+      wx.setStorageSync('ticketToken', "");   
+    }finally{
+      wx.navigateBack({
+        delta: 1
+      })
+    }
   }
 })

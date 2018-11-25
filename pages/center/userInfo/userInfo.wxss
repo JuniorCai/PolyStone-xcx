@@ -4,3 +4,16 @@
   width: 80rpx;
   border-radius: 50%;
 }
+
+
+.areaLogout{
+  position: absolute;
+  bottom: 200rpx;
+  left:0;
+  right: 0;
+  padding: 0 20rpx;
+}
+
+.logoutBtn{
+  width: 100%
+}

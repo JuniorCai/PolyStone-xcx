@@ -1,11 +1,32 @@
-var config = require("config.js") 
+import RequestHelper from "request.js";
+import RegCheck from "regCheck.js";
 
+var config = require("config.js") 
+const regCheck = new RegCheck;
 class authCodeHelper{
   constructor(pageHander){
       this.that = pageHander;
   }
 
   sendAuthCode(phoneNumber){
+    if (this.checkPhoneNumberLength(phoneNumber) && this.checkPhoneNumberReg(phoneNumber)){
+      //检查手机号是否已存在
+      this._checkPhoneValid(phoneNumber).then(res => {
+        if (!res.data.result) {
+          this.getVerificationCode(phoneNumber);
+        } else {
+          wx.showToast({
+            title: '该手机号已被绑定',
+            mask: true,
+            icon: "none",
+            duration: 1500
+          });
+        }
+      });
+    }
+  }
+
+  checkPhoneNumberLength(phoneNumber){
     if (phoneNumber.length == 0) {
       wx.showToast({
         title: '手机号不能为空',
@@ -14,8 +35,7 @@ class authCodeHelper{
         duration: 1500
       });
       return false;
-    }
-    if (phoneNumber.length != 11) {
+    }else if (phoneNumber.length != 11) {
       wx.showToast({
         title: '请输入11位长度手机号',
         mask: true,
@@ -24,17 +44,38 @@ class authCodeHelper{
       })
       return false;
     }
-    var phoneReg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1})|(17[0-9]{1}))+\d{8})$/;
-    if (!phoneReg.test(phoneNumber)) {
+    return true;
+  }
+
+  checkPhoneNumberReg(phoneNumber){
+    return regCheck.checkPhoneNumberReg(phoneNumber);
+    // var phoneReg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1})|(17[0-9]{1}))+\d{8})$/;
+    // if (!phoneReg.test(phoneNumber)) {
+    //   wx.showToast({
+    //     title: '手机号格式不正确！',
+    //     mask: true,
+    //     icon: "none",
+    //     duration: 1500
+    //   })
+    //   return false;
+    // }
+    // return true;
+  }
+
+  _checkPhoneValid(phoneNumber){
+    if (phoneNumber.length > 0) {
+      let requestHelper = new RequestHelper(false);
+      //var phoneParam = { "phoneNumber": this.that.data.authModel.phoneNumber }
+      //var data = { };
+      return requestHelper.postRequest('/api/services/app/user/IsPhoneExist?phoneNumber='+phoneNumber, "");
+    } else {
       wx.showToast({
-        title: '手机号格式不正确！',
+        title: '请输入手机号码',
         mask: true,
         icon: "none",
         duration: 1500
-      })
-      return false;
-    }
-    this.getVerificationCode(phoneNumber);
+      });
+    }    
   }
 
   getVerificationCode(phoneNumber){
@@ -75,7 +116,7 @@ class authCodeHelper{
             title: '验证码已发送',
             mask: true,
             icon: "success",
-            duration: 1500
+            duration: 1500 
           })
         } else {
           wx.showToast({

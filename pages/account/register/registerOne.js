@@ -1,4 +1,6 @@
 var config = require("../../../utils/config.js") 
+import RequestHelper from "../../../utils/request.js";
+import AuthCodeHelper from "../../../utils/authCodeHelper.js";
 
 const app = getApp()
 
@@ -97,126 +99,26 @@ Page({
     }
   },
   sendPhoneCode:function(){
-    if (this.data.registerModel.phoneNumber.length == 0){
-      wx.showToast({
-        title: '手机号不能为空',
-        mask:true,
-        icon:"none",
-        duration:1500
-      });
-      return false;
-    }
-    if(this.data.registerModel.phoneNumber.length!=11){
-      wx.showToast({
-        title: '请输入11位长度手机号',
-        mask: true,
-        icon: "none",
-        duration: 1500
-      })
-      return false;
-    }
-    var phoneReg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1})|(17[0-9]{1}))+\d{8})$/;
-    if (!phoneReg.test(this.data.registerModel.phoneNumber)) {
-      wx.showToast({
-        title: '手机号有误！',
-        mask: true,
-        icon: "none",
-        duration: 1500
-      })
-      return false;
-    }
-    this.getVerificationCode();
 
+    var that = this;
+    let codeHelper = new AuthCodeHelper(this);
+    codeHelper.sendAuthCode(that.data.registerModel.phoneNumber);
   },
-  getVerificationCode:function(){
-    let that = this;
-    let interval = null;
-    let current = 60;
-    that.setData({
-      countDownDisabled:true,
-      suffix: current+"秒后重新获取"
-    })
-    interval = setInterval(function(){
-        current--;
-        if(current<0){
-          clearInterval(interval);
-          that.setData({
-            countDown: current,
-            countDownDisabled:false,
-            suffix:"重新获取"
-          })
-        }else{
-          that.setData({
-            countDown: current,
-            suffix: current + "秒后重新获取"
-          })
-        }
-
-    },1000);
-    wx.request({
-      url: config.requestHost + '/api/Auth/SendPhoneCode',
-      data: { "phoneNumber": this.data.registerModel.phoneNumber},
-      method: "GET",
-      header: {
-        'Content-Type': 'application/json',
-      },
-      success: function (info) {
-        if(info.data.result.code==2){
-          wx.showToast({
-            title: '验证码已发送',
-            mask: true,
-            icon: "success",
-            duration: 1500
-          })
-        }else{
-          wx.showToast({
-            title: info.data.result.msg,
-            mask: true,
-            icon: "none",
-            duration: 1500
-          })
-        }
-        
-      }, fail: function (ex) {
-        wx.showToast({
-          title: ex,
-          mask: true,
-          icon: "none",
-          duration: 1500
-        })
-      }
-    })
-  },
+  
   toStepTwo: function () {
     let that = this;
-    wx.request({
-      url: config.requestHost + '/api/Auth/AuthPhoneCode',
-      data: that.data.registerModel,
-      method: "POST",
-      header: {
-        'Content-Type': 'application/json',
-      },
-      success: function (info) {
-        if (info.data.success) {
-          wx.navigateTo({ url: "registerTwo?phone=" + that.data.registerModel.phoneNumber + "&code=" + that.data.registerModel.authCode })
-        } else {
-          wx.showToast({
-            title: "验证码不正确或已过期，请确认验证码或重新发送",
-            mask: true,
-            icon: "none",
-            duration: 1500
-          })
-        }
-
-      }, fail: function (ex) {
+    let requestHelper = new RequestHelper(false);
+    requestHelper.postRequest('/api/Auth/AuthPhoneCode', that.data.registerModel).then(res=>{
+      if (res.data.success) {
+        wx.navigateTo({ url: "registerTwo?phone=" + that.data.registerModel.phoneNumber + "&code=" + that.data.registerModel.authCode })
+      } else {
         wx.showToast({
-          title: ex,
+          title: "验证码不正确或已过期，请确认验证码或重新发送",
           mask: true,
           icon: "none",
           duration: 1500
         })
       }
-    })
-  },
-
+    });
+  }
 })

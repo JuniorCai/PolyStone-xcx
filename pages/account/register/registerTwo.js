@@ -1,4 +1,8 @@
+import RequestHelper from "../../../utils/request.js";
+import RegCheck from "../../../utils/regCheck.js";
+
 var config = require("../../../utils/config.js") 
+const regCheck = new RegCheck;
 
 const app = getApp();
 // pages/account/register/registerTwo.js
@@ -92,103 +96,70 @@ Page({
   },
   formSubmit:function(e){
     let that = this;
-    let userNamePromise = that.checkUserName();
-    userNamePromise.then(result => {
-      if(result){
-        if (that.checkPassword()){
+    if (regCheck.checkUserNameReg(that.data.account.userName) && regCheck.checkPasswordReg(that.data.account.password)){
+      var requestHelper = new RequestHelper(false);
+      requestHelper.postRequest('/api/services/app/user/IsUserNameExist?userName=' + that.data.account.userName, "").then(res => {
+        if (res) {
           that.postRegister();
         }
-      }
-    });
+      });
+    }
   },
   postRegister:function(){
-    wx.request({
-      url: config.requestHost + '/api/Account/Register',
-      data: this.data.account,
-      method: "POST",
-      header: {
-        'Content-Type': 'application/json',
-      },
-      success: function (result) {
-        if (result.data.success){
-          wx.setStorageSync('ticketToken', result.data.result)
-          var bearerToken = 'Bearer ' + result.data.result;
-          wx.request({
-            url: config.requestHost + '/api/Account/GetCurrentUserInfo',
-            data: "",
-            method: "GET",
-            header: {
-              'Content-Type': 'application/json',
-              'Authorization': bearerToken
-            },
-            success: function (info) {
-              app.globalData.userInfo = info.data.result;
-              app.globalData.hasUserInfo = true;
-              wx.switchTab({
-                url: '/pages/center/index',
-              })
-            }, fail: function (ex) {
-            }
-          })
-        }else{
-          wx.showToast({
-            title: '注册不成功',
-            icon: "none",
-            duration: 1500
-          })
-        }        
-      },
-      fail: function (info) {
-
-      }
-    })
-  },
-  checkUserName:function(){
-    var regUserName = /^[a-zA-Z][a-zA-Z0-9_]{3,19}$/;
-    if (!regUserName.test(this.data.account.userName)){
+    var requestHelper = new RequestHelper(false);
+    requestHelper.postRequest('/api/Account/Register', this.data.account).then(res=>{
+      if (res.data.success) {
+        wx.setStorageSync('ticketToken', res.data.result)
+        var bearerToken = 'Bearer ' + res.data.result;
+        wx.request({
+          url: config.requestHost + '/api/Account/GetCurrentUserInfo',
+          data: "",
+          method: "GET",
+          header: {
+            'Content-Type': 'application/json',
+            'Authorization': bearerToken
+          },
+          success: function (info) {
+            app.globalData.userInfo = info.data.result;
+            app.globalData.hasUserInfo = true;
+            wx.switchTab({
+              url: '/pages/center/index',
+            })
+          }, fail: function (ex) {
+          }
+        })
+      } else {
         wx.showToast({
-          title: '用户名长度为4-20位。仅支持英文、数字和下划线,且首位为英文',
-          icon:"none",
+          title: '注册不成功',
+          icon: "none",
           duration: 1500
         })
-        return false;
-    }
-    let promise = this.checkUserNameDuplicate(this.data.account.userName);
-    return promise;
-  },
-  checkUserNameDuplicate:function(userName){
-    let promise = new Promise(function (resolve, reject) {
-      wx.request({
-        url: config.requestHost + '/api/services/app/user/IsUserNameExist?userName='+userName,
-        data: "",
-        method: "POST",
-        header: {
-          'Content-Type': 'application/json',
-        },
-        success: function (info) {
-          if (info.data.result==null) {
-            resolve(true);
-          } else {
-            resolve(false);
-          }
-        },
-        fail: function (info) {
-          reject(false);
-        }
-      })
+      }
     });
-    return promise;
+    
   },
-  checkPassword:function(){
-    var regUserName = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{5,19}$/;
-    if (!regUserName.test(this.data.account.password)) {
-      wx.showToast({
-        title: '登录密码仅支持6-20位英文、数字的组合',
-        icon: "none",
-        duration: 1500
-      })
-      return false;
-    }
-    return true;
-  }
+  // checkUserNameReg:function(){
+  //   var regUserName = /^[a-zA-Z][a-zA-Z0-9_]{3,19}$/;
+  //   if (!regUserName.test(this.data.account.userName)) {
+  //     wx.showToast({
+  //       title: '用户名长度为4-20位。仅支持英文、数字和下划线,且首位为英文',
+  //       icon: "none",
+  //       duration: 1500
+  //     })
+  //     return false;
+  //   }
+  //   return true;
+  // },
+  // checkPassword:function(){
+  //   var regPwd = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{5,19}$/;
+  //   if (!regPwd.test(this.data.account.password)) {
+  //     wx.showToast({
+  //       title: '登录密码仅支持6-20位英文、数字的组合',
+  //       icon: "none",
+  //       duration: 1500
+  //     })
+  //     return false;
+  //   }
+  //   return true;
+  // }
 })

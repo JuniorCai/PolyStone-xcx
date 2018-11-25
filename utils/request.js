@@ -4,8 +4,28 @@ var config = require("/config.js")
  * description: request处理基础类
  */
 class request {
-  constructor() {
-    this._header = {}
+  constructor(isIncludeBearer) {
+    if (isIncludeBearer){
+      this._header = this._getBearerHeader();
+    }else{
+      this._header = {
+        'Content-Type': 'application/json',
+      };
+    }
+    this._errorHandler = this.defaultErrorHandler;
+  }
+
+  _getBearerHeader(){
+    var token = wx.getStorageSync('ticketToken');
+    var bearerToken = 'Bearer ' + token;
+    return {
+      'Content-Type': 'application/json',
+      'Authorization': bearerToken
+    }
+  }
+
+  defaultErrorHandler(res){
+      //Nothing to do
   }
 
   /**
@@ -18,24 +38,24 @@ class request {
   /**
    * GET类型的网络请求
    */
-  getRequest(isIncludeBearer,url, data, header = this._header) {
-    return this.requestAll(url, data, header, 'GET')
+  getRequest(requestUrl, data, header = this._header) {
+    return this.requestAll(requestUrl, data, header, 'GET')
   }
 
   /**
    * POST类型的网络请求
    */
-  postRequest(isIncludeBearer,url, data, header = this._header) {
-    return this.requestAll(url, data, header, 'POST')
+  postRequest(requestUrl, data, header = this._header) {
+    return this.requestAll(requestUrl, data, header, 'POST')
   }
 
   /**
    * 网络请求
    */
-  requestAll(isIncludeBearer,url, data, header, method) {
+  requestAll(requestUrl, data, header, method) {
     return new Promise((resolve, reject) => {
       wx.request({
-        url: url,
+        url: config.requestHost + requestUrl,
         data: data,
         header: header,
         method: method,

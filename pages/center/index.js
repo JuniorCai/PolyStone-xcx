@@ -89,62 +89,6 @@ Page({
     wx.navigateTo({
       url: '/pages/account/login/login'
     })
-
-
-    // 登录
-    // wx.login({
-    //   success: res => {
-    //     console.info(res);
-    //     // 发送 res.code 到后台换取 openId, sessionKey, unionId
-    //     if(res.code){
-    //       // 获取用户信息
-    //       wx.getSetting({
-    //         success: res => {
-    //           if (res.authSetting['scope.userInfo']) {
-    //             // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
-    //             wx.getUserInfo({
-    //               success: resInfo => {
-    //                 wx.request(
-    //                   {
-    //                     url: 'http://localhost:6234/api/Auth/AuthLoginCode',
-    //                     data: {
-    //                       code: res.code,
-    //                       encryptedData: resInfo.encryptedData,
-    //                       iv: resInfo.iv
-    //                     },
-    //                     method: 'GET',
-    //                     header: { 'content-type': 'application/json' },
-    //                     success: function (data) {
-    //                     console.info(data);
-    //                   }
-    //                 })
-
-    //                 // 可以将 resInfo 发送给后台解码出 unionId
-    //                 app.globalData.userInfo = resInfo.userInfo
-    //                 this.setData({
-    //                   hasUserInfo: true,
-    //                   userInfo: resInfo.userInfo
-    //                 })
-    //                 // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-    //                 // 所以此处加入 callback 以防止这种情况
-    //                 if (app.userInfoReadyCallback) {
-    //                   app.userInfoReadyCallback(res)
-    //                 }
-    //               }
-    //             })
-    //           }
-    //         }
-    //       })
-
-          
-    //     } else {
-
-    //       console.log('获取用户登录态失败！' + res.errMsg)
-
-    //     }
-    //   }
-    // })
-    
   },
   onShowUserInfo:function(){
     wx.navigateTo({

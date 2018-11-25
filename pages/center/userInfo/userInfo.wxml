@@ -15,6 +15,9 @@
     <van-cell title="密码修改" is-link url="" border="{{false}}" />
   </van-cell-group>
 </view>
+<view class='areaLogout'>
+  <van-button custom-class="logoutBtn" type="danger" bindclick="logout">退出</van-button>
+</view>
 
 <van-dialog
   use-slot
