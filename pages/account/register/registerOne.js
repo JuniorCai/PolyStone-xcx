@@ -101,7 +101,7 @@ Page({
   sendPhoneCode:function(){
 
     var that = this;
-    let codeHelper = new AuthCodeHelper(this);
+    let codeHelper = new AuthCodeHelper(this, config.authCodePurpose.register);
     codeHelper.sendAuthCode(that.data.registerModel.phoneNumber);
   },
   

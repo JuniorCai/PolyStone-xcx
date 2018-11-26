@@ -44,7 +44,7 @@ App({
       if(token.length>0){
         var bearerToken = 'Bearer ' + token;
           wx.request({
-            url: config.requestHost + '/api/Account/GetCurrentUserInfo',
+            url: config.baseHost.requestHost + '/api/Account/GetCurrentUserInfo',
             data: "",
             method: "GET",
             header: {

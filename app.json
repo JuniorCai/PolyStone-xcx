@@ -9,7 +9,9 @@
     "pages/company/index",
     "pages/community/index",
     "pages/account/register/registerTwo",
-    "pages/center/userInfo/changePhone/changePhone"
+    "pages/center/userInfo/changePhone/changePhone",
+    "pages/center/userInfo/changePassword/changePassword",
+    "pages/center/userInfo/changePassword/resetPassword/resetPassword"
   ],
   "window": {
     "backgroundTextStyle": "light",

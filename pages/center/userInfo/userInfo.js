@@ -108,7 +108,7 @@ Page({
 
         // 这个是使用微信接口保存文件到数据库 
         wx.uploadFile({ 
-          url: config.requestHost+"/api/Resource/Upload", 
+          url: config.baseHost.requestHost+"/api/Resource/Upload", 
           filePath: filePath, 
           name: 'file',
           header: {

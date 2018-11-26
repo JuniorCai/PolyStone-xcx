@@ -55,7 +55,7 @@ class request {
   requestAll(requestUrl, data, header, method) {
     return new Promise((resolve, reject) => {
       wx.request({
-        url: config.requestHost + requestUrl,
+        url: config.baseHost.requestHost + requestUrl,
         data: data,
         header: header,
         method: method,

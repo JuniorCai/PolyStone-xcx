@@ -127,7 +127,7 @@ Page({
           wx.setStorageSync('ticketToken', res.data.result)
           var bearerToken = 'Bearer ' + res.data.result;
           wx.request({
-            url: config.requestHost + '/api/Account/GetCurrentUserInfo',
+            url: config.baseHost.requestHost + '/api/Account/GetCurrentUserInfo',
             data: "",
             method: "GET",
             header: {

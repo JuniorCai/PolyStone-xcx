@@ -11,7 +11,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    authModel:{
+    authModel: {
       authCode: "",
       phoneNumber: "",
     },
@@ -86,9 +86,9 @@ Page({
       "authModel.authCode": e.detail,
     });
   },
-  sendAuthCode:function(){
+  sendAuthCode: function () {
     var that = this;
-    let codeHelper = new AuthCodeHelper(this, config.authCodePurpose.changePhoneNumber);
+    let codeHelper = new AuthCodeHelper(this, config.authCodePurpose.resetPassword);
     codeHelper.sendAuthCode(that.data.authModel.phoneNumber)
   },
   // checkNewPhoneExist:function(){
@@ -106,14 +106,14 @@ Page({
   //     });
   //   }    
   // },
-  submitChangePhone:function(e){
+  submitChangePhone: function (e) {
     var that = this;
-    let codeHelper = new AuthCodeHelper(this, config.authCodePurpose.changePhoneNumber);
+    let codeHelper = new AuthCodeHelper(this, config.authCodePurpose.resetPassword);
 
-    var phoneNumber = this.data.authModel.phoneNumber;
-    var authCode = this.data.authModel.authCode;
+    var phoneNumber = that.data.authModel.phoneNumber;
+    var authCode = that.data.authModel.authCode;
 
-    if (codeHelper.checkPhoneNumberLength(phoneNumber) && codeHelper.checkPhoneNumberReg(phoneNumber)){
+    if (codeHelper.checkPhoneNumberLength(phoneNumber) && codeHelper.checkPhoneNumberReg(phoneNumber)) {
       if (authCode.length == 0) {
         wx.showToast({
           title: '请填写短信验证码',
@@ -124,21 +124,11 @@ Page({
         return false;
       }
 
-      codeHelper.authVerificationCode(this.data.authModel).then(result => {
+      codeHelper.authVerificationCode(that.data.authModel).then(result => {
         if (result) {
-          var pages = getCurrentPages();
-          var centerInfoPage = pages[pages.length - 2];
-          var tempUser = centerInfoPage.data.userInfo;
-          tempUser.phoneNumber = that.data.authModel.phoneNumber;
-
-          let requestHelper = new RequestHelper(true);
-          requestHelper.postRequest('/api/services/app/user/UpdateUser', tempUser).then(res => {
-            if (res.data.result) {
-              app.globalData.userInfo = tempUser;
-              app.globalData.isUserChange = true;
-              wx.navigateBack({ delta: 1 });
-            }
-          });
+          wx.navigateTo({
+            url: 'resetPassword/resetPassword?phoneNumber=' + phoneNumber + "&authCode=" + authCode,
+          })
         }
       });
     }

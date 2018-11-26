@@ -4,8 +4,9 @@ import RegCheck from "regCheck.js";
 var config = require("config.js") 
 const regCheck = new RegCheck;
 class authCodeHelper{
-  constructor(pageHander){
-      this.that = pageHander;
+  constructor(pageHander,purposeType){
+    this.that = pageHander;
+    this.codePurposeType = purposeType;
   }
 
   sendAuthCode(phoneNumber){
@@ -13,7 +14,7 @@ class authCodeHelper{
       //检查手机号是否已存在
       this._checkPhoneValid(phoneNumber).then(res => {
         if (!res.data.result) {
-          this.getVerificationCode(phoneNumber);
+          this.getVerificationCode(phoneNumber, this.purposeType);
         } else {
           wx.showToast({
             title: '该手机号已被绑定',
@@ -78,7 +79,7 @@ class authCodeHelper{
     }    
   }
 
-  getVerificationCode(phoneNumber){
+  getVerificationCode(phoneNumber, purposeType){
     var helperThat = this;
     let interval = null;
     let current = 60;
@@ -104,8 +105,9 @@ class authCodeHelper{
 
     }, 1000);
     wx.request({
-      url: config.requestHost + '/api/Auth/SendPhoneCode',
-      data: { "phoneNumber": phoneNumber },
+      url: config.baseHost.requestHost + '/api/Auth/SendPhoneCode',
+      data: { "phoneNumber": phoneNumber,
+        "type": purposeType},
       method: "GET",
       header: {
         'Content-Type': 'application/json',
@@ -142,7 +144,7 @@ class authCodeHelper{
   authVerificationCode(authModel){
     return new Promise(function(resolve,reject){
       wx.request({
-        url: config.requestHost + '/api/Auth/AuthPhoneCode',
+        url: config.baseHost.requestHost + '/api/Auth/AuthPhoneCode',
         data: authModel,
         method: "POST",
         header: {
