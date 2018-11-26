@@ -10,18 +10,30 @@ class authCodeHelper{
   }
 
   sendAuthCode(phoneNumber){
+    var that = this;
     if (this.checkPhoneNumberLength(phoneNumber) && this.checkPhoneNumberReg(phoneNumber)){
       //检查手机号是否已存在
       this._checkPhoneValid(phoneNumber).then(res => {
-        if (!res.data.result) {
-          this.getVerificationCode(phoneNumber, this.purposeType);
+        if (((that.codePurposeType == 1 || that.codePurposeType==3)&&!res.data.result)||
+          (that.codePurposeType == 2 && res.data.result)) 
+        {
+          this.getVerificationCode(phoneNumber, this.codePurposeType);
         } else {
-          wx.showToast({
-            title: '该手机号已被绑定',
-            mask: true,
-            icon: "none",
-            duration: 1500
-          });
+          if (that.codePurposeType == 1 || that.codePurposeType == 3){
+            wx.showToast({
+              title: '该手机号已被绑定',
+              mask: true,
+              icon: "none",
+              duration: 1500
+            });
+          } else if (that.codePurposeType == 2){
+            wx.showToast({
+              title: '该手机号未注册账号',
+              mask: true,
+              icon: "none",
+              duration: 1500
+            });
+          }
         }
       });
     }

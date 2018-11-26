@@ -79,19 +79,30 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function (e) {
 
   },
-  newPwdInput:function(){
+  newPwdInput:function(e){
     this.setData({
       "resetModel.newPassword": e.detail,
     });
 
   },
-  confirmPwdInput:function(){
+  confirmPwdInput:function(e){
     this.setData({
       "resetModel.confirmPassword": e.detail,
     });
+  },
+  onCheckInput: function (e) {
+    if (this.data.resetModel.newPassword.length == 0 || this.data.resetModel.confirmPassword.length == 0) {
+      this.setData({
+        disabled: true
+      })
+    } else {
+      this.setData({
+        disabled: false
+      })
+    }
   },
   submitResetPassword:function(){
     if (regCheck.checkPasswordReg(this.data.resetModel.newPassword)
@@ -99,7 +110,27 @@ Page({
     {
       if (this.data.resetModel.newPassword == this.data.resetModel.confirmPassword) {
         var requestHelper = new RequestHelper(true);
-        requestHelper.postRequest()
+        requestHelper.postRequest('/api/Account/ResetPassword',this.data.resetModel).then(res=>{
+            if(res.data.success){
+              
+              wx.showToast({
+                title: '修改成功',
+                icon: "success",
+                duration: 1500
+              });
+              setTimeout(() => {
+                wx.navigateBack({
+                  delta: 2
+                })
+              },1500)
+            }else{
+              wx.showToast({
+                title: res.data.result.message,
+                icon: "success",
+                duration: 1500
+              });
+            }
+        });
       }else{
         wx.showToast({
           title: '两次密码输入不相同',
