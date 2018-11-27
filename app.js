@@ -5,6 +5,7 @@ var config = require("/utils/config.js")
 //app.js
 App({
   onLaunch: function () {
+    this.getUserInfo();
     // 展示本地存储能力
     // var logs = wx.getStorageSync('logs') || []
     // logs.unshift(Date.now())
@@ -55,6 +56,8 @@ App({
               if(info.data.success){
                 app.globalData.userInfo = info.data.result;
                 app.globalData.hasUserInfo = true;
+                app.globalData.isUserChange = true;
+
                 resolve(true);
               }else{
                 resolve(false);
@@ -66,6 +69,9 @@ App({
         })  
       }
     })
+  },
+  reloadUserInfo:function(){
+    this.getUserInfo();
   },
   globalData: {
     userInfo: null,

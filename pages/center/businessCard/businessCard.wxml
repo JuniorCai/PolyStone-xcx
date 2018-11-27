@@ -1,0 +1,74 @@
+<view class='areaListBlock'>
+  <van-cell-group>
+    <van-cell title="头像" custom-class="avatarCell" center="{{true}}" bindclick="chooseAvatar" >
+      <view slot="right-icon">
+        <image class='userinfo-avatar' mode='cover' src='{{userInfo.avatar}}'></image>
+      </view>
+    </van-cell>
+    <van-cell title="姓名" is-link bindclick="onChangeName" value="{{userInfo.name==''?userInfo.userName:userInfo.name}}"/>
+    <van-cell title="手机号"   value="{{phoneNumberMix}}"/>
+    <van-cell title="微信号" is-link  bindclick="onBindWeiXin" value="{{userInfo.nickName}}"/>
+
+  </van-cell-group>
+</view>
+<view class='areaListBlock'>
+   <van-cell-group>
+    <van-cell title="企业名称" is-link url="changePhone/changePhone"  value="{{phoneNumberMix}}"/>
+    <van-cell title="职位" is-link url="changePassword/changePassword" border="{{false}}" />
+    <van-cell title="个人简介" is-link url="changePassword/changePassword" border="{{false}}" />
+  </van-cell-group>
+</view>
+<van-toast id="van-toast" />
+<!-- 修改姓名弹窗 -->
+<van-dialog
+  use-slot
+  async-close
+  title="修改姓名"
+  show="{{ showNameDialog }}"
+  show-cancel-button
+  bind:close="onNameClose"
+  bind:confirm="onNameConfirm"
+>
+<van-field
+  value="{{ userInfo.name==''?userInfo.userName:userInfo.name }}"
+  label="姓名"
+  placeholder="请输入姓名"
+  bindinput="onBindName"
+/>
+</van-dialog>
+
+<!-- 修改企业名称弹窗 -->
+<van-dialog
+  use-slot
+  async-close
+  title="修改企业名称"
+  show="{{ showCompanyNameDialog }}"
+  show-cancel-button
+  bind:close="onCompanyNameClose"
+  bind:confirm="onCompanyNameConfirm"
+>
+<van-field
+  value="{{ userInfo.nickName }}"
+  label="企业名称"
+  placeholder="请输入企业名称"
+  bindinput="onBindNickName"
+/>
+</van-dialog>
+
+<!-- 修改职位弹窗 -->
+<van-dialog
+  use-slot
+  async-close
+  title="修改职位名称"
+  show="{{ showPositionDialog }}"
+  show-cancel-button
+  bind:close="onPositionClose"
+  bind:confirm="onPositionConfirm"
+>
+<van-field
+  value="{{ userInfo.nickName }}"
+  label="企业名称"
+  placeholder="请输入企业名称"
+  bindinput="onBindPosition"
+/>
+</van-dialog>

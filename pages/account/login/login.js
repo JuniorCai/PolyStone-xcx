@@ -24,14 +24,15 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let promise = app.getUserInfo();
-    promise.then(result => {
-      if (result) {
-        wx.switchTab({
-          url: '/pages/center/index',
-        })
-      }
-    });
+    //暂时不用，看后续是否逻辑上需要再取消注释
+    // let promise = app.getUserInfo();
+    // promise.then(result => {
+    //   if (result) {
+    //     wx.switchTab({
+    //       url: '/pages/center/index',
+    //     })
+    //   }
+    // });
   },
 
   /**

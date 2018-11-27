@@ -11,7 +11,8 @@
     "pages/account/register/registerTwo",
     "pages/center/userInfo/changePhone/changePhone",
     "pages/center/userInfo/changePassword/changePassword",
-    "pages/center/userInfo/changePassword/resetPassword/resetPassword"
+    "pages/center/userInfo/changePassword/resetPassword/resetPassword",
+    "pages/center/businessCard/businessCard"
   ],
   "window": {
     "backgroundTextStyle": "light",

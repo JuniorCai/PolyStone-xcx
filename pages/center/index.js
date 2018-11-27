@@ -16,17 +16,23 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let promise = app.getUserInfo();
-    promise.then(result => {
-      if (result) {
-        app.globalData.isUserChange = false;
+    // let promise = app.getUserInfo();
+    // promise.then(result => {
+    //   if (result) {
+    //     app.globalData.isUserChange = false;
 
+    //     this.setData({
+    //       hasUserInfo: app.globalData.hasUserInfo,
+    //       userInfo: app.globalData.userInfo
+    //     })
+    //   }
+    // });
+    if (app.globalData.hasUserInfo && app.globalData.userInfo){
         this.setData({
           hasUserInfo: app.globalData.hasUserInfo,
           userInfo: app.globalData.userInfo
         })
-      }
-    });
+    }
   },
 
   /**

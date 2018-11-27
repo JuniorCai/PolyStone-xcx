@@ -1,0 +1,5 @@
+.userinfo-avatar {
+  height: 80rpx;
+  width: 80rpx;
+  border-radius: 50%;
+}
