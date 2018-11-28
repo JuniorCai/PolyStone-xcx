@@ -4,7 +4,7 @@
   <view class='form-login-body'>
     <view class='phoneBlock'>
       <label class='iconfont icon-shouji' ></label>
-      <input id='phone' class='input-normal' name='phone' type='number' placeholder='手机号' bindblur='onCheckInput' bindinput='phoneInput' disabled='{{countDownDisabled}}'></input>
+      <input id='phone' class='input-normal' name='phone' type='number' placeholder='手机号' bindblur='onCheckInput' bindinput='phoneInput' ></input>
     </view>
     <view class='authBlock'>
       <label class='iconfont icon-yanzhengma' ></label>

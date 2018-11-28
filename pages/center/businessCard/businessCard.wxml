@@ -7,15 +7,15 @@
     </van-cell>
     <van-cell title="姓名" is-link bindclick="onChangeName" value="{{userInfo.name==''?userInfo.userName:userInfo.name}}"/>
     <van-cell title="手机号"   value="{{phoneNumberMix}}"/>
-    <van-cell title="微信号" is-link  bindclick="onBindWeiXin" value="{{userInfo.nickName}}"/>
+    <van-cell title="微信号" is-link  bindclick="onChangeWx" value="{{businessCard.wxNumber}}"/>
 
   </van-cell-group>
 </view>
 <view class='areaListBlock'>
    <van-cell-group>
-    <van-cell title="企业名称" is-link url="changePhone/changePhone"  value="{{phoneNumberMix}}"/>
-    <van-cell title="职位" is-link url="changePassword/changePassword" border="{{false}}" />
-    <van-cell title="个人简介" is-link url="changePassword/changePassword" border="{{false}}" />
+    <van-cell title="企业名称" is-link bindclick="onChangeCompanyName" value="{{businessCard.companyName}}"/>
+    <van-cell title="职位" is-link bindclick="onChangePosition" value="{{businessCard.position}}" />
+    <van-cell title="个人简介" is-link value="{{businessCard.introduction}}" border="{{false}}" />
   </van-cell-group>
 </view>
 <van-toast id="van-toast" />
@@ -37,6 +37,25 @@
 />
 </van-dialog>
 
+<!-- 修改微信号弹窗 -->
+<van-dialog
+  use-slot
+  async-close
+  title="修改微信号"
+  show="{{ showWxDialog }}"
+  show-cancel-button
+  bind:close="onWxClose"
+  bind:confirm="onWxConfirm"
+>
+<van-field
+  value="{{ businessCard.WxNumber }}"
+  label="微信号"
+  placeholder="请输入微信号"
+  bindinput="onBindWx"
+/>
+</van-dialog>
+
+
 <!-- 修改企业名称弹窗 -->
 <van-dialog
   use-slot
@@ -48,10 +67,10 @@
   bind:confirm="onCompanyNameConfirm"
 >
 <van-field
-  value="{{ userInfo.nickName }}"
+  value="{{ businessCard.companyName }}"
   label="企业名称"
   placeholder="请输入企业名称"
-  bindinput="onBindNickName"
+  bindinput="onBindCompanyName"
 />
 </van-dialog>
 
@@ -66,7 +85,7 @@
   bind:confirm="onPositionConfirm"
 >
 <van-field
-  value="{{ userInfo.nickName }}"
+  value="{{ businessCard.position }}"
   label="企业名称"
   placeholder="请输入企业名称"
   bindinput="onBindPosition"

@@ -13,12 +13,15 @@ Page({
    */
   data: {
     userInfo:{},
+    businessCard:{},
     hasUserInfo:false,
     phoneNumberMix:"",
     showNameDialog:false,
     showCompanyNameDialog:false,
     showPositionDialog:false,
+    showWxDialog:false,
     tempName:"",
+    tempWxNumber:"",
     tempCompanyName:"",
     tempPosition:"",
     tempIntroduction:""
@@ -34,6 +37,15 @@ Page({
         userInfo: app.globalData.userInfo,
         phoneNumberMix: app.globalData.userInfo.phoneNumber.substr(0, 3) + "****" + app.globalData.userInfo.phoneNumber.substr(8, 4)
       });
+      var requestHelper = new RequestHelper(true);
+      requestHelper.postRequest('/api/services/app/businessCard/GetBusinessCardByUserId?userId='+this.data.userInfo.id,"").then(res=>{
+        if(res.data.success){
+          this.setData({
+            businessCard:res.data.result
+          });
+        }
+      });
+
 
     } else if (!this.data.hasUserInfo && !app.globalData.hasUserInfo) {
       wx.redirectTo({
@@ -103,7 +115,6 @@ Page({
     this.setData({ showNameDialog: false });
   },
   onNameConfirm:function(){
-    
     var that = this;
     if (that.data.tempName.trim()==""){
       Toast.loading({
@@ -138,5 +149,110 @@ Page({
         url: '../../account/login/login',
       })
     }
+  },
+  postSubmit:function(cardModel){
+    var that = this;
+    return new Promise((resolve,reject)=>{
+      var requestHelper = new RequestHelper(true);
+      requestHelper.setErrorHandler(this.requestRrrorHandler);
+      requestHelper.postRequest('/api/services/app/businessCard/UpdateBusinessCard', cardModel).then(res => {
+        if (res.data.success) {
+          that.setData({ businessCard: cardModel });
+          resolve(true);
+          //Toast.success("保存成功");
+        } else {
+          Toast.loading({
+            duration: 1500,
+            mask: true,
+            message: "保存失败"
+          })
+        }
+      });
+    });
+    
+  },
+  onChangeCompanyName: function () {
+    this.setData({
+      showCompanyNameDialog: true
+    })
+  },
+  onBindCompanyName: function (e) {
+    this.setData({ tempCompanyName: e.detail });
+  },
+  onCompanyNameClose: function () {
+    this.setData({ showCompanyNameDialog: false });
+  },
+  onCompanyNameConfirm:function(){
+    var that = this;
+    if (that.data.tempCompanyName.trim() == "") {
+      Toast.loading({
+        duration: 1500,
+        mask: true,
+        message: "未填写企业名称"
+      })
+      return;
+    }
+    var tempCard = that.data.businessCard;
+    tempCard.companyName = that.data.tempCompanyName.trim();
+    this.postSubmit(tempCard).then(res=>{
+      if(res)
+        this.setData({ showNameDialog: false });
+    })
+  },
+  onChangePosition: function () {
+    this.setData({
+      showPositionDialog: true
+    })
+  },
+  onBindPosition: function (e) {
+    this.setData({ tempPosition: e.detail });
+  },
+  onPositionClose: function () {
+    this.setData({ showPositionDialog: false });
+  },
+  onPositionConfirm:function(){
+    var that = this;
+    if (that.data.tempPosition.trim() == "") {
+      Toast.loading({
+        duration: 1500,
+        mask: true,
+        message: "未填写职位名称"
+      })
+      return;
+    }
+    var tempCard = that.data.businessCard;
+    tempCard.position = that.data.tempPosition.trim();
+    this.postSubmit(tempCard).then(res => {
+      if (res)
+        this.setData({ showPositionDialog: false });
+    })
+  },
+  onChangeWx: function () {
+    this.setData({
+      showWxDialog: true
+    })
+  },
+  onBindWx: function (e) {
+    this.setData({ tempWxNumber: e.detail });
+  },
+  onWxClose: function () {
+    this.setData({ showWxDialog: false });
+  },
+  onWxConfirm:function(){
+    var that = this;
+    if (that.data.tempWxNumber.trim() == "") {
+      Toast.loading({
+        duration: 1500,
+        mask: true,
+        message: "未填写职位名称"
+      })
+      return;
+    }
+    var tempCard = that.data.businessCard;
+    tempCard.wxNumber = that.data.tempWxNumber.trim();
+    this.postSubmit(tempCard).then(res => {
+      if (res)
+        this.setData({ showWxDialog: false });
+    })
   }
 })

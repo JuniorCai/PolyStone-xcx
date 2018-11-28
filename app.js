@@ -5,7 +5,6 @@ var config = require("/utils/config.js")
 //app.js
 App({
   onLaunch: function () {
-    this.getUserInfo();
     // 展示本地存储能力
     // var logs = wx.getStorageSync('logs') || []
     // logs.unshift(Date.now())
