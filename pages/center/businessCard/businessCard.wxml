@@ -15,7 +15,7 @@
    <van-cell-group>
     <van-cell title="企业名称" is-link bindclick="onChangeCompanyName" value="{{businessCard.companyName}}"/>
     <van-cell title="职位" is-link bindclick="onChangePosition" value="{{businessCard.position}}" />
-    <van-cell title="个人简介" is-link value="{{businessCard.introduction}}" border="{{false}}" />
+    <van-cell title="个人简介" is-link url='introduction/introduction' value="{{businessCard.introduction}}" border="{{false}}" />
   </van-cell-group>
 </view>
 <van-toast id="van-toast" />

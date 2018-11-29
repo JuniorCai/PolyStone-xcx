@@ -1,0 +1,8 @@
+<form>
+  <view class='form-body'>
+    <textarea name='introduction' maxlength='200' bindinput='onBindIntroductionInput' bindconfirm='confirmIntroduction' placeholder='填写个人简介，字数控制在200字以内' />
+  </view>
+  <view class='form-footer'>
+    <button  class='{{disabled?"btn-disable btn-submit":"btnColor-normal btn-submit"}}' form-type='submit' disabled='{{disabled}}'  size='default'>确认</button>
+  </view>
+</form>

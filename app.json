@@ -12,7 +12,8 @@
     "pages/center/userInfo/changePhone/changePhone",
     "pages/center/userInfo/changePassword/changePassword",
     "pages/center/userInfo/changePassword/resetPassword/resetPassword",
-    "pages/center/businessCard/businessCard"
+    "pages/center/businessCard/businessCard",
+    "pages/center/businessCard/introduction/introduction"
   ],
   "window": {
     "backgroundTextStyle": "light",
