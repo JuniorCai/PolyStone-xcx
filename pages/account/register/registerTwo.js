@@ -99,8 +99,14 @@ Page({
     if (regCheck.checkUserNameReg(that.data.account.userName) && regCheck.checkPasswordReg(that.data.account.password)){
       var requestHelper = new RequestHelper(false);
       requestHelper.postRequest('/api/services/app/user/IsUserNameExist?userName=' + that.data.account.userName, "").then(res => {
-        if (res) {
+        if (res.result==null) {
           that.postRegister();
+        }else{
+          wx.showToast({
+            title: '该用户名已被使用',
+            icon: "none",
+            duration: 1500
+          })
         }
       });
     }

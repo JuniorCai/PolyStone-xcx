@@ -254,5 +254,27 @@ Page({
       if (res)
         this.setData({ showWxDialog: false });
     })
+  },
+  onBindIntroduction:function(e){
+    if(e.detail.trim().length<=200){
+      this.setData({ tempIntroduction: e.detail });
+    }
+  },
+  onIntroductionConfirm:function(){
+    var that = this;
+    if (that.data.tempIntroduction.trim().length > 200) {
+      Toast.loading({
+        duration: 1500,
+        mask: true,
+        message: "个人简介限制在200字以内"
+      })
+      return;
+    }
+    var tempCard = that.data.businessCard;
+    tempCard.introduction = that.data.tempIntroduction.trim();
+    this.postSubmit(tempCard).then(res => {
+      if (!res)
+        Toast.fail("保存失败")
+    })
   }
 })
