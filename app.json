@@ -1,5 +1,6 @@
 {
   "pages": [
+        "pages/center/collections/list",
     "pages/center/index",
     "pages/center/userInfo/userInfo",
     "pages/account/login/login",

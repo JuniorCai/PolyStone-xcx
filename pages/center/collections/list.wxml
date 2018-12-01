@@ -1,0 +1,6 @@
+<van-tabs active="{{ active }}" bind:change="onTabChange">
+  <van-tab title="标签 1">产品</van-tab>
+  <van-tab title="标签 2">企业</van-tab>
+  <van-tab title="标签 3">供应</van-tab>
+  <van-tab title="标签 4">求购</van-tab>
+</van-tabs>
