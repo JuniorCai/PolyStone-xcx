@@ -11,7 +11,7 @@
     <view class='iconfont icon-mingpian' style='color:#FF9800;font-size:28px;'></view>
     <text class='quickNavTxt'>我的名片</text>
   </navigator>
-  <navigator class='quickNav'>
+  <navigator class='quickNav' url='collections/list'>
     <view class='iconfont icon-shoucang1' style='color:#27AEFE;font-size:28px;'></view>
     <text class='quickNavTxt'>收藏</text>
   </navigator>

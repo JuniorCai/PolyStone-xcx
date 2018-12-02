@@ -1,6 +1,31 @@
 <van-tabs active="{{ active }}" bind:change="onTabChange">
-  <van-tab title="标签 1">产品</van-tab>
-  <van-tab title="标签 2">企业</van-tab>
-  <van-tab title="标签 3">供应</van-tab>
-  <van-tab title="标签 4">求购</van-tab>
+  <van-tab title="{{item.name}}" code="{{item.id}}" wx:for="{{moduleList}}" wx:key="{{item.id}}">
+    <view class="tabListLoadingContainer" hidden='{{loadingHide}}'>
+      <van-loading type="spinner" custom-class=""/>
+    </view>
+    <block wx:if="{{item.name=='产品'}}">
+      <van-swipe-cell right-width="{{65}}" wx:for="{{resultList.items}}" wx:for-item="collection" wx:key="{{collection.id}}">
+        <van-card 
+          title="{{collection.title}}"
+          thumb="{{collection.company.logo}}"
+        />
+        <view slot="right" class='van-swipe-cell__right'>删除</view>
+      </van-swipe-cell>
+    </block>
+    <block wx:elif="{{item.name=='企业'}}">
+      <van-swipe-cell right-width="{{65}}" wx:for="{{resultList.items}}" wx:for-item="collection" wx:key="{{collection.id}}">
+        <van-card 
+          title="{{collection.title}}"
+          thumb="{{collection.company.logo}}"
+          desc="主营：{{collection.company.business}}"
+        />
+        <view slot="right" class='van-swipe-cell__right'>删除</view>
+      </van-swipe-cell>
+    </block>
+  </van-tab>
+  <!-- <van-tab title="企业">
+    企业
+  </van-tab>
+  <van-tab title="供应">供应</van-tab>
+  <van-tab title="求购">求购</van-tab> -->
 </van-tabs>

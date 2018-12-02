@@ -2,6 +2,8 @@
   "navigationBarTitleText": "收藏列表",
   "usingComponents": {
     "van-tab": "../../../customComponent/VantWeapp/tab/index",
-    "van-tabs": "../../../customComponent/VantWeapp/tabs/index"
+    "van-tabs": "../../../customComponent/VantWeapp/tabs/index",
+    "van-card": "../../../customComponent/VantWeapp/card/index",
+    "van-swipe-cell": "../../../customComponent/VantWeapp/swipe-cell/index"
   }
 }
