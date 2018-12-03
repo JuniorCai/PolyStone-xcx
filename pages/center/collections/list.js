@@ -1,6 +1,6 @@
 import Toast from "../../../customComponent/VantWeapp/toast/toast";
 import RequestHelper from "../../../utils/request.js";
-
+import Dialog from '../../../customComponent/VantWeapp/dialog/dialog';
 var config = require("../../../utils/config.js")
 
 const app = getApp()
@@ -141,5 +141,24 @@ Page({
         })
       }
     });
+  },
+  onDeleteCell:function(e){
+    var detail = e.detail;
+    var that = this;
+    switch(detail.position){
+      case 'right':
+        var index = detail.instance.dataset.index;
+        var item = this.data.resultList.items[index];
+        var tempList = this.data.resultList.items;
+        tempList.splice(index, 1);
+        that.setData({
+          "resultList.items": tempList
+        });
+        detail.instance.close();
+        break;
+    }
+  },
+  postDeleteCollection:function(collectionId){
+
   }
 })
