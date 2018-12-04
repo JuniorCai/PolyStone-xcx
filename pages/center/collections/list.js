@@ -149,16 +149,23 @@ Page({
       case 'right':
         var index = detail.instance.dataset.index;
         var item = this.data.resultList.items[index];
-        var tempList = this.data.resultList.items;
-        tempList.splice(index, 1);
-        that.setData({
-          "resultList.items": tempList
-        });
+        that.postDeleteCollection(index,item.id);
         detail.instance.close();
         break;
     }
   },
-  postDeleteCollection:function(collectionId){
-
+  postDeleteCollection:function(index,collectionId){
+    var that = this;
+    var tempList = this.data.resultList.items;
+    var requestHelper = new RequestHelper(true);
+    requestHelper.postRequest('/api/services/app/collection/DeleteCollection', { id: collectionId}).then(res => {
+      if (res.data.result) {
+        tempList.splice(index, 1);
+        that.setData({
+          "resultList.items": tempList
+        });
+      }
+      
+    });
   }
 })
