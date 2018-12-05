@@ -142,6 +142,15 @@ Page({
       }
     });
   },
+  requestErrorHandler:function(res){
+    if (res.statusCode === 401){
+      wx.redirectTo({
+        url: '../../account/login/login',
+      })
+    }else{
+      Toast.fail("程序未知错误");
+    }
+  },
   onDeleteCell:function(e){
     var detail = e.detail;
     var that = this;
