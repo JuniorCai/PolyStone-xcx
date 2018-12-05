@@ -14,7 +14,7 @@
         bindclose="onDeleteCell">
         <van-card 
           title="{{collection.title}}"
-          thumb="{{collection.company.logo}}"
+          thumb="{{collection.product.coverPhoto}}"
         />
         <view slot="right" class='van-swipe-cell__right'>删除</view>
       </van-swipe-cell>
