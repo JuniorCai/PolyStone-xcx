@@ -1,0 +1,20 @@
+
+.areaListBlock.communityBody{
+  margin-left: 20rpx;
+  margin-right: 20rpx;
+}
+
+.communityPhoto{
+  margin:20rpx
+}
+
+.communityPhoto button{
+    border: none;
+}
+
+.addBtn{
+  float:left;
+  width:90rpx;
+  height:90rpx;
+  padding: 0 
+}

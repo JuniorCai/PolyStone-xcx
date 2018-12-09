@@ -1,0 +1,38 @@
+<form>
+  <view class='areaListBlock communityBody'>
+    <textarea
+      class=""
+      value="{{ value }}"
+      disabled="{{ disabled || readonly }}"
+      maxlength="{{ maxlength }}"
+      auto-height="{{ autosize }}"
+      placeholder="输入需求信息"
+      cursor-spacing="{{ cursorSpacing }}"
+      bindinput="onInput"
+      bind:blur="onBlur"
+      bind:focus="onFocus"
+      bind:confirm="onConfirm"
+    />
+  </view>
+  <view class="communityPhoto clearfix">
+    <image 
+      wx:for="{{imgUrls}}"
+      wx:for-item="img"
+      src="img" 
+      style='width:90rpx;height: 90rpx;'
+    />
+    <button plain='true'  class="addBtn" bindtap="chooseImg">
+      <image mode="aspectFit" style='width:90rpx;height: 90rpx;' src="../../../../content/images/add.png" />
+    </button>
+  </view>
+  <view class='areaListBlock'>
+    <van-cell-group>
+      <van-cell icon="location" title="所在位置" value="{{region.regionName}}">
+    </van-cell>
+    </van-cell-group>
+  </view>
+  <view class='form-footer'>
+    <button  class='{{disabled?"btn-disable btn-submit":"btnColor-normal btn-submit"}}' form-type='submit' disabled='{{disabled}}'          size='default'>保存</button>
+  </view>
+</form>
+    

@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'iconfont';  /* project id 891189 */
-  src: url('//at.alicdn.com/t/font_891189_qwez0s633qp.eot');
-  src: url('//at.alicdn.com/t/font_891189_qwez0s633qp.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_891189_qwez0s633qp.woff') format('woff'),
-  url('//at.alicdn.com/t/font_891189_qwez0s633qp.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_891189_qwez0s633qp.svg#iconfont') format('svg');
+  src: url('//at.alicdn.com/t/font_891189_gmlzunxb0x.eot');
+  src: url('//at.alicdn.com/t/font_891189_gmlzunxb0x.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_891189_gmlzunxb0x.woff') format('woff'),
+  url('//at.alicdn.com/t/font_891189_gmlzunxb0x.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_891189_gmlzunxb0x.svg#iconfont') format('svg');
 }
 
 
@@ -16,6 +16,7 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-add:before { content: "\e656"; }
 
 .icon-shoucang1:before { content: "\e600"; }
 

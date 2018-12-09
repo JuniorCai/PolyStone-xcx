@@ -4,6 +4,10 @@ page{
   background-color: #F5F5F5
 }
 
+.clearfix {
+  overflow: auto;
+  _height: 1%;
+}
 .container {
   height: 100%;
   display: flex;
@@ -61,10 +65,10 @@ form .btn-submit{
 
 .areaListBlock{
   margin-top: 20rpx;
+  background-color: #ffffff;
 }
 
 .areaListBlock .listBody{
-  background-color: #ffffff;
   line-height: 44rpx;
   /* width: 100%; */
   padding: 20rpx;

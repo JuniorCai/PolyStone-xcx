@@ -27,7 +27,7 @@
 <view class='areaListBlock'>
   <van-cell-group>
     <van-cell title="圈子列表" is-link url="" />
-    <van-cell title="发布供求" is-link url=""  />
+    <van-cell title="发布供求" is-link url='communities/publish/index'  />
   </van-cell-group>
 </view>
 <view class='areaListBlock'>
