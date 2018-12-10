@@ -4,6 +4,20 @@
   margin-right: 20rpx;
 }
 
+.contentInfo{
+  font-size: 48rpx;
+  padding: 10rpx;
+  width: 97%;
+  position: relative
+}
+
+.contentInfo .countWordsNumber{
+  position: absolute;
+  bottom: 8rpx;
+  right: 40rpx;
+  color:#e6e6e6;
+  font-size: 32rpx;
+}
 .communityPhoto{
   margin:20rpx
 }

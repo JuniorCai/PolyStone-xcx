@@ -1,6 +1,7 @@
 import request from "/utils/request.js"
 
-var config = require("/utils/config.js") 
+var config = require("/utils/config.js");
+var cache = require("/utils/cache.js");
 
 //app.js
 App({
@@ -39,7 +40,8 @@ App({
   },
   getUserInfo:function(){
     var app = this;
-    var token = wx.getStorageSync('ticketToken');
+    //var token = wx.getStorageSync('ticketToken');
+    var token = cache.getStorageSync('ticketToken')
     return new Promise(function (resolve, reject) {
       if(token.length>0){
         var bearerToken = 'Bearer ' + token;

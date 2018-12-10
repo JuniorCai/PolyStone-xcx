@@ -1,7 +1,9 @@
 import RequestHelper from "../../../utils/request.js";
 import RegCheck from "../../../utils/regCheck.js";
 
-var config = require("../../../utils/config.js") 
+var config = require("../../../utils/config.js");
+var cache = require("../../../utils/cache.js");
+
 const regCheck = new RegCheck;
 
 const app = getApp();
@@ -115,7 +117,8 @@ Page({
     var requestHelper = new RequestHelper(false);
     requestHelper.postRequest('/api/Account/Register', this.data.account).then(res=>{
       if (res.data.success) {
-        wx.setStorageSync('ticketToken', res.data.result)
+        cache.setStorageSync('ticketToken', res.data.result,30);
+        // wx.setStorageSync('ticketToken', res.data.result)
         var bearerToken = 'Bearer ' + res.data.result;
         wx.request({
           url: config.baseHost.requestHost + '/api/Account/GetCurrentUserInfo',

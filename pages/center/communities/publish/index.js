@@ -1,4 +1,5 @@
 import RequestHelper from "../../../../utils/request.js";
+import Toast from "../../../../customComponent/VantWeapp/toast/toast";
 
 const app = getApp()
 
@@ -10,13 +11,17 @@ Page({
    */
   data: {
     loadingHide: true,
+    numberLimit:200,
+    inputNumber:0,
     userInfo: {},
     region:{
       regionId:"",
       regionName:""
     },
+    communityInfo:{},
     imgUrls:[],
     chooseCategory:{},
+    chooseIndex:0,
     communityCategoryList:{}
   },
 
@@ -29,10 +34,10 @@ Page({
         userInfo: app.globalData.userInfo,
       });
       var requestHelper = new RequestHelper(true);
-      requestHelper.postRequest('/api/services/app/businessCard/GetBusinessCardByUserId?userId=' + this.data.userInfo.id, "").then(res => {
+      requestHelper.postRequest('/api/services/app/communityCategory/GetPagedCommunityCategorys', { filterText:""}).then(res => {
         if (res.data.success) {
           this.setData({
-            businessCard: res.data.result
+            communityCategoryList: res.data.result.items
           });
         }
       });
@@ -156,5 +161,13 @@ Page({
 
       }
     });
+  },
+  onInput:function(e){
+    var detail = e.detail.value;
+    var inputLength = detail.length;
+    this.setData({ inputNumber: inputLength});
+    if (inputLength>this.data.numberLimit){
+      Toast("需求内容控制在200字符以内");
+    }
   }
 })

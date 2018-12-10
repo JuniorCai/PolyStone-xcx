@@ -1,18 +1,19 @@
 <form>
   <view class='areaListBlock communityBody'>
     <textarea
-      class=""
-      value="{{ value }}"
-      disabled="{{ disabled || readonly }}"
-      maxlength="{{ maxlength }}"
-      auto-height="{{ autosize }}"
+      class="contentInfo"
+      value="{{ communityInfo.detail }}"
+      maxlength="{{numberLimit}}"
       placeholder="输入需求信息"
-      cursor-spacing="{{ cursorSpacing }}"
       bindinput="onInput"
       bind:blur="onBlur"
       bind:focus="onFocus"
       bind:confirm="onConfirm"
-    />
+    >
+    <text class="countWordsNumber">
+      {{inputNumber}}/{{numberLimit}}
+    </text>
+    </textarea>
   </view>
   <view class="communityPhoto clearfix">
     <image 
@@ -28,11 +29,23 @@
   <view class='areaListBlock'>
     <van-cell-group>
       <van-cell icon="location" title="所在位置" value="{{region.regionName}}">
-    </van-cell>
+      </van-cell>
+      <van-cell  title="选择发布类别" is-link value="{{chooseCategory.categoryName}}">
+      </van-cell>
     </van-cell-group>
   </view>
   <view class='form-footer'>
     <button  class='{{disabled?"btn-disable btn-submit":"btnColor-normal btn-submit"}}' form-type='submit' disabled='{{disabled}}'          size='default'>保存</button>
   </view>
+  <picker mode="selector"
+   range='{{communityCategoryList}}'
+   range-key='categoryName'
+   bindchange='chooseCategory'
+  bindcancel='closeCategory'
+
+   value='{{chooseIndex}}'
+   >
+  
+  </picker>
 </form>
     

@@ -1,6 +1,7 @@
 import RequestHelper from "../../../utils/request.js";
 
 var config = require("../../../utils/config.js");
+var cache = require("../../../utils/cache.js");
 
 const app = getApp();
 
@@ -125,7 +126,8 @@ Page({
       var loginRequestHelper = new RequestHelper(false);
       loginRequestHelper.postRequest('/api/Account/Authenticate', this.data.loginModel).then(res=>{
         if (res.data.success) {
-          wx.setStorageSync('ticketToken', res.data.result)
+          cache.setStorageSync('ticketToken', res.data.result,30);
+          //wx.setStorageSync('ticketToken', res.data.result)
           var bearerToken = 'Bearer ' + res.data.result;
           wx.request({
             url: config.baseHost.requestHost + '/api/Account/GetCurrentUserInfo',
