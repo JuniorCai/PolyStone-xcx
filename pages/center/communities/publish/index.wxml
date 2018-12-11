@@ -16,13 +16,15 @@
     </textarea>
   </view>
   <view class="communityPhoto clearfix">
-    <image 
+    <image class="thumbImg"
       wx:for="{{imgUrls}}"
       wx:for-item="img"
-      src="img" 
-      style='width:90rpx;height: 90rpx;'
-    />
-    <button plain='true'  class="addBtn" bindtap="chooseImg">
+      wx:for-index="thumbIndex"
+      src="{{img}}" 
+    >
+      <view class="image_Badge" data-thumbIndex='{{thumbIndex}}' bindtap='onDeleteThumb'>×</view>
+    </image>
+    <button plain='true' hidden='{{uploadBtnHide}}' class="addBtn" bindtap="chooseImg">
       <image mode="aspectFit" style='width:90rpx;height: 90rpx;' src="../../../../content/images/add.png" />
     </button>
   </view>
@@ -30,22 +32,22 @@
     <van-cell-group>
       <van-cell icon="location" title="所在位置" value="{{region.regionName}}">
       </van-cell>
-      <van-cell  title="选择发布类别" is-link value="{{chooseCategory.categoryName}}">
-      </van-cell>
+      <picker mode="selector"
+        range='{{communityCategoryList}}'
+        range-key='categoryName'
+        bindchange='chooseCategory'
+        bindcancel='closeCategory'
+        value='{{chooseIndex}}'
+        >
+        <van-cell  title="选择发布类别" is-link value="{{chooseCategory.categoryName}}">
+        </van-cell>
+      </picker>
+      
     </van-cell-group>
   </view>
   <view class='form-footer'>
     <button  class='{{disabled?"btn-disable btn-submit":"btnColor-normal btn-submit"}}' form-type='submit' disabled='{{disabled}}'          size='default'>保存</button>
   </view>
-  <picker mode="selector"
-   range='{{communityCategoryList}}'
-   range-key='categoryName'
-   bindchange='chooseCategory'
-  bindcancel='closeCategory'
-
-   value='{{chooseIndex}}'
-   >
   
-  </picker>
 </form>
     
