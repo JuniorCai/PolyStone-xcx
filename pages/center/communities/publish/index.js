@@ -186,7 +186,12 @@ Page({
     });
   },
   onDeleteThumb:function(e){
-
+    var deleteIndex = e.currentTarget.dataset.thumbindex;
+    var tempImgUrls = this.data.imgUrls;
+    tempImgUrls.splice(deleteIndex,1);
+    this.setData({
+      imgUrls:tempImgUrls
+    })
   },
   onInput:function(e){
     var detail = e.detail.value;

@@ -1,0 +1,39 @@
+.uploadImgBlock{
+  margin:20rpx
+}
+
+.uploadImgBlock button{
+    border: none;
+}
+
+.uploadImgBlock .thumbImg{
+  position: relative;
+  width:90rpx;
+  height: 90rpx;
+  margin: 0 10rpx;
+}
+
+.image_Badge{
+  position:absolute;
+  top:0;
+  right:0;
+  color:#fff;
+  font-size:28rpx;
+  font-weight:500;
+  -webkit-transform:scale(.8);
+  transform:scale(.8);
+  text-align:center;
+  box-sizing:border-box;
+  min-width:18px;
+  line-height:18px;
+  border-radius:9px;
+  background-color:#f44;
+}
+
+
+.addBtn{
+  float:left;
+  width:90rpx;
+  height:90rpx;
+  padding: 0 
+}

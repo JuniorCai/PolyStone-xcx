@@ -21,6 +21,7 @@
       wx:for-item="img"
       wx:for-index="thumbIndex"
       src="{{img}}" 
+      mode="aspectFit"
     >
       <view class="image_Badge" data-thumbIndex='{{thumbIndex}}' bindtap='onDeleteThumb'>×</view>
     </image>
