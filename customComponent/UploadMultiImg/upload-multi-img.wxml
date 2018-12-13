@@ -1,14 +1,14 @@
-<view class="communityPhoto clearfix">
-    <image class="thumbImg"
-      wx:for="{{imgUrls}}"
-      wx:for-item="img"
-      wx:for-index="thumbIndex"
-      src="{{img}}" 
-      mode="aspectFit"
-    >
-      <view class="image_Badge" data-thumbIndex='{{thumbIndex}}' bindtap='onDeleteThumb'>×</view>
-    </image>
-    <button plain='true' hidden='{{uploadBtnHide}}' class="addBtn" bindtap="chooseImg">
-      <image mode="aspectFit" style='width:90rpx;height: 90rpx;' src="../../../../content/images/add.png" />
-    </button>
-  </view>
+<view class="uploadImgBlock clearfix">
+  <image class="thumbImg"
+    wx:for="{{thumbList}}"
+    wx:for-item="img"
+    wx:for-index="thumbIndex"
+    src="{{img}}" 
+    mode="aspectFit"
+  >
+    <view class="image_Badge" data-thumbIndex='{{thumbIndex}}' bindtap='_onDeleteThumb'>×</view>
+  </image>
+  <button plain='true' hidden='{{addBtnHide}}' class="addBtn" bindtap="_chooseImg">
+    <image mode="aspectFit" style='width:90rpx;height: 90rpx;' src="../../content/images/add.png" />
+  </button>
+</view>

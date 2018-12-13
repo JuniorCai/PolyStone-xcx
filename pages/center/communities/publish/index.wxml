@@ -15,7 +15,10 @@
     </text>
     </textarea>
   </view>
-  <view class="communityPhoto clearfix">
+  <upload-multi-img thumb-list="{{imgUrls}}" bind:afteradd="onAfterChange" bind:afterminus="onAfterChange">
+
+  </upload-multi-img>
+  <!-- <view class="communityPhoto clearfix">
     <image class="thumbImg"
       wx:for="{{imgUrls}}"
       wx:for-item="img"
@@ -28,7 +31,7 @@
     <button plain='true' hidden='{{uploadBtnHide}}' class="addBtn" bindtap="chooseImg">
       <image mode="aspectFit" style='width:90rpx;height: 90rpx;' src="../../../../content/images/add.png" />
     </button>
-  </view>
+  </view> -->
   <view class='areaListBlock'>
     <van-cell-group>
       <van-cell icon="location" title="所在位置" value="{{region.regionName}}">

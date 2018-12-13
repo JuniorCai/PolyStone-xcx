@@ -1,3 +1,7 @@
+.clearfix {
+  overflow: auto;
+  _height: 1%;
+}
 .uploadImgBlock{
   margin:20rpx
 }

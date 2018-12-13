@@ -1,3 +1,6 @@
 {
-  "navigationBarTitleText": "圈子发布"
+  "navigationBarTitleText": "圈子发布",
+  "usingComponents":{
+    "upload-multi-img":"../../../../customComponent/UploadMultiImg/upload-multi-img"
+  }
 }

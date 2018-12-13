@@ -10,7 +10,9 @@ var config =
       resetPassword:2,
       changePhoneNumber:3,
       other:4
-    }
+    },
+    communityUploadImgLimit:6,
+    uploadImgSizeLimit: 1048576
 
 };
 

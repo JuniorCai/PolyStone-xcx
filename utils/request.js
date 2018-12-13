@@ -1,4 +1,5 @@
 var config = require("/config.js") 
+var cache = require("/cache.js") 
 
 /**
  * description: request处理基础类
@@ -16,7 +17,7 @@ class request {
   }
 
   _getBearerHeader(){
-    var token = wx.getStorageSync('ticketToken');
+    var token = cache.getStorageSync('ticketToken');
     var bearerToken = 'Bearer ' + token;
     return {
       'Content-Type': 'application/json',
