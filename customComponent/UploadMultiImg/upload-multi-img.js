@@ -1,5 +1,5 @@
 import UploadHelper from "../../utils/uploadHelper.js";
-
+import Toast from "../../customComponent/VantWeapp/toast/toast";
 var config = require("../../utils/config.js");
 var cache = require("../../utils/cache.js");
 Component({
@@ -59,15 +59,6 @@ Component({
             });
 
             that._upload(tempFiles);
-            // var uploadHelper = new UploadHelper(res.tempFiles);
-            // uploadHelper.upload();
-
-
-            var eventDetail = {thumbList:that.data.thumbList} 
-            var eventOption = {} 
-            that._triggerEvent("afteradd", eventDetail, eventOption);
-
-
           }
 
         },
@@ -83,9 +74,12 @@ Component({
     _onDeleteThumb: function (e) {
       var deleteIndex = e.currentTarget.dataset.thumbindex;
       var tempImgUrls = this.data.thumbList.splice(0);
+      var tempFileList = this.data.imgFileList.splice(0);
       tempImgUrls.splice(deleteIndex, 1);
+      tempFileList.splice(deleteIndex,1);
       this.setData({
-        thumbList: tempImgUrls
+        thumbList: tempImgUrls,
+        imgFileList:tempFileList
       })
 
       var eventDetail = { thumbList: this.data.thumbList }
@@ -96,70 +90,64 @@ Component({
       this.triggerEvent(eventName, eventDetail, eventOption)
     },
     _upload: function (tempFiles) {
-      var tempServerPathList = this.data.thumbList.splice(0);
-      var flagCount = tempFiles.length;
+      var that = this;
+      var tempServerPathList = that.data.thumbList.concat();
       for (var i = 0; i < tempFiles.length; i++) {
-        if (this._checkFileSizeValid(tempFiles[i])) {
-          this._uploadFile(tempFiles[i]).then(res=>{
-            var info = JSON.parse(res.data);
-            if (info.result.success) {
-              flagCount--;
-              tempServerPathList[i] = info.result.msg;
-              tempFiles[i].success = true;
-              tempFiles[i].serverPath = info.result.msg;
-            } else {
-              tempFiles[i].success = false;
-              tempServerPathList[i] = "";
-              tempFiles[i].msg = info.result.msg;
-            }
-            that.setData({ imgFileList: tempFiles,
-              thumbList:tempServerPathList});
-          },error=>{
+        if (!tempFiles[i].uploadFlag){
+          if (that._checkFileSizeValid(tempFiles[i])) {
+            that._uploadFile(tempFiles, tempServerPathList, i);
+          } else {
             tempServerPathList[i] = "";
             tempFiles[i].success = false;
-            tempFiles[i].msg = "未登录或未知错误";
-            that.setData({ imgFileList: tempFiles ,thumbList: tempServerPathList});
-          })
-        } else {
-          tempFiles[i].success = false;
-          tempFiles[i].msg = "图片大小限制在1M以内";
-          this.setData({ imgFileList: tempFiles});
-        }
+            tempFiles[i].uploadFlag = true;
+            tempFiles[i].msg = "图片大小限制在1M以内";
+            that.setData({ imgFileList: tempFiles, thumbList: tempServerPathList });
+          }
+        }        
       }
-      return;
     },
-    _uploadFile: function (imgFile) {
+    _uploadFile: function (fileList,serverPathList,index) {
       var that = this;
       var token = cache.getStorageSync('ticketToken');
       var bearerToken = 'Bearer ' + token;
-      return new Promise(function(resolve,reject){
-        //这个是使用微信接口保存文件到数据库 
-        var uploadTask = wx.uploadFile({
-          url: that.data.uploadRequestUrl,
-          filePath: imgFile.path,
-          name: 'file',
-          header: {
-            'Content-Type': 'application/json',
-            'Authorization': bearerToken
-          },
-          success: function (res) {
-            if (res.statusCode == 200) {
-              resolve(res);
+      
+      //这个是使用微信接口保存文件到数据库 
+      var uploadTask = wx.uploadFile({
+        url: that.data.uploadRequestUrl,
+        filePath: fileList[index].path,
+        name: 'file',
+        header: {
+          'Content-Type': 'application/json',
+          'Authorization': bearerToken
+        },
+        success: function (res) {
+          fileList[index].uploadFlag = true;
+          if (res.statusCode == 200) {
+            var info = JSON.parse(res.data);
+            if (info.result.success) {
+              serverPathList[index] = info.result.msg;
+              fileList[index].success = true;
+              fileList[index].serverPath = info.result.msg;
             } else {
-              //未返回200处理
-              if (res.statusCode == 401) {
-                // Toast.loading({
-                //   duration: 5000,
-                //   mask: true,
-                //   message: "没有相关操作权限"
-                // })
-              }
+              fileList[index].success = false;
+              serverPathList[index] = "";
+              fileList[index].msg = info.result.msg;
             }
-          }, fail(res) {
-
+            that.setData({
+              imgFileList: fileList,
+              thumbList: serverPathList
+            });
+          } else {
+            //未返回200处理
+            serverPathList[index] = "";
+            fileList[index].success = false;
+            fileList[index].msg = "未登录或未知错误";
+            that.setData({ imgFileList: tempFiles, thumbList: serverPathList });
           }
-        });
-      })     
+        }, fail(res) {
+
+        }
+      });  
 
       // uploadTask.onProgressUpdate((res) => {
       //   fileList[index].progress = res.progress;
@@ -167,10 +155,29 @@ Component({
       // })
     },
     _checkFileSizeValid: function (file) {
-      if (file.size > config.uploadImgSizeLimit) {
+      if (config.uploadImgSizeLimit > 0 && file.size > config.uploadImgSizeLimit) {
         return false;
       }
       return true;
+    },
+    getUploadResult(){
+      var uploadResult={};
+      var errors=[];
+      var uploadFlag = true;
+      var uploadFileList = this.data.imgFileList.concat();
+      for(var index in uploadFileList){
+        var item = uploadFileList[index];
+        if(!item.uploadFlag){
+          uploadFlag = false;
+        }else if(!item.success){
+          errors.push(item.msg);
+        }
+      }
+      uploadResult.uploadFlag = uploadFlag;
+      uploadResult.uploadFiles = uploadFileList;
+      uploadResult.uploadFileServerPaths = this.data.thumbList.concat();
+      uploadResult.errors = errors;
+      return uploadResult;
     }
   }  
 })

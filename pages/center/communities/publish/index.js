@@ -25,7 +25,8 @@ Page({
     imgUrls:[],
     chooseCategory:{},
     chooseIndex:0,
-    communityCategoryList:{}
+    communityCategoryList:{},
+    uploadImgComonentObj:{}
   },
   requestRrrorHandler: function (res) {
     if (res.statusCode == 401) {
@@ -64,7 +65,8 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    var obj = this.selectComponent("#uploadImg");
+    this.setData({ uploadImgComonentObj: obj});
   },
 
   /**
@@ -211,5 +213,9 @@ Page({
     this.setData({
       chooseCategory:category
     })
+  },
+  submitCommunity:function(e){
+    var v = this.data.uploadImgComonentObj.getUploadResult();
+    var t = e;
   }
 })

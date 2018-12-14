@@ -32,8 +32,28 @@
   line-height:18px;
   border-radius:9px;
   background-color:#f44;
+  z-index: 9999
 }
 
+.upload_tip{
+  position:absolute;
+  top:0;
+  left:0;
+  opacity:0.7;
+  background-color:#000;
+  color:#fff;
+  width:90rpx;
+  height:90rpx;
+  text-align:center;
+  line-height:90rpx;
+  font-size:12px;
+}
+
+.remind{
+  margin:20rpx;
+  color: #3c3c3c;
+  font-size: 24rpx
+}
 
 .addBtn{
   float:left;
