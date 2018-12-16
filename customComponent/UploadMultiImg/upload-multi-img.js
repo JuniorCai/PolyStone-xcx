@@ -165,14 +165,19 @@ Component({
       var errors=[];
       var uploadFlag = true;
       var uploadFileList = this.data.imgFileList.concat();
-      for(var index in uploadFileList){
-        var item = uploadFileList[index];
-        if(!item.uploadFlag){
-          uploadFlag = false;
-        }else if(!item.success){
-          errors.push(item.msg);
+      if (uploadFileList.length>0){
+        for (var index in uploadFileList) {
+          var item = uploadFileList[index];
+          if (!item.uploadFlag) {
+            uploadFlag = false;
+          } else if (!item.success) {
+            errors.push(index + item.msg);
+          }
         }
+      }else{
+        errors.push("未上传图片");
       }
+      
       uploadResult.uploadFlag = uploadFlag;
       uploadResult.uploadFiles = uploadFileList;
       uploadResult.uploadFileServerPaths = this.data.thumbList.concat();

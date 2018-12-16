@@ -52,6 +52,6 @@
   <view class='form-footer'>
     <button  class='{{disabled?"btn-disable btn-submit":"btnColor-normal btn-submit"}}' form-type='submit' disabled='{{disabled}}'          size='default'>保存</button>
   </view>
-  
+  <van-toast id="van-toast" />
 </form>
     

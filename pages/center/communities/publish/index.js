@@ -21,9 +21,15 @@ Page({
       regionId:"",
       regionName:""
     },
-    communityInfo:{},
+    communityInfo:{
+      userId:0,
+      communityCategoryId:0,
+      title:"",
+      imgUrls:"",
+      detail:""
+    },
     imgUrls:[],
-    chooseCategory:{},
+    chooseCategory:null,
     chooseIndex:0,
     communityCategoryList:{},
     uploadImgComonentObj:{}
@@ -110,98 +116,15 @@ Page({
   onShareAppMessage: function () {
 
   },
-  // chooseImg:function(){
-  //   var that = this;
-  //   wx.chooseImage({
-  //     count: 6,
-  //     success: function (res) { // 无论用户是从相册选择还是直接用相机拍摄，路径都是在这里面 
-  //       if(res.tempFilePaths.length>0){
-  //         var filePath = res.tempFilePaths; //将刚才选的照片/拍的 放到下面view视图中 
-  //         var tempImgUrls = that.data.imgUrls.concat(filePath);
-  //         if(tempImgUrls.length>=6){
-  //           that.setData({
-  //             uploadBtnHide: true, 
-  //           });
-  //         }else{
-  //           that.setData({
-  //             uploadBtnHide: false, 
-  //           });
-  //         }
-
-  //         that.setData({
-  //           imgUrls: tempImgUrls, //把照片路径存到变量中， 
-  //         });
-  //         var token = cache.getStorageSync('ticketToken');
-  //         var bearerToken = 'Bearer ' + token;
-
-  //         // 这个是使用微信接口保存文件到数据库 
-  //         // wx.uploadFile({
-  //         //   url: config.baseHost.requestHost + "/api/Resource/Upload",
-  //         //   filePath: filePath,
-  //         //   name: 'file',
-  //         //   header: {
-  //         //     'Content-Type': 'application/json',
-  //         //     'Authorization': bearerToken
-  //         //   },
-  //         //   success: function (res) {
-  //         //     if (res.statusCode == 200) {
-  //         //       var info = JSON.parse(res.data);
-  //         //       if (info.result.success) {
-  //         //         that.setData({
-  //         //           "userInfo.avatar": info.result.msg, //把照片路径存到变量中， 
-  //         //         });
-  //         //         //提交保存
-  //         //         var requestHelper = new RequestHelper(true);
-  //         //         requestHelper.postRequest('/api/services/app/user/UpdateUser', that.data.userInfo).then(res => {
-  //         //           app.globalData.userInfo = that.data.userInfo;
-  //         //           app.globalData.isUserChange = true;
-  //         //         });
-  //         //       } else {
-  //         //         Toast.loading({
-  //         //           duration: 5000,
-  //         //           mask: true,
-  //         //           message: info.result.msg
-  //         //         })
-  //         //       }
-  //         //     } else {
-  //         //       //未返回200处理
-  //         //       if (res.statusCode == 401) {
-  //         //         Toast.loading({
-  //         //           duration: 5000,
-  //         //           mask: true,
-  //         //           message: "没有相关操作权限"
-  //         //         })
-  //         //       }
-  //         //     }
-  //         //   }
-  //         // })
-  //       }
-        
-  //     },
-  //     fail: function (error) {
-  //       console.error("调用本地相册文件时出错");
-  //       console.warn(error)
-  //     },
-  //     complete: function () {
-
-  //     }
-  //   });
-  // },
-  // onDeleteThumb:function(e){
-  //   var deleteIndex = e.currentTarget.dataset.thumbindex;
-  //   var tempImgUrls = this.data.imgUrls;
-  //   tempImgUrls.splice(deleteIndex,1);
-  //   this.setData({
-  //     imgUrls:tempImgUrls
-  //   })
-  // },
   onInput:function(e){
     var detail = e.detail.value;
     var inputLength = detail.length;
-    this.setData({ inputNumber: inputLength});
     if (inputLength>this.data.numberLimit){
       Toast("需求内容控制在200字符以内");
+      detail = detail.subString(0,this.data.numberLimit);
     }
+    this.setData({ inputNumber: detail.length }); 
+    this.setData({ "communityInfo.detail": detail });
   },
   onAfterChange:function(event){
     var imgList = event.detail.thumbList;
@@ -215,7 +138,59 @@ Page({
     })
   },
   submitCommunity:function(e){
-    var v = this.data.uploadImgComonentObj.getUploadResult();
-    var t = e;
+
+    if (this.checkDetail() && this.checkUploadImg() && this.checkCommunityCategory()){
+      //提交表单
+      this.setData({
+        "communityInfo.userId": this.data.userInfo.id
+      })
+      var requestHelper = new RequestHelper(true);
+      var paramData = { communityEditDto: this.data.communityInfo };
+      requestHelper.postRequest('/api/services/app/community/CreateOrUpdateCommunity', paramData).then(res => {
+        if (res.data.success) {
+          Toast.success("发布成功");
+          setTimeout(()=>{
+            wx.navigateBack({
+              delta:-1
+            })
+          },1500);
+        }
+      })
+    }
+    
+  },
+  checkDetail:function(){
+    if(this.data.communityInfo.detail.length==0){
+      Toast("未填写发布内容");
+      return false;
+    }
+    return true;
+  },
+  checkUploadImg:function(){
+    var uploadResult = this.data.uploadImgComonentObj.getUploadResult();
+    if (!uploadResult.uploadFlag) {
+      Toast("等待图片上传完成");
+      return false;
+    } else if (uploadResult.errors.length > 0) {
+      var err = uploadResult.errors.join(';');
+      Toast(err);
+      return false;
+    }
+    this.setData({
+      "communityInfo.imgUrls": uploadResult.uploadFileServerPaths.join(',')
+    });
+    return true;
+  },
+  checkCommunityCategory:function(){
+    if(this.data.chooseCategory!=null){
+      this.setData({
+        "communityInfo.communityCategoryId": this.data.chooseCategory.id,
+      });
+
+      return true;
+    }else{
+      Toast("未选择发布类别");
+      return false;
+    }
   }
 })
