@@ -58,13 +58,38 @@ Page({
           });
         }
       });
-
+      //获取地理位置
+      this.getUserLocationAuthorization();
 
     } else if (!this.data.hasUserInfo && !app.globalData.hasUserInfo) {
       wx.redirectTo({
         url: '../../../account/login/login',
       })
     }
+  },
+  getUserLocationAuthorization:function(){
+    wx.getSetting({
+      success: res => {
+        if (!res.authSetting['scope.userLocation']) {
+          wx.authorize({
+            scope: 'scope.userLocation',
+            success: (res) => {
+              this.getUserLocation();
+            }
+          })
+        }else{
+          this.getUserLocation();
+        }
+      }
+    })
+  },
+  getUserLocation:function(){
+    wx.getLocation({
+
+      success: function (res) {
+        var t = res;
+      },
+    })
   },
 
   /**

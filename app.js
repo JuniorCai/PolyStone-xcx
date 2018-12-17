@@ -37,6 +37,21 @@ App({
     //     }
     //   }
     // })
+
+
+    wx.getSetting({
+      success:res=>{
+        if (!res.authSetting['scope.userLocation']) {
+          wx.authorize({
+            scope: 'scope.userLocation',
+            success:(res)=>{
+              //不做处理，只为了获取授权，为详细页面做准备
+            }
+          })
+        }
+      }
+    })
+
   },
   getUserInfo:function(){
     var app = this;
