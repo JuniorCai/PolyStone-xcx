@@ -12,8 +12,8 @@ var config =
       other:4
     },
     communityUploadImgLimit:6,
-    uploadImgSizeLimit: 1048576
-
+    uploadImgSizeLimit: 1048576,
+    qqMapSdkKey:"BLABZ-PQSKK-5OQJ5-ASXKG-M7RET-C4BJZ"
 };
 
 module.exports = config;

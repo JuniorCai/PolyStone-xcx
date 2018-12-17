@@ -1,5 +1,7 @@
 import RequestHelper from "../../../../utils/request.js";
 import Toast from "../../../../customComponent/VantWeapp/toast/toast";
+var QQMapWX = require("../../../../lib/qqmap-wx-jssdk1.0/qqmap-wx-jssdk.js");
+var qqMapSdk;
 var cache = require("../../../../utils/cache.js");
 var config = require("../../../../utils/config.js");
 
@@ -84,10 +86,21 @@ Page({
     })
   },
   getUserLocation:function(){
+    qqMapSdk = new QQMapWX({
+      key: config.qqMapSdkKey
+    })
     wx.getLocation({
-
       success: function (res) {
-        var t = res;
+        var mapLocation = { 
+          latitude: res.latitude,
+          longitude:res.longitude
+        };
+        qqMapSdk.reverseGeocoder({
+          location: mapLocation,
+          success: function (address) {
+            var t = address;
+          }
+        })
       },
     })
   },
