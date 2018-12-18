@@ -1,4 +1,6 @@
 import RequestHelper from "../../../../utils/request.js";
+import RegionHelper from "../../../../utils/regionHelper.js";
+
 import Toast from "../../../../customComponent/VantWeapp/toast/toast";
 var QQMapWX = require("../../../../lib/qqmap-wx-jssdk1.0/qqmap-wx-jssdk.js");
 var qqMapSdk;
@@ -70,20 +72,22 @@ Page({
     }
   },
   getUserLocationAuthorization:function(){
-    wx.getSetting({
-      success: res => {
-        if (!res.authSetting['scope.userLocation']) {
-          wx.authorize({
-            scope: 'scope.userLocation',
-            success: (res) => {
-              this.getUserLocation();
-            }
-          })
-        }else{
-          this.getUserLocation();
-        }
-      }
-    })
+    var regionHelper = new RegionHelper();
+    regionHelper.setRegionDatabase();
+    // wx.getSetting({
+    //   success: res => {
+    //     if (!res.authSetting['scope.userLocation']) {
+    //       wx.authorize({
+    //         scope: 'scope.userLocation',
+    //         success: (res) => {
+    //           this.getUserLocation();
+    //         }
+    //       })
+    //     }else{
+    //       this.getUserLocation();
+    //     }
+    //   }
+    // })
   },
   getUserLocation:function(){
     qqMapSdk = new QQMapWX({
@@ -95,6 +99,9 @@ Page({
           latitude: res.latitude,
           longitude:res.longitude
         };
+        qqMapSdk.getCityList({success:function(list){
+          var t = list;
+        }});
         qqMapSdk.reverseGeocoder({
           location: mapLocation,
           success: function (address) {
