@@ -22,8 +22,10 @@ Page({
     inputNumber:0,
     userInfo: {},
     region:{
-      regionId:"",
-      regionName:""
+      id:"",
+      regionCode:"",
+      parentCode:"",
+      fullName:""
     },
     communityInfo:{
       userId:0,
@@ -63,7 +65,7 @@ Page({
         }
       });
       //获取地理位置
-      this.getUserLocationAuthorization();
+      this.getUserLocationRegionInfo();
 
     } else if (!this.data.hasUserInfo && !app.globalData.hasUserInfo) {
       wx.redirectTo({
@@ -71,46 +73,35 @@ Page({
       })
     }
   },
-  getUserLocationAuthorization:function(){
+  getUserLocationRegionInfo:function(){
     var regionHelper = new RegionHelper();
-    regionHelper.setRegionDatabase();
-    // wx.getSetting({
-    //   success: res => {
-    //     if (!res.authSetting['scope.userLocation']) {
-    //       wx.authorize({
-    //         scope: 'scope.userLocation',
-    //         success: (res) => {
-    //           this.getUserLocation();
-    //         }
-    //       })
-    //     }else{
-    //       this.getUserLocation();
-    //     }
-    //   }
-    // })
-  },
-  getUserLocation:function(){
-    qqMapSdk = new QQMapWX({
-      key: config.qqMapSdkKey
-    })
-    wx.getLocation({
-      success: function (res) {
-        var mapLocation = { 
-          latitude: res.latitude,
-          longitude:res.longitude
-        };
-        qqMapSdk.getCityList({success:function(list){
-          var t = list;
-        }});
-        qqMapSdk.reverseGeocoder({
-          location: mapLocation,
-          success: function (address) {
+    
+    regionHelper.checkUserLocationAuthorization().then((authRes) => {
+      if (authRes) {
+        regionHelper.getUserLocation().then((success, address) => {
+          if (success) {
             var t = address;
+          } else {
+            Toast.fail("地理位置解析失败");
           }
+        }, () => {
+          Toast.fail("获取地理位置失败");
         })
-      },
-    })
+      } else {
+        Toast("小程序需要获取地理位置以便更好的提供服务");
+        this.setData({
+          region: null
+        })
+      }
+    },
+      (failedRes) => {
+        Toast.fail("用户权限信息获取失败");
+        this.setData({
+          region: null
+        })
+      })    
   },
+  
 
   /**
    * 生命周期函数--监听页面初次渲染完成
