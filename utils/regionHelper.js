@@ -54,10 +54,12 @@ class regionHelper {
           that.qqMapSdk.reverseGeocoder({
             location: mapLocation,
             success: function (address) {
-              resolve(true,address);
+              var result = {success:true,address:address}
+              resolve(result);
             },
             fail:function(res){
-              resolve(false,null);
+              var result = { success: false, address: null }
+              resolve(result);
             }
           })
         },

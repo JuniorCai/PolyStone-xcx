@@ -75,12 +75,19 @@ Page({
   },
   getUserLocationRegionInfo:function(){
     var regionHelper = new RegionHelper();
+    var that = this;
     
     regionHelper.checkUserLocationAuthorization().then((authRes) => {
       if (authRes) {
-        regionHelper.getUserLocation().then((success, address) => {
-          if (success) {
-            var t = address;
+        regionHelper.getUserLocation().then((res) => {
+          if (res.success) {
+            var regionCode = res.address.result.ad_info.adcode;
+            var requestHelper = new RequestHelper(true);
+            requestHelper.postRequest('/api/services/app/region/GetRegionByCode?regionCode='+regionCode,{}).then(res=>{
+              if(res.data.result!=null){
+                  that.setData({region:res.data.result});
+              }
+            })
           } else {
             Toast.fail("地理位置解析失败");
           }
