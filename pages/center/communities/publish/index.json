@@ -3,6 +3,7 @@
   "usingComponents":{
     "upload-multi-img":"../../../../customComponent/UploadMultiImg/upload-multi-img",
     "van-area": "../../../../customComponent/VantWeapp/area/index",
-    "van-popup": "../../../../customComponent/VantWeapp/popup/index"
+    "van-popup": "../../../../customComponent/VantWeapp/popup/index",
+    "van-picker": "../../../../customComponent/VantWeapp/picker/index"
   }
 }

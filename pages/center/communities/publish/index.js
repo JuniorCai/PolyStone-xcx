@@ -19,16 +19,17 @@ Page({
   data: {
     positionList:{},
     showPositionPicker:false,
+    showCategoryPicker:false,
     loadingHide: true,
     uploadBtnHide:false,
     numberLimit:200,
     inputNumber:0,
     userInfo: {},
     region:{
-      id:0,
       regionCode:"",
       parentCode:"",
-      fullName:""
+      fullName:"",
+      parentName:""
     },
     communityInfo:{
       userId:0,
@@ -87,12 +88,17 @@ Page({
         regionHelper.getUserLocation().then((res) => {
           if (res.success) {
             var regionCode = res.address.result.ad_info.adcode;
-            var requestHelper = new RequestHelper(true);
-            requestHelper.postRequest('/api/services/app/region/GetRegionByCode?regionCode='+regionCode,{}).then(res=>{
-              if(res.data.result!=null){
-                  that.setData({region:res.data.result});
-              }
+            that.setData({
+              "region.regionCode": res.address.result.ad_info.adcode,
+              "region.parentName": res.address.result.ad_info.city,
+              "region.fullName": res.address.result.ad_info.district
             })
+            // var requestHelper = new RequestHelper(true);
+            // requestHelper.postRequest('/api/services/app/region/GetRegionByCode?regionCode='+regionCode,{}).then(res=>{
+            //   if(res.data.result!=null){
+            //       that.setData({region:res.data.result});
+            //   }
+            // })
           } else {
             Toast.fail("地理位置解析失败");
           }
@@ -187,6 +193,16 @@ Page({
   },
   pickLocationConfirm:function(e){
     var chooseRegion = e.detail.detail;
+    this.setData({
+      "region.regionCode": chooseRegion.code,
+      "region.parentName": chooseRegion.city,
+      "region.fullName": chooseRegion.county,
+      showPositionPicker: false
+    })
+
+  },
+  pickCategory:function(){
+    this.setData({ showCategoryPicker: true })
   },
   chooseCategory:function(e){
     var index = e.detail.value;
@@ -194,6 +210,9 @@ Page({
     this.setData({
       chooseCategory:category
     })
+  },
+  closeCategory:function(e){
+    this.setData({ showCategoryPicker: false })
   },
   submitCommunity:function(e){
 
@@ -252,7 +271,7 @@ Page({
     }
   },
   checkUserLocation:function(){
-    if(this.data.region.id>0){
+    if (this.data.region.regionCode!=""){
       this.setData({
         "communityInfo.regionCode":this.data.region.regionCode
       })

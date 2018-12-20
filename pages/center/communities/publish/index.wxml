@@ -20,20 +20,21 @@
   </upload-multi-img>
   <view class='areaListBlock'>
     <van-cell-group>
-      <van-cell icon="location" is-link title="所在位置" value="{{region.id>0?region.parent.regionName+'-'+region.regionName:'点击定位'}}" bind:click="pickUserLocation">
+      <van-cell icon="location" is-link title="所在位置" value="{{region.regionCode!=''?region.parentName+'-'+region.fullName:'点击定位'}}" bind:click="pickUserLocation">
       </van-cell>
       
-      <picker mode="selector"
+      <!-- <picker mode="selector"
         range='{{communityCategoryList}}'
         range-key='categoryName'
         bindchange='chooseCategory'
         bindcancel='closeCategory'
         value='{{chooseIndex}}'
         >
-        <van-cell  title="选择发布类别" is-link value="{{chooseCategory.categoryName}}">
+        <van-cell  title="选择发布类别" is-link value="{{chooseCategory.categoryName}}" bind:click="pickCategory">
         </van-cell>
-      </picker>
-      
+      </picker> -->
+      <van-cell  title="选择发布类别" is-link value="{{chooseCategory.categoryName}}" bind:click="pickCategory">
+        </van-cell>
     </van-cell-group>
   </view>
   <view class='form-footer'>
@@ -44,4 +45,8 @@
     
 <van-popup show="{{showPositionPicker}}"   position="bottom">
   <van-area area-list="{{positionList}}" bind:cancel="pickLocationCancel" bind:confirm="pickLocationConfirm" value="{{region.regionCode}}"/>
+</van-popup>
+
+<van-popup show="{{showCategoryPicker}}"   position="bottom">
+  <van-picker columns="{{ communityCategoryList }}" value-key="categoryName" bind:cancel="closeCategory" bind:confirm="chooseCategory" />
 </van-popup>
