@@ -6,6 +6,7 @@ var QQMapWX = require("../../../../lib/qqmap-wx-jssdk1.0/qqmap-wx-jssdk.js");
 var qqMapSdk;
 var cache = require("../../../../utils/cache.js");
 var config = require("../../../../utils/config.js");
+var position = require("../../../../utils/position.js");
 
 const app = getApp()
 
@@ -16,13 +17,15 @@ Page({
    * 页面的初始数据
    */
   data: {
+    positionList:{},
+    showPositionPicker:false,
     loadingHide: true,
     uploadBtnHide:false,
     numberLimit:200,
     inputNumber:0,
     userInfo: {},
     region:{
-      id:"",
+      id:0,
       regionCode:"",
       parentCode:"",
       fullName:""
@@ -30,6 +33,7 @@ Page({
     communityInfo:{
       userId:0,
       communityCategoryId:0,
+      regionCode:"",
       title:"",
       imgUrls:"",
       detail:""
@@ -54,6 +58,7 @@ Page({
     if (app.globalData.hasUserInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
+        positionList:position
       });
       var requestHelper = new RequestHelper(true);
       requestHelper.setErrorHandler(this.requestRrrorHandler);
@@ -122,7 +127,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    //获取地理位置
+    this.getUserLocationRegionInfo();
   },
 
   /**
@@ -173,6 +179,15 @@ Page({
     var imgList = event.detail.thumbList;
     this.setData({ imgUrls:imgList});
   },
+  pickUserLocation:function(){
+    this.setData({ showPositionPicker:true})
+  },
+  pickLocationCancel:function(e){
+    this.setData({ showPositionPicker: false })
+  },
+  pickLocationConfirm:function(e){
+    var chooseRegion = e.detail.detail;
+  },
   chooseCategory:function(e){
     var index = e.detail.value;
     var category = this.data.communityCategoryList[index];
@@ -182,7 +197,7 @@ Page({
   },
   submitCommunity:function(e){
 
-    if (this.checkDetail() && this.checkUploadImg() && this.checkCommunityCategory()){
+    if (this.checkDetail() && this.checkUploadImg() && this.checkUserLocation() && this.checkCommunityCategory()){
       //提交表单
       this.setData({
         "communityInfo.userId": this.data.userInfo.id
@@ -233,6 +248,17 @@ Page({
       return true;
     }else{
       Toast("未选择发布类别");
+      return false;
+    }
+  },
+  checkUserLocation:function(){
+    if(this.data.region.id>0){
+      this.setData({
+        "communityInfo.regionCode":this.data.region.regionCode
+      })
+      return true;
+    }else{
+      Toast("未获取到所在地区信息");
       return false;
     }
   }

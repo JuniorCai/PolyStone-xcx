@@ -1,6 +1,8 @@
 {
   "navigationBarTitleText": "圈子发布",
   "usingComponents":{
-    "upload-multi-img":"../../../../customComponent/UploadMultiImg/upload-multi-img"
+    "upload-multi-img":"../../../../customComponent/UploadMultiImg/upload-multi-img",
+    "van-area": "../../../../customComponent/VantWeapp/area/index",
+    "van-popup": "../../../../customComponent/VantWeapp/popup/index"
   }
 }
