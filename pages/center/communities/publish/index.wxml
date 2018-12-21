@@ -48,5 +48,5 @@
 </van-popup>
 
 <van-popup show="{{showCategoryPicker}}"   position="bottom">
-  <van-picker columns="{{ communityCategoryList }}" value-key="categoryName" bind:cancel="closeCategory" bind:confirm="chooseCategory" />
+  <van-picker show-toolbar columns="{{ communityCategoryList }}" value-key="categoryName" bind:cancel="closeCategory" bind:confirm="chooseCategory" value='{{chooseCategory.categoryName}}' />
 </van-popup>

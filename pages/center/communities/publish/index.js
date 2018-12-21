@@ -205,10 +205,10 @@ Page({
     this.setData({ showCategoryPicker: true })
   },
   chooseCategory:function(e){
-    var index = e.detail.value;
-    var category = this.data.communityCategoryList[index];
+    var category = e.detail.value;
     this.setData({
-      chooseCategory:category
+      chooseCategory:category,
+      showCategoryPicker: false
     })
   },
   closeCategory:function(e){
