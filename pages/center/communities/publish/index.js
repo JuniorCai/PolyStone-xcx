@@ -244,7 +244,7 @@ Page({
       var paramData = { communityEditDto: this.data.communityInfo };
       requestHelper.postRequest('/api/services/app/community/CreateOrUpdateCommunity', paramData).then(res => {
         if (res.data.success) {
-          Toast.success("发布成功");
+          Toast.success("保存成功");
           setTimeout(()=>{
             var pages = getCurrentPages();
             var prePage = pages[pages.length - 2];
