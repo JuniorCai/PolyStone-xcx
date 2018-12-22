@@ -14,7 +14,8 @@
     "pages/center/userInfo/changePassword/resetPassword/resetPassword",
     "pages/center/businessCard/businessCard",
     "pages/center/collections/list",
-    "pages/center/communities/publish/index"
+    "pages/center/communities/publish/index",
+    "pages/center/communities/list/list"
   ],
   "window": {
     "backgroundTextStyle": "light",

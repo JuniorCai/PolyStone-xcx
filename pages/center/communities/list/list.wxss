@@ -13,3 +13,7 @@
 .thumbImg{
   border:solid 1px #e6e6e6;
 }
+
+.cardCustom{
+  border-bottom: solid 2rpx #e6e6e6;
+}

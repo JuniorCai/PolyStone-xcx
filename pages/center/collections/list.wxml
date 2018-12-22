@@ -15,6 +15,7 @@
         <van-card 
           title="{{collection.title}}"
           thumb="{{collection.product.coverPhoto}}"
+          thumb-class="thumbImg"
         />
         <view slot="right" class='van-swipe-cell__right'>删除</view>
       </van-swipe-cell>
@@ -33,6 +34,7 @@
           title="{{collection.title}}"
           thumb="{{collection.company.logo}}"
           desc="主营：{{collection.company.business}}"
+          thumb-class="thumbImg"
         />
         <view slot="right" class='van-swipe-cell__right'>删除</view>
       </van-swipe-cell>

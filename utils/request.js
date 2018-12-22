@@ -25,10 +25,19 @@ class request {
     }
   }
 
-  defaultErrorHandler(res){
-      //Nothing to do
-  }
 
+  defaultErrorHandler(res) {
+    if (res.statusCode == 401) {
+      wx.showToast({ title: "未登录或登录信息已过期，请重新登录" ,icon:"none"})
+
+      setTimeout(()=>{
+        wx.navigateTo({
+          url: '../../account/login/login',
+        })
+      },1500)
+      
+    }
+  }
   /**
    * 设置统一的异常处理
    */
@@ -76,8 +85,10 @@ class request {
         fail: (res => {
           if (this._errorHandler != null) {
             this._errorHandler(res)
+          }else{
+            defaultErrorHandler(res);
           }
-          reject(res)
+          //reject(res)
         })
       })
     })

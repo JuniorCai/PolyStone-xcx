@@ -32,11 +32,13 @@ Page({
       parentName:""
     },
     communityInfo:{
+      id:0,
       userId:0,
       communityCategoryId:0,
       regionCode:"",
       title:"",
       imgUrls:"",
+      coverPhoto:"",
       detail:""
     },
     imgUrls:[],
@@ -45,24 +47,36 @@ Page({
     communityCategoryList:{},
     uploadImgComonentObj:{}
   },
-  requestRrrorHandler: function (res) {
-    if (res.statusCode == 401) {
-      wx.navigateTo({
-        url: '../../../account/login/login',
-      })
-    }
-  },
+  
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var requestHelper = new RequestHelper(true);
+
     if (app.globalData.hasUserInfo) {
+      if(options.itemId>0){
+        this.setData({"communityInfo.id":options.itemId});
+        requestHelper.postRequest("/api/services/app/community/GetCommunityById",{id:this.data.communityInfo.id}).then(res=>{
+          if(res.data.success){
+            var tempRegion = res.data.result.region;
+            var imgArray = res.data.result.imgUrls.split(',');
+            this.setData({
+              communityInfo:res.data.result,
+              chooseCategory:res.data.result.communityCategory,
+              imgUrls: imgArray,
+              "region.regionCode": tempRegion.regionCode,
+              "region.parentCode":tempRegion.parent.regionCode,
+              "region.fullName":tempRegion.fullName,
+              "region.parentName":tempRegion.parent.fullName
+              });
+          }
+        })
+      }
       this.setData({
         userInfo: app.globalData.userInfo,
         positionList:position
       });
-      var requestHelper = new RequestHelper(true);
-      requestHelper.setErrorHandler(this.requestRrrorHandler);
       requestHelper.postRequest('/api/services/app/communityCategory/GetPagedCommunityCategorys', { filterText:""}).then(res => {
         if (res.data.success) {
           this.setData({
@@ -222,11 +236,23 @@ Page({
         "communityInfo.userId": this.data.userInfo.id
       })
       var requestHelper = new RequestHelper(true);
+      if(this.data.communityInfo.id==0){
+        this.setData({
+          "communityInfo.id": null
+        })
+      }
       var paramData = { communityEditDto: this.data.communityInfo };
       requestHelper.postRequest('/api/services/app/community/CreateOrUpdateCommunity', paramData).then(res => {
         if (res.data.success) {
           Toast.success("发布成功");
           setTimeout(()=>{
+            var pages = getCurrentPages();
+            var prePage = pages[pages.length - 2];
+            var reloadFlag = prePage.data.reload;
+            if (reloadFlag!=undefined&&reloadFlag==false){
+              prePage.setData({reload:true});
+            }
+
             wx.navigateBack({
               delta:-1
             })
@@ -254,6 +280,7 @@ Page({
       return false;
     }
     this.setData({
+      "communityInfo.coverPhoto": uploadResult.uploadFileServerPaths[0],
       "communityInfo.imgUrls": uploadResult.uploadFileServerPaths.join(',')
     });
     return true;

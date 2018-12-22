@@ -33,6 +33,26 @@ Component({
     imgFileList:[]
   },
 
+  ready(){
+    if (this.data.thumbList.length>0){
+      var tempThumbList = this.data.thumbList;
+      var t = this.data.imgFileList;
+      var tempFileList = [];
+
+      for(var index in tempThumbList){
+        var tempFile = {
+          success:true,
+          serverPath:tempThumbList[index],
+          uploadFlag:true
+        }
+        tempFileList.push(tempFile);
+      }
+      this.setData({imgFileList:tempFileList});
+    }
+  },
+
+  
+
   /**
    * 组件的方法列表
    */

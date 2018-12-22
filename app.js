@@ -89,6 +89,7 @@ App({
   reloadUserInfo:function(){
     this.getUserInfo();
   },
+  
   globalData: {
     userInfo: null,
     hasUserInfo:false,
