@@ -13,7 +13,10 @@ var config =
     },
     communityUploadImgLimit:6,
     uploadImgSizeLimit: 1048576,
-    qqMapSdkKey:"BLABZ-PQSKK-5OQJ5-ASXKG-M7RET-C4BJZ"
+    qqMapSdkKey:"BLABZ-PQSKK-5OQJ5-ASXKG-M7RET-C4BJZ",
+    pageSizeType:{
+      centerPageSize:7
+    }
 };
 
 module.exports = config;

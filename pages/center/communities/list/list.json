@@ -1,6 +1,5 @@
 {
   "navigationBarTitleText": "圈子列表",
-  "enablePullDownRefresh": true,
   "usingComponents": {
     "van-tab": "../../../../customComponent/VantWeapp/tab/index",
     "van-tabs": "../../../../customComponent/VantWeapp/tabs/index",
