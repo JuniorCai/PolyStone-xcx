@@ -3,8 +3,8 @@ import Toast from "../../../../customComponent/VantWeapp/toast/toast";
 import PagedHelper from "../../../../utils/pagedHelper.js";
 var config = require("../../../../utils/config.js")
 
-const app = getApp()
-const pageHelper = new PagedHelper('/api/services/app/community/GetPagedCommunitys', config.pageSizeType.centerPageSize);
+const app = getApp();
+var pageHelper = null;
 
 Page({
 
@@ -19,7 +19,8 @@ Page({
     userInfo:{},
     blockType:["发布中","已下架"],
     communityList:{},
-    loadingHide:false
+    loadingHide:false,
+    emptyFlag:false
   },
 
   /**
@@ -27,6 +28,7 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
+    pageHelper = new PagedHelper('/api/services/app/community/GetPagedCommunitys', config.pageSizeType.centerPageSize);
     if (app.globalData.hasUserInfo) {
       wx.getSystemInfo({
         success: function (res) {
@@ -157,6 +159,7 @@ Page({
     var that = this;
     that.setData({
       loadingHide: false,
+      emptyFlag: false
     });
     setTimeout(()=>{
       var param = {
@@ -189,6 +192,10 @@ Page({
   },
   loadMore:function(e){
     var that = this;
+    if (that.data.emptyFlag) {
+      return;
+    }
+
     var nextPageIndex = that.data.communityList.pageIndex + 1;
     var param = {
       userId: that.data.userInfo.id,
@@ -201,10 +208,15 @@ Page({
 
       that.setData({
         loadingHide: true,
-        communityList: tempList
+        "communityList.list": tempList,
+        "communityList.pageIndex":nextPageIndex
       });
+      if(tempList.length==res.total){
+        that.setData({
+          emptyFlag: true
+        });
+      }
     }, error => {
-      var tempList = that.data.communityList.list.concat(res);
       that.setData({
         loadingHide: true,
         communityList: error
