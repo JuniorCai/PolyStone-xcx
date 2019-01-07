@@ -1,9 +1,9 @@
-<van-tabs sticky scroll-top="{{scrollTop}}" active="{{ active }}" bind:change="onTabChange" >
+<van-tabs sticky scroll-top="{{scrollTop}}"  active="{{ active }}" bind:change="onTabChange" >
   <van-tab title="{{item}}" wx:for="{{blockType}}" >
-    <view class="tabListLoadingContainer" hidden='{{loadingHide}}'>
+      <view class="tabListLoadingContainer" ><!--hidden='{{loadingHide}}' -->
       <van-loading type="spinner" custom-class=""/>
     </view>
-    <scroll-view scroll-y="{{true}}" enable-back-to-top="{{true}}" style="height:{{scrollHeight}}px;" bindscrolltoupper="refreshList" bindscrolltolower="loadMore">
+    <scroll-view id="scroll-wrap" class='refreshList' scroll-y="{{true}}" scroll-top="{{scrollTop}}" enable-back-to-top="{{true}}" style="height:{{scrollHeight}}px;" bindscroll="onPageScroll" bindtouchstart='onStartScroll' bindtouchend='onEndScroll' >
       <block wx:if="{{active==0}}">
         <van-swipe-cell 
           wx:for="{{communityList.list}}"            
@@ -38,8 +38,9 @@
         </van-cell>
       </block>
     </scroll-view>
-    <view class="tabListLoadingContainer" hidden='{{emptyFlag}}'>
+        <!-- <view class="tabListLoadingContainer" hidden='{{emptyFlag}}'>
       <text>已见底...</text>
-    </view>
+    </view> -->
+
   </van-tab>
 </van-tabs>

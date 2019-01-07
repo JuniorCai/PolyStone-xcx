@@ -30,13 +30,19 @@ Page({
     var that = this;
     pageHelper = new PagedHelper('/api/services/app/community/GetPagedCommunitys', config.pageSizeType.centerPageSize);
     if (app.globalData.hasUserInfo) {
-      wx.getSystemInfo({
-        success: function (res) {
+      // wx.getSystemInfo({
+      //   success: function (res) {
+      //     that.setData({
+      //       scrollHeight: res.windowHeight
+      //     });
+      //   }
+      // });
+      wx.createSelectorQuery().select('#scroll-wrap').boundingClientRect(function (rect)         {
           that.setData({
-            scrollHeight: res.windowHeight
+            scrollHeight: rect.height
           });
-        }
-      });
+          
+        }).exec();
       that.setData({
         userInfo: app.globalData.userInfo,
       });
@@ -152,7 +158,7 @@ Page({
   },
   onPageScroll:function(e){
     this.setData({
-      scrollTop: e.scrollTop
+      scrollTop: e.detail.scrollTop
     });
   },
   refreshList:function(e){

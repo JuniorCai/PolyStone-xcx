@@ -1,3 +1,7 @@
+.refreshList{
+  transform: translateY(-36px);
+}
+
 .van-swipe-cell__right {
   display: inline-block;
   width: 65px;
