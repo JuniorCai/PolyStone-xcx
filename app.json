@@ -15,7 +15,8 @@
     "pages/center/businessCard/businessCard",
     "pages/center/collections/list",
     "pages/center/communities/publish/index",
-    "pages/center/communities/list/list"
+    "pages/center/communities/list/list",
+    "pages/center/communities/test"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -13,7 +13,7 @@ Page({
    */
   data: {
     reload:false,
-    scrollTop:0,
+    scrollTop:-36,
     scrollHeight:0,
     active:0,
     userInfo:{},
@@ -30,19 +30,14 @@ Page({
     var that = this;
     pageHelper = new PagedHelper('/api/services/app/community/GetPagedCommunitys', config.pageSizeType.centerPageSize);
     if (app.globalData.hasUserInfo) {
-      // wx.getSystemInfo({
-      //   success: function (res) {
-      //     that.setData({
-      //       scrollHeight: res.windowHeight
-      //     });
-      //   }
-      // });
-      wx.createSelectorQuery().select('#scroll-wrap').boundingClientRect(function (rect)         {
+      wx.getSystemInfo({
+        success: function (res) {
           that.setData({
-            scrollHeight: rect.height
+            scrollHeight: res.windowHeight+36
           });
-          
-        }).exec();
+        }
+      });
+      
       that.setData({
         userInfo: app.globalData.userInfo,
       });

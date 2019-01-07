@@ -1,0 +1,15 @@
+<van-tabs sticky  active="{{ 0 }}" bind:change="onTabChange" >
+  <van-tab title="求购" >
+    <refresh-scroll-view refreshing="{{refreshing}}" nomore="{{nomore}}" bindpulldownrefresh="_onPullDownRefresh" bindloadmore="_onLoadmore" bindscroll="_onScroll">
+      <block wx:for="{{colors}}" wx:for-index="index" wx:key="index">
+        <view class="view" style="background: {{item}}">{{index + 1}}. {{item}}</view>
+      </block>
+    </refresh-scroll-view>
+  </van-tab>
+</van-tabs>
+<!-- //https://blog.csdn.net/ddwhan0123/article/details/80304271
+//http://www.cnblogs.com/llcdxh/p/9390375.html
+//https://github.com/Tencent/weui-wxss
+//https://blog.csdn.net/guout/article/details/80427145
+//
+//http://www.cnblogs.com/aaronjs/p/9982708.html -->
