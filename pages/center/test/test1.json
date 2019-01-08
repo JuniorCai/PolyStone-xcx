@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "scroll-view-refresh": "../../../customComponent/ScrollViewRefresh/scroll-view-refresh"      
+  }
+}

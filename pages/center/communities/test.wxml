@@ -1,7 +1,24 @@
-<nav-bar tabs="{{['供应','求购','圈子']}}" activeIndex="0" bind:changeTab="onTabChange">
-  <block wx:for="{{['供应','求购','圈子']}}" wx:for-index="itemIndex">
-    <text slot="tabContent_{{itemIndex}}">{{item+"的内容"}}</text>
-  </block>
+
+<!-- <nav-bar tabs="{{['供应','求购','圈子']}}" activeIndex="0" bind:changeTab="onTabChange">
+  <block wx:for="{{['供应','求购','圈子']}}" wx:for-item="typeItem" wx:for-index="itemIndex"> -->
+    <!-- <text slot="tabContent_{{itemIndex}}">{{item+"的内容"}}</text> -->
+
+    <!-- <scroll-view-refresh slot="tabContent_{{itemIndex}}"
+        id="k-scroll" 
+        custom-class="scroll-view"
+        bind:refresh="refresh"
+        bind:scroll="scroll"
+        bind:lower="lower">
+          <block wx:for="{{colors}}" wx:for-index="index" wx:key="index">
+            <view class="view" style="background: {{item}}">{{typeItem}}.{{index + 1}}. {{item}}</view>
+          </block>
+      </scroll-view-refresh> -->
+    <!-- <refresh-scroll-view slot="tabContent_{{itemIndex}}" refreshing="{{refreshing}}" nomore="{{nomore}}"    bindpulldownrefresh="_onPullDownRefresh" bindloadmore="_onLoadmore" bindscroll="_onScroll">
+      <block wx:for="{{colors}}" wx:for-index="index" wx:key="index">
+        <view class="view" style="background: {{item}}">{{typeItem}}.{{index + 1}}. {{item}}</view>
+      </block>
+    </refresh-scroll-view> -->
+  <!-- </block> -->
   <!-- <view class="weui-tab__content" hidden="{{activeIndex != 0}}">选项一的内容</view>
 
   <view class="weui-tab__content" hidden="{{activeIndex != 1}}">选项二的内容</view>
@@ -12,17 +29,27 @@
         <view class="view" style="background: {{item}}">{{index + 1}}. {{item}}</view>
       </block>
     </refresh-scroll-view> -->
-</nav-bar>
+<!-- </nav-bar> -->
 
-<!-- <van-tabs sticky  active="{{ 0 }}" bind:change="onTabChange" >
+<van-tabs sticky scroll-top="{{scrollTop}}" active="{{ 0 }}" bind:change="onTabChange" >
   <van-tab title="求购" >
     <refresh-scroll-view refreshing="{{refreshing}}" nomore="{{nomore}}" bindpulldownrefresh="_onPullDownRefresh" bindloadmore="_onLoadmore" bindscroll="_onScroll">
       <block wx:for="{{colors}}" wx:for-index="index" wx:key="index">
         <view class="view" style="background: {{item}}">{{index + 1}}. {{item}}</view>
       </block>
     </refresh-scroll-view>
+    <!-- <scroll-view-refresh 
+        id="k-scroll" 
+        custom-class="scroll-view"
+        bind:refresh="_onPullDownRefresh"
+        bind:scroll="_onScroll"
+        bind:lower="_onLoadmore">
+          <block wx:for="{{colors}}" wx:for-index="index" wx:key="index">
+            <view class="view" style="background: {{item}}">{{typeItem}}.{{index + 1}}. {{item}}</view>
+          </block>
+      </scroll-view-refresh> -->
   </van-tab>
-</van-tabs> -->
+</van-tabs>
 <!-- //https://blog.csdn.net/ddwhan0123/article/details/80304271
 //http://www.cnblogs.com/llcdxh/p/9390375.html
 //https://github.com/Tencent/weui-wxss

@@ -2,7 +2,7 @@ Page({
 
   data: {
     colors: [],
-    scrollTop:0
+    scrollTop: 0
   },
 
   _randomColor: function () {
@@ -39,7 +39,7 @@ Page({
   _onScroll: function (e) {
     console.log(e);
     this.setData({
-      scrollTop: e.detail.scrollTop
+      scrollTop: e.detail
     });
   },
 
@@ -47,7 +47,7 @@ Page({
     const colors = this._generateColors(20);
     this.setData({ colors });
   },
-  onTabChange:function(e){
+  onTabChange: function (e) {
 
   }
 })
