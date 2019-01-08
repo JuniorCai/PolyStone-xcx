@@ -43,4 +43,7 @@ Page({
     const colors = this._generateColors(20);
     this.setData({ colors });
   },
+  onTabChange:function(e){
+
+  }
 })

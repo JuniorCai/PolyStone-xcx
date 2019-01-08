@@ -2,7 +2,8 @@
   "usingComponents": {
     "van-tab": "../../../customComponent/VantWeapp/tab/index",
     "van-tabs": "../../../customComponent/VantWeapp/tabs/index",   
-    "refresh-scroll-view": "../../../customComponent/RefreshScrollView/refresh-scroll-view"
+    "refresh-scroll-view": "../../../customComponent/RefreshScrollView/refresh-scroll-view",
+    "nav-bar": "../../../customComponent/navBar/nav-bar"
   }
 
 }
