@@ -113,7 +113,7 @@ Component({
           size: true,
           scrollOffset: true,
         }, res => {
-          if (Math.abs(res.scrollTop - this.data.lastScrollEnd) > res.height) {
+          if (Math.abs(res.scrollTop - this.data.lastScrollEnd) > res.height/3) {
             this.setData({
               lastScrollEnd: res.scrollTop,
             })

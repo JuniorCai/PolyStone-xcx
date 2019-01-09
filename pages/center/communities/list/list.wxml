@@ -1,10 +1,6 @@
-<van-tabs   active="{{ active }}" bind:change="onTabChange" >
+<van-tabs sticky scroll-top="{{scrollTop}}"  active="{{ active }}" bind:change="onTabChange" >
   <van-tab title="{{item}}" wx:for="{{blockType}}" >
-      <!--<view class="tabListLoadingContainer" >hidden='{{loadingHide}}' 
-      <van-loading type="spinner" custom-class=""/>
-    </view>-->
-
-    <refresh-scroll-view refreshing="{{refreshing}}" nomore="{{nomore}}" bindpulldownrefresh="_onPullDownRefresh" bindloadmore="_onLoadmore" bindscroll="onPageScroll">
+    <refresh-scroll-view refreshing="{{refreshing}}" nomore="{{emptyFlag}}" bindpulldownrefresh="refreshList" bindloadmore="loadMore" catchscroll="onPageScroll">
       <van-swipe-cell 
         wx:for="{{communityList.list}}"            
         wx:for-item="community" 
@@ -27,47 +23,6 @@
           </view>
         </van-card>
       </van-swipe-cell>
-</refresh-scroll-view>
-    <!-- <scroll-view id="scroll-wrap" class='refreshList' scroll-y scroll-top="{{scrollTop}}" enable-back-to-top="{{true}}" style="height:{{scrollHeight}}px;" bindscroll="onPageScroll"  >
-      <view id="list-wrap" bindtouchstart='onStartScroll' bindtouchend='onEndScroll'>
-        <block wx:if="{{active==0}}">
-          <van-swipe-cell 
-            wx:for="{{communityList.list}}"            
-            wx:for-item="community" 
-            wx:for-index="itemIndex"
-            wx:key="{{community.id}}"
-            data-index="{{itemIndex}}"
-            bindclose="onDeleteCell">
-            <van-card 
-              title="{{community.detail}}"
-              thumb="{{community.coverPhoto}}"
-              thumb-class="thumbImg"
-              custom-class="cardCustom"
-            >
-              <view slot="desc">
-                {{community.detail}}
-              </view>
-              <view slot="footer">
-                <van-button size="mini" data-itemId="{{community.id}}" bind:click="showDetial">编辑</van-button>
-                <van-button size="mini" data-itemId="{{community.id}}" bind:click="offLineCommunity">下线</van-button>
-              </view>
-            </van-card>
-          </van-swipe-cell>
-        </block>
-        <block wx:else>
-          <van-cell  wx:for="{{communityList.list}}" wx:for-item="{{community}}" wx:for-index="itemIndex">
-            <van-card 
-              title="{{community.title}}"
-              thumb="{{community.coverPhoto}}"
-              thumb-class="thumbImg"
-            />
-          </van-cell>
-        </block>
-      </view>      
-    </scroll-view> -->
-        <!-- <view class="tabListLoadingContainer" hidden='{{emptyFlag}}'>
-      <text>已见底...</text>
-    </view> -->
-
+    </refresh-scroll-view>
   </van-tab>
 </van-tabs>

@@ -16,7 +16,6 @@
     "pages/center/collections/list",
     "pages/center/communities/publish/index",
     "pages/center/communities/list/list",
-    "pages/center/communities/test",
     "pages/center/test/test1"
   ],
   "window": {

@@ -27,13 +27,13 @@ class pagedHelper {
           that.result.total = res.data.result.totalCount;
           that.result.pageIndex = that.pageIndex;
           that.result.maxResultCount = that.maxResultCount;
-          resolve(that.result);
+          resolve(JSON.parse(JSON.stringify(that.result)));
         } else {
           that.result.list = [];
           that.result.total = 0;
           that.result.pageIndex = that.pageIndex;
           that.result.maxResultCount = that.maxResultCount;
-          reject(that.result);
+          reject(JSON.parse(JSON.stringify(that.result)));
         }
       });
     })    
