@@ -125,29 +125,54 @@ Page({
       scrollTop: e.detail.scrollTop
     });
   },
+  onTabChange:function(e){
+    this.setData({
+      communityList: {}
+    });
+    var param = {
+      userId: this.data.userInfo.id,
+      verifyStatus: 1,
+      releaseStatus: e.detail.index == 0 ? 1 : 2
+    };
+    this.getListData(param, 1);
+  },
   refreshList:function(e){
+    var param = {
+      userId: that.data.userInfo.id,
+      verifyStatus: 1,
+      releaseStatus: that.data.active == 0 ? 1 : 2
+    };
+    this.getListData(param,1);
+  },
+  getListData:function(param,pageIndex){
     var that = this;
     that.setData({
       emptyFlag: false
     });
-    setTimeout(()=>{
-      var param = {
-        userId: that.data.userInfo.id,
-        verifyStatus: 1,
-        releaseStatus: that.data.active == 0 ? 1 : 2
-      };
-      pageHelper.getPagedData(1, param).then(res => {
+    // setTimeout(() => {
+      
+    // }, 1000)  
+    
+    pageHelper.getPagedData(pageIndex, param).then(res => {
+      if(res.total==0){
+        that.setData({
+          communityList: {},
+          refreshing: false,
+          emptyFlag:true
+        });
+      }else{
         that.setData({
           communityList: res,
-          refreshing:false
+          refreshing: false
         });
-      }, error => {
-        that.setData({
-          refreshing: false,
-          communityList: error
-        });
-      })
-    },1000)    
+      }
+    }, error => {
+      that.setData({
+        refreshing: false,
+        communityList: error,
+        emptyFlag: true
+      });
+    })
   },
   loadMore:function(e){
     var that = this;
@@ -188,6 +213,13 @@ Page({
     });
   },
   offLineCommunity:function(e){
+    var itemId = e.currentTarget.dataset.itemid;
+    Toast.loading({
+      mask:true,
+      message:"操作中..."
+    })
 
+    var requestHelper = new RequestHelper(true);
+    requestHelper.postRequest("")
   }
 })

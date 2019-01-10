@@ -5,6 +5,6 @@
     "van-tabs": "../../../../customComponent/VantWeapp/tabs/index",
     "van-card": "../../../../customComponent/VantWeapp/card/index",
     "van-cell": "../../../../customComponent/VantWeapp/cell/index",
-    "refresh-scroll-view": "../../../../customComponent/RefreshScrollView/refresh-scroll-view"        
+    "refresh-scroll-view": "../../../../customComponent/RefreshScrollView/refresh-scroll-view",      "van-toast": "../../../../customComponent/VantWeapp/toast/index"
   }
 }

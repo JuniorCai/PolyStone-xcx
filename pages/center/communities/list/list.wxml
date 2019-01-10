@@ -26,3 +26,4 @@
     </refresh-scroll-view>
   </van-tab>
 </van-tabs>
+<van-toast id="van-toast" />
