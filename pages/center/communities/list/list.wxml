@@ -19,7 +19,12 @@
           </view>
           <view slot="footer">
             <van-button size="mini" data-itemId="{{community.id}}" bind:click="showDetial">编辑</van-button>
-            <van-button size="mini" data-itemId="{{community.id}}" bind:click="offLineCommunity">下线</van-button>
+            <block wx:if="{{active==0}}">
+              <van-button size="mini" data-itemId="{{community.id}}" bind:click="offLineCommunity">下线</van-button>
+            </block>
+            <block wx:else>
+              <van-button size="mini" data-itemId="{{community.id}}" bind:click="onLineCommunity">上线</van-button>
+            </block>
           </view>
         </van-card>
       </van-swipe-cell>

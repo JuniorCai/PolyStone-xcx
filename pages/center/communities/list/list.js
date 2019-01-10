@@ -127,7 +127,8 @@ Page({
   },
   onTabChange:function(e){
     this.setData({
-      communityList: {}
+      communityList: {},
+      active:e.detail.index
     });
     var param = {
       userId: this.data.userInfo.id,
@@ -138,9 +139,9 @@ Page({
   },
   refreshList:function(e){
     var param = {
-      userId: that.data.userInfo.id,
+      userId: this.data.userInfo.id,
       verifyStatus: 1,
-      releaseStatus: that.data.active == 0 ? 1 : 2
+      releaseStatus: this.data.active == 0 ? 1 : 2
     };
     this.getListData(param,1);
   },
@@ -213,6 +214,7 @@ Page({
     });
   },
   offLineCommunity:function(e){
+    var that = this;
     var itemId = e.currentTarget.dataset.itemid;
     Toast.loading({
       mask:true,
@@ -220,6 +222,29 @@ Page({
     })
 
     var requestHelper = new RequestHelper(true);
-    requestHelper.postRequest("")
+    requestHelper.postRequest("/api/services/app/community/OffLineCommunity",{id:itemId}).then(res=>{
+      var t = res;
+      if(res.data.success){
+        Toast.success({ duration:1500,message:"操作成功"});
+        that.refreshList();
+      }
+    })
+  },
+  onLineCommunity:function(e){
+    var that = this;
+    var itemId = e.currentTarget.dataset.itemid;
+    Toast.loading({
+      mask: true,
+      message: "操作中..."
+    })
+
+    var requestHelper = new RequestHelper(true);
+    requestHelper.postRequest("/api/services/app/community/OnLineCommunity", { id: itemId }).then(res => {
+      var t = res;
+      if (res.data.success) {
+        Toast.success({ duration: 1500, message: "操作成功" });
+        that.refreshList();
+      }
+    })
   }
 })
