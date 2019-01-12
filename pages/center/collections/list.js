@@ -1,24 +1,24 @@
 import Toast from "../../../customComponent/VantWeapp/toast/toast";
 import RequestHelper from "../../../utils/request.js";
+import PagedHelper from "../../../utils/pagedHelper.js";
 import Dialog from '../../../customComponent/VantWeapp/dialog/dialog';
-var config = require("../../../utils/config.js")
-
+var config = require("../../../utils/config.js");
 const app = getApp()
-
+var pageHelper = null;
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-     active:0,
-     loadingHide:true,
-     userInfo:{},
-     moduleList:{},
-     resultList:{
-       index:0,
-       items:{}
-    }
+    active:0,
+    scrollTop: 0,
+    userInfo:{},
+    moduleList:{},
+    resultList:{},
+    refreshing: false,
+    emptyFlag: false,
+    fileServer: config.baseHost.fileServer 
   },
 
   /**
@@ -26,7 +26,7 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
-
+    pageHelper = new PagedHelper('/api/services/app/collection/GetPagedCollections', config.pageSizeType.centerPageSize);
     if (app.globalData.hasUserInfo) {
       var requestHelper = new RequestHelper(true);
       that.setData({
@@ -42,21 +42,21 @@ Page({
             userId: that.data.userInfo.id,
             moduleId: initialModule.id
           }
-          that.setData({ loadingHide:false});
-          requestHelper.postRequest('/api/services/app/collection/GetPagedCollections', params).then(res=>{
-              if(res.data.result.totalCount>0){
-                that.setData({
-                  "resultList.index": initialModule.id,
-                  "resultList.items":res.data.result.items
-                })
-              }else{
-                that.setData({
-                  resultList: {}
-                })
-              }
-            that.setData({ loadingHide: true });
+          this.getListData(params,1);
+          
+          // requestHelper.postRequest('/api/services/app/collection/GetPagedCollections', params).then(res=>{
+          //     if(res.data.result.totalCount>0){
+          //       that.setData({
+          //         "resultList.index": initialModule.id,
+          //         "resultList.items":res.data.result.items
+          //       })
+          //     }else{
+          //       that.setData({
+          //         resultList: {}
+          //       })
+          //     }
 
-          });
+          // });
         }
       });
     } else {
@@ -116,31 +116,110 @@ Page({
   onShareAppMessage: function () {
 
   },
+  onPageScroll: function (e) {
+    this.setData({
+      scrollTop: e.detail.scrollTop
+    });
+  },
   onTabChange:function(e){
     var that = this;
     that.setData({
+      resultList: {},
       active: e.detail.index,
-      loadingHide: false
     });
     var changeModule = that.data.moduleList[e.detail.index];
     var params = {
       userId: that.data.userInfo.id,
       moduleId: changeModule.id
     }
-    var requestHelper = new RequestHelper(true);
-    requestHelper.postRequest('/api/services/app/collection/GetPagedCollections', params).then(res => {
-      that.setData({ loadingHide: true });
-      if (res.data.result.totalCount > 0) {
+    this.getListData(params,1);
+    // var requestHelper = new RequestHelper(true);
+    // requestHelper.postRequest('/api/services/app/collection/GetPagedCollections', params).then(res => {
+    //   if (res.data.result.totalCount > 0) {
+    //     that.setData({
+    //       "resultList.index": changeModule.id,
+    //       "resultList.items": res.data.result.items
+    //     })
+    //   } else {
+    //     that.setData({
+    //       resultList: {}
+    //     })
+    //   }
+    // });
+  },
+  refreshList: function (e) {
+    var chooseModule = this.data.moduleList[this.data.active];
+
+    var param = {
+      userId: this.data.userInfo.id,
+      moduleId: chooseModule.id
+    };
+    this.getListData(param, 1);
+  },
+  loadMore: function (e) {
+    var that = this;
+    if (that.data.emptyFlag) {
+      return;
+    }
+
+    var chooseModule = that.data.moduleList[this.data.active];
+    var nextPageIndex = that.data.resultList.pageIndex + 1;
+    var param = {
+      userId: that.data.userInfo.id,
+      moduleId: chooseModule.id
+    };
+    pageHelper.getPagedData(nextPageIndex, param).then(res => {
+      that.setData({
+        "resultList.list": [...this.data.resultList.list, ...res.list],
+        "resultList.pageIndex": nextPageIndex
+      });
+      if (this.data.resultList.list.length == res.total) {
         that.setData({
-          "resultList.index": changeModule.id,
-          "resultList.items": res.data.result.items
-        })
-      } else {
-        that.setData({
-          resultList: {}
-        })
+          emptyFlag: true
+        });
       }
+    }, error => {
+      that.setData({
+        resultList: error
+      });
+    })
+  },
+  getListData: function (param, pageIndex) {
+    var that = this;
+    that.setData({
+      emptyFlag: false
     });
+    // setTimeout(() => {
+
+    // }, 1000)  
+
+    pageHelper.getPagedData(pageIndex, param).then(res => {
+      if (res.total == 0) {
+        that.setData({
+          resultList: {},
+          refreshing: false,
+          emptyFlag: true
+        });
+      } else if (res.list.length == res.total) {
+        that.setData({
+          resultList: res,
+          refreshing: false,
+          emptyFlag: true
+        });
+      }
+      else {
+        that.setData({
+          resultList: res,
+          refreshing: false
+        });
+      }
+    }, error => {
+      that.setData({
+        refreshing: false,
+        resultList: error,
+        emptyFlag: true
+      });
+    })
   },
   requestErrorHandler:function(res){
     if (res.statusCode === 401){
@@ -157,7 +236,7 @@ Page({
     switch(detail.position){
       case 'right':
         var index = detail.instance.dataset.index;
-        var item = this.data.resultList.items[index];
+        var item = this.data.resultList.list[index];
         that.postDeleteCollection(index,item.id);
         detail.instance.close();
         break;
@@ -165,14 +244,17 @@ Page({
   },
   postDeleteCollection:function(index,collectionId){
     var that = this;
-    var tempList = this.data.resultList.items;
+    var tempList = this.data.resultList.list;
     var requestHelper = new RequestHelper(true);
     requestHelper.postRequest('/api/services/app/collection/DeleteCollection', { id: collectionId}).then(res => {
       if (res.data.result) {
-        tempList.splice(index, 1);
-        that.setData({
-          "resultList.items": tempList
-        });
+        Toast.success({ duration: 1500, message: "操作成功" });
+        this.refreshList();
+        // tempList.splice(index, 1);
+        // //if(tempList.length)
+        // that.setData({
+        //   "resultList.list": tempList
+        // });
       }
       
     });

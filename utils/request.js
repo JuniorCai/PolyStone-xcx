@@ -32,7 +32,7 @@ class request {
 
       setTimeout(()=>{
         wx.navigateTo({
-          url: 'pages/account/login/login',
+          url: '/pages/account/login/login',
         })
       },1500)
       

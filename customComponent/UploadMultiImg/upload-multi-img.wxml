@@ -3,7 +3,7 @@
     wx:for="{{imgFileList}}"
     wx:for-item="img"
     wx:for-index="thumbIndex"
-    src="{{img.success?img.serverPath:img.path}}" 
+    src="{{img.success?(fileServer + img.serverPath):img.path}}" 
     mode="aspectFit"
   >
     <view class="image_Badge" data-thumbIndex='{{thumbIndex}}' bindtap='_onDeleteThumb'>×</view>

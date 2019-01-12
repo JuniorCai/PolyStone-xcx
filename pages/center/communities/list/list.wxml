@@ -10,7 +10,7 @@
         bindclose="onDeleteCell">
         <van-card 
           title="{{community.detail}}"
-          thumb="{{community.coverPhoto}}"
+          thumb="{{fileServer+community.coverPhoto}}"
           thumb-class="thumbImg"
           custom-class="cardCustom"
         >

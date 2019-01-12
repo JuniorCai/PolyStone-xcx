@@ -1,10 +1,14 @@
 var config = 
 {
     baseHost: {
-    //requestHost: "http://localhost:6234"
-    requestHost: "http://192.168.7.106"
-    //requestHost: "http://192.168.0.105"
-    //requestHost: "http://127.0.0.1"
+      //requestHost: "http://localhost:6234",
+      requestHost: "http://192.168.7.106",
+      //requestHost: "http://192.168.0.105"
+      //requestHost: "http://127.0.0.1"
+      //fileServer: "http://localhost:6234",
+      fileServer: "http://192.168.7.106"
+      //fileServer: "http://192.168.0.105"
+      //fileServer: "http://127.0.0.1"
     },
     authCodePurpose:{
       register:1,
@@ -16,7 +20,7 @@ var config =
     uploadImgSizeLimit: 1048576,
     qqMapSdkKey:"BLABZ-PQSKK-5OQJ5-ASXKG-M7RET-C4BJZ",
     pageSizeType:{
-      centerPageSize:9
+      centerPageSize:10
     }
 };
 

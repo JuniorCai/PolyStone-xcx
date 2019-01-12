@@ -3,6 +3,7 @@ import Toast from "../../customComponent/VantWeapp/toast/toast";
 var config = require("../../utils/config.js");
 var cache = require("../../utils/cache.js");
 Component({
+  
 
   properties: {
     addBtnHide: {
@@ -30,33 +31,36 @@ Component({
    */
   data: {
     uploadRequestUrl: config.baseHost.requestHost + "/api/Resource/Upload",
-    imgFileList:[]
+    imgFileList:[],
+    fileServer: config.baseHost.fileServer
   },
 
-  ready(){
-    if (this.data.thumbList.length>0){
+  
+  ready() {
+    if (this.data.thumbList.length > 0) {
       var tempThumbList = this.data.thumbList;
       var t = this.data.imgFileList;
       var tempFileList = [];
 
-      for(var index in tempThumbList){
+      for (var index in tempThumbList) {
         var tempFile = {
-          success:true,
-          serverPath:tempThumbList[index],
-          uploadFlag:true
+          success: true,
+          serverPath: tempThumbList[index],
+          uploadFlag: true
         }
         tempFileList.push(tempFile);
       }
-      this.setData({imgFileList:tempFileList});
+      this.setData({ imgFileList: tempFileList });
     }
   },
-
   
 
   /**
    * 组件的方法列表
    */
   methods: {
+    
+
     _chooseImg(e){
       var that = this;
       wx.chooseImage({

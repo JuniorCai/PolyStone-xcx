@@ -13,3 +13,11 @@
 .thumbImg{
   border:solid 1px #e6e6e6;
 }
+
+.collectionDesc{
+  margin-top: 20rpx;
+}
+
+.collectionDesc .desc{
+  margin-bottom: 20rpx;
+}

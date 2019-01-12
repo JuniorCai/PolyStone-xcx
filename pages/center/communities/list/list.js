@@ -19,7 +19,8 @@ Page({
     blockType:["发布中","已下架"],
     communityList:{},
     refreshing: false,
-    emptyFlag:false
+    emptyFlag:false,
+    fileServer: config.baseHost.fileServer 
   },
 
   /**
@@ -37,17 +38,7 @@ Page({
         verifyStatus: 1,
         releaseStatus: that.data.active==0?1:2
         };
-      
-      pageHelper.getPagedData(1,param).then(res=>{
-        that.setData({
-          communityList: res
-        });
-      },error=>{
-        that.setData({
-          loadingHide: true,
-          communityList: error
-        });
-      })
+      this.getListData(param, 1);
       
     } else if (!this.data.hasUserInfo && !app.globalData.hasUserInfo) {
       wx.redirectTo({
@@ -74,15 +65,8 @@ Page({
         verifyStatus: 1,
         releaseStatus: that.data.active == 0 ? 1 : 2
       };
-      pageHelper.getPagedData(1, param).then(res => {
-        that.setData({
-          communityList: res
-        });
-      }, error => {
-        that.setData({
-          communityList: error
-        });
-      })
+      this.getListData(param,1);
+      
     }
   },
 
@@ -161,7 +145,14 @@ Page({
           refreshing: false,
           emptyFlag:true
         });
-      }else{
+      } else if (res.list.length == res.total) {
+        that.setData({
+          communityList: res,
+          refreshing: false,
+          emptyFlag: true
+        });
+      }
+      else{
         that.setData({
           communityList: res,
           refreshing: false
