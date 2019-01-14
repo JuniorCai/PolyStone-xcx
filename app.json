@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/community/index",
     "pages/center/index",
     "pages/center/userInfo/userInfo",
     "pages/account/login/login",
@@ -7,7 +8,6 @@
     "pages/index/index",
     "pages/logs/logs",
     "pages/company/index",
-    "pages/community/index",
     "pages/account/register/registerTwo",
     "pages/center/userInfo/changePhone/changePhone",
     "pages/center/userInfo/changePassword/changePassword",
@@ -16,7 +16,9 @@
     "pages/center/collections/list",
     "pages/center/communities/publish/index",
     "pages/center/communities/list/list",
-    "pages/center/test/test1"
+    "pages/center/test/test1",
+    "pages/search/index",
+    "pages/search/list/list"
   ],
   "window": {
     "backgroundTextStyle": "light",

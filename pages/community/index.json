@@ -1,1 +1,8 @@
-{}
+{
+  "navigationBarTitleText": "圈子",
+  "usingComponents": {
+    "van-search": "../../customComponent/VantWeapp/search/index",
+    "refresh-scroll-view": "../../../../customComponent/RefreshScrollView/refresh-scroll-view",
+    "van-toast": "../../../../customComponent/VantWeapp/toast/index"
+  }
+}
