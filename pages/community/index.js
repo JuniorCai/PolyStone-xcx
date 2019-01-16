@@ -5,62 +5,100 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    tabTxt: ['品牌', '价格', '销量'],//分类
+    tab: [true, true, true],
+    pinpaiList: [{ 'id': '1', 'title': '品牌1' }, { 'id': '1', 'title': '品牌1' }],
+    pinpai_id: 0,//品牌
+    pinpai_txt: '',
+    jiage_id: 0,//价格
+    jiage_txt: '',
+    xiaoliang_id: 0,//销量
+    xiaoliang_txt: '',
+    dataList: [
+      {
+        goods_id: 1,
+        goods_title: '商品标题1',
+        goods_img: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+        goods_xiaoliang: '0',
+        goods_price: '60'
+      }, {
+        goods_id: 1,
+        goods_title: '商品标题2',
+        goods_img: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+        goods_xiaoliang: '0',
+        goods_price: '70'
+      }, {
+        goods_id: 1,
+        goods_title: '商品标题3',
+        goods_img: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+        goods_xiaoliang: '0',
+        goods_price: '80'
+      }, {
+        goods_id: 1,
+        goods_title: '商品标题4',
+        goods_img: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+        goods_xiaoliang: '0',
+        goods_price: '90'
+      }, {
+        goods_id: 1,
+        goods_title: '商品标题5',
+        goods_img: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+        goods_xiaoliang: '0',
+        goods_price: '110'
+      }
+    ],
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-
+  // 选项卡
+  filterTab: function (e) {
+    var data = [true, true, true], index = e.currentTarget.dataset.index;
+    data[index] = !this.data.tab[index];
+    this.setData({
+      tab: data
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
+  //筛选项点击操作
+  filter: function (e) {
+    var self = this, id = e.currentTarget.dataset.id, txt = e.currentTarget.dataset.txt, tabTxt = this.data.tabTxt;
+    switch (e.currentTarget.dataset.index) {
+      case '0':
+        tabTxt[0] = txt;
+        self.setData({
+          tab: [true, true, true],
+          tabTxt: tabTxt,
+          pinpai_id: id,
+          pinpai_txt: txt
+        });
+        break;
+      case '1':
+        tabTxt[1] = txt;
+        self.setData({
+          tab: [true, true, true],
+          tabTxt: tabTxt,
+          jiage_id: id,
+          jiage_txt: txt
+        });
+        break;
+      case '2':
+        tabTxt[2] = txt;
+        self.setData({
+          tab: [true, true, true],
+          tabTxt: tabTxt,
+          xiaoliang_id: id,
+          xiaoliang_txt: txt
+        });
+        break;
+    }
+    //数据筛选
+    self.getDataList();
   },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
+  //加载数据
+  getDataList: function () {
+    //调用数据接口，获取数据
 
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
 
   }
+
 })

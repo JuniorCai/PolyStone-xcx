@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/community/index",
+    "pages/community/menudown/menudown",
     "pages/center/index",
     "pages/center/userInfo/userInfo",
     "pages/account/login/login",
