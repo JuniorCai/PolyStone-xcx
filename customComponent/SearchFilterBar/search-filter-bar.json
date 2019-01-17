@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "van-search": "../customComponent/VantWeapp/search/index"
+  }
+}
