@@ -5,15 +5,20 @@ Page({
    * 页面的初始数据
    */
   data: {
-    tabTxt: ['品牌', '价格', '销量'],//分类
+    tabTxt: [
+      { 
+        title: '品牌',
+        tabs: [{ 'id': '1', 'title': '品牌1' }, { 'id': '2', 'title': '品牌2' }]
+      },
+      {
+        title:'价格',
+        tabs: [{ 'id': '1', 'title': '58-88' }, { 'id': '2', 'title': '88-108' }, { 'id': '3', 'title': '108-188' }]
+      },
+      {
+        title: '销量',
+        tabs: [{ 'id': '1', 'title': '从高到低' }, { 'id': '2', 'title': '从低到高' }]
+      }],//分类
     tab: [true, true, true],
-    pinpaiList: [{ 'id': '1', 'title': '品牌1' }, { 'id': '1', 'title': '品牌1' }],
-    pinpai_id: 0,//品牌
-    pinpai_txt: '',
-    jiage_id: 0,//价格
-    jiage_txt: '',
-    xiaoliang_id: 0,//销量
-    xiaoliang_txt: '',
     dataList: [
       {
         goods_id: 1,

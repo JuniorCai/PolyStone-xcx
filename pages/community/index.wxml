@@ -1,12 +1,8 @@
+<search-filter-bar tabArray="{{tabTxt}}">
 
-<!-- <view class="filterBlock">
+</search-filter-bar>
 
-</view>
-
-<view class="resultBlock">
-
-</view> -->
-<view class="searchFilter">
+<!-- <view class="searchFilter">
   <view class="searchBlock">
     <van-search
       value="{{ value }}"
@@ -26,10 +22,10 @@
       <image src="/img/arrow.png"></image>
     </view>
   </view>
-</view>
+</view> -->
 
 <!--筛选项-->
-<view class="tabLayer" hidden="{{tab[0]}}">
+<!-- <view class="tabLayer" hidden="{{tab[0]}}">
     <text class="{{pinpai_id==0?'active':''}}" data-id="0" data-index="0" data-txt="品牌" bindtap="filter">不限</text>
     <text class="{{pinpai_id==item.id?'active':''}}" wx:for="{{pinpaiList}}" wx:key="pp" wx:for-item="item" data-id="{{item.id}}" data-index="0" data-txt="{{item.title}}" bindtap="filter">{{item.title}}</text>
 </view>
@@ -72,7 +68,7 @@
         </view>
       </van-card>
     </van-swipe-cell>
-  </refresh-scroll-view>
+  </refresh-scroll-view> -->
 <!-- <view class='list'>
   <block wx:for='{{dataList}}' wx:key='list' wx:for-item="item">
   <view class="list_item">

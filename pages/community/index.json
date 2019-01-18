@@ -3,6 +3,7 @@
   "usingComponents": {
     "van-search": "../../customComponent/VantWeapp/search/index",
     "refresh-scroll-view": "../../../../customComponent/RefreshScrollView/refresh-scroll-view",
-    "van-toast": "../../../../customComponent/VantWeapp/toast/index"
+    "van-toast": "../../../../customComponent/VantWeapp/toast/index",
+    "search-filter-bar": "../../../../customComponent/SearchFilterBar/search-filter-bar"
   }
 }

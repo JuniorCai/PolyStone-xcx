@@ -14,7 +14,7 @@
   </view>
   <view class="tabTit box">
     <view class="flex1{{!tab[index]?' active':''}}" wx:for="{{tabArray}}" wx:key="type" data-index="{{index}}" bindtap="filterTab">
-      <text>{{item}}</text>
+      <text>{{item.title}}</text>
       <image src="/img/arrow.png"></image>
     </view>
   </view>
@@ -22,9 +22,9 @@
 
 <!--筛选项-->
 <view wx:for="{{tabList}}" wx:for-item="itemTabs" wx:for-index="itemIndex" hidden='{{tab[itemIndex]}}' class="tabLayer">
-  <text class="{{tabSelectedIndexList[index]==0?'active':''}}" data-id="0" data-index="{{itemIndex}}" data-title="{{tabArray[index].title}}" bindtap="filter">不限</text>
+  <text class="{{tabSelectedIndexList[itemIndex]==0?'active':''}}" data-id="0" data-index="{{itemIndex}}" data-original="{{originalTabArray[itemIndex].title}}" bindtap="filter">不限</text>
 
-  <text class="{{tabSelectedIndexList[index]==tabItem.id?'active':''}}" wx:for="{{itemTabs}}" wx:key="{{tabItem.id}}" wx:for-item="tabItem" data-id="{{tabItem.id}}" data-index="{{itemIndex}}" data-title="{{tabItem.title}}" bindtap="filter">{{tabItem.title}}
+  <text class="{{tabSelectedIndexList[itemIndex]==tabItem.id?'active':''}}" wx:for="{{itemTabs}}" wx:key="{{tabItem.id}}" wx:for-item="tabItem" data-id="{{tabItem.id}}" data-index="{{itemIndex}}" data-title="{{tabItem.title}}" bindtap="filter">{{tabItem.title}}
   </text>
 </view>
 
