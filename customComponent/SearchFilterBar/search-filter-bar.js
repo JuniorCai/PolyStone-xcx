@@ -1,4 +1,4 @@
-// customComponent/FilterBar/search-filter-Bar.js
+
 Component({
   /**
    * 组件的属性列表
@@ -107,35 +107,7 @@ Component({
         tabSelectedIndexList:tabSelectedList
       });
 
-      // switch (e.currentTarget.dataset.index) {
-      //   case '0':
-      //     tabArray[0].title = title;
-      //     self.setData({
-      //       tab: [true, true, true],
-      //       tabTxt: tabArray,
-      //       pinpai_id: id,
-      //       pinpai_txt: title
-      //     });
-      //     break;
-      //   case '1':
-      //     tabTxt[1] = title;
-      //     self.setData({
-      //       tab: [true, true, true],
-      //       tabTxt: tabTxt,
-      //       jiage_id: id,
-      //       jiage_txt: title
-      //     });
-      //     break;
-      //   case '2':
-      //     tabTxt[2] = title;
-      //     self.setData({
-      //       tab: [true, true, true],
-      //       tabTxt: tabTxt,
-      //       xiaoliang_id: id,
-      //       xiaoliang_txt: title
-      //     });
-      //     break;
-      // }
+      
       //数据筛选
       self.getDataList();
     },
