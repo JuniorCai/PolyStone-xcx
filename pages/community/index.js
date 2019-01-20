@@ -1,10 +1,20 @@
-// pages/community/index.js
+import RequestHelper from "../../utils/request.js";
+import Toast from "../../customComponent/VantWeapp/toast/toast";
+import PagedHelper from "../../utils/pagedHelper.js";
+var config = require("../../utils/config.js")
+var pageHelper = null;
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    reload: false,
+    refreshing: false,
+    emptyFlag: false,
+    userInfo: {},
+    fileServer: config.baseHost.fileServer,
     tabTxt: [
       { 
         title: '品牌',
@@ -18,85 +28,44 @@ Page({
         title: '销量',
         tabs: [{ 'id': '1', 'title': '从高到低' }, { 'id': '2', 'title': '从低到高' }]
       }],//分类
-    tab: [true, true, true],
-    dataList: [
-      {
-        goods_id: 1,
-        goods_title: '商品标题1',
-        goods_img: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-        goods_xiaoliang: '0',
-        goods_price: '60'
-      }, {
-        goods_id: 1,
-        goods_title: '商品标题2',
-        goods_img: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-        goods_xiaoliang: '0',
-        goods_price: '70'
-      }, {
-        goods_id: 1,
-        goods_title: '商品标题3',
-        goods_img: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-        goods_xiaoliang: '0',
-        goods_price: '80'
-      }, {
-        goods_id: 1,
-        goods_title: '商品标题4',
-        goods_img: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-        goods_xiaoliang: '0',
-        goods_price: '90'
-      }, {
-        goods_id: 1,
-        goods_title: '商品标题5',
-        goods_img: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-        goods_xiaoliang: '0',
-        goods_price: '110'
-      }
-    ],
+    resultList: {},
   },
 
-  // 选项卡
-  filterTab: function (e) {
-    var data = [true, true, true], index = e.currentTarget.dataset.index;
-    data[index] = !this.data.tab[index];
-    this.setData({
-      tab: data
-    })
+  onLoad: function (options) {
+    var that = this;
+    var param = {
+      verifyStatus: 1,
+      releaseStatus: 1
+    };
+    pageHelper = new PagedHelper('/api/services/app/community/GetPagedCommunitys', config.pageSizeType.centerPageSize);
+
+    this.getListData(param, 1);
   },
 
-  //筛选项点击操作
-  filter: function (e) {
-    var self = this, id = e.currentTarget.dataset.id, txt = e.currentTarget.dataset.txt, tabTxt = this.data.tabTxt;
-    switch (e.currentTarget.dataset.index) {
-      case '0':
-        tabTxt[0] = txt;
-        self.setData({
-          tab: [true, true, true],
-          tabTxt: tabTxt,
-          pinpai_id: id,
-          pinpai_txt: txt
-        });
-        break;
-      case '1':
-        tabTxt[1] = txt;
-        self.setData({
-          tab: [true, true, true],
-          tabTxt: tabTxt,
-          jiage_id: id,
-          jiage_txt: txt
-        });
-        break;
-      case '2':
-        tabTxt[2] = txt;
-        self.setData({
-          tab: [true, true, true],
-          tabTxt: tabTxt,
-          xiaoliang_id: id,
-          xiaoliang_txt: txt
-        });
-        break;
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    var that = this;
+    if (that.data.reload) {
+      var param = {
+        verifyStatus: 1,
+        releaseStatus: 1
+      };
+      this.getListData(param, 1);
+
     }
-    //数据筛选
-    self.getDataList();
+  },
+  
+  filterData:function(){
+
   },
 
   //加载数据
@@ -104,6 +73,82 @@ Page({
     //调用数据接口，获取数据
 
 
-  }
+  },
+  
+  refreshList: function (e) {
+    var param = {
+      verifyStatus: 1,
+      releaseStatus: 1
+    };
+    this.getListData(param, 1);
+  },
+  getListData: function (param, pageIndex) {
+    var that = this;
+    that.setData({
+      emptyFlag: false
+    });
+    // setTimeout(() => {
+
+    // }, 1000)  
+
+    pageHelper.getPagedData(pageIndex, param).then(res => {
+      if (res.total == 0) {
+        that.setData({
+          resultList: {},
+          refreshing: false,
+          emptyFlag: true
+        });
+      } else if (res.list.length == res.total) {
+        that.setData({
+          resultList: res,
+          refreshing: false,
+          emptyFlag: true
+        });
+      }
+      else {
+        that.setData({
+          resultList: res,
+          refreshing: false
+        });
+      }
+    }, error => {
+      that.setData({
+        refreshing: false,
+        resultList: error,
+        emptyFlag: true
+      });
+    })
+  },
+  loadMore: function (e) {
+    var that = this;
+    if (that.data.emptyFlag) {
+      return;
+    }
+
+    var nextPageIndex = that.data.resultList.pageIndex + 1;
+    var param = {
+      verifyStatus: 1,
+      releaseStatus:1
+    };
+    pageHelper.getPagedData(nextPageIndex, param).then(res => {
+      // var tempList = that.data.communityList.list.concat(res.list);
+      // tempList.pageIndex = nextPageIndex;
+      // this.setData({ colors: [...this.data.colors, ...colors] });
+      that.setData({
+        "resultList.list": [...this.data.resultList.list, ...res.list],
+        "resultList.pageIndex": nextPageIndex
+      });
+      if (this.data.resultList.list.length == res.total) {
+        that.setData({
+          emptyFlag: true
+        });
+      }
+    }, error => {
+      that.setData({
+        loadingHide: true,
+        resultList: error
+      });
+    })
+  },
 
 })

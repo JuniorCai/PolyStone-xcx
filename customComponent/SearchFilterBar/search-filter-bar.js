@@ -109,7 +109,13 @@ Component({
 
       
       //数据筛选
-      self.getDataList();
+      var eventDetail = { tabSelectedList: this.data.tabSelectedIndexList }
+      var eventOption = {}
+      this._triggerEvent("filterData", eventDetail, eventOption);
+    },
+
+    _triggerEvent: function (eventName, eventDetail, eventOption) {
+      this.triggerEvent(eventName, eventDetail, eventOption)
     },
 
     onSearch:function(){
@@ -117,12 +123,6 @@ Component({
     },
 
     onCancel:function(){
-
-    },
-    //加载数据
-    getDataList: function () {
-      //调用数据接口，获取数据
-
 
     }
   }

@@ -1,7 +1,34 @@
-<search-filter-bar tabArray="{{tabTxt}}">
-
-</search-filter-bar>
-
+<search-filter-bar tabArray="{{tabTxt}}" bind-filterData="filterData" ></search-filter-bar>
+<view class='list'>
+  <refresh-scroll-view refreshing="{{refreshing}}" nomore="{{emptyFlag}}" bindpulldownrefresh="refreshList" bindloadmore="loadMore" catchscroll="onPageScroll">
+    <van-card 
+      wx:for="{{resultList.list}}"
+      wx:for-item="community" 
+      wx:for-index="itemIndex"
+      wx:key="{{community.id}}"
+      title="{{community.detail}}"
+      thumb="{{fileServer+community.coverPhoto}}"
+      
+      >
+        <view slot="desc">
+          {{community.detail}}
+        </view>
+        <view slot="footer">
+          <view style='width:100px;height:10px'></view>
+          <view class="thumbList" style='display: flex;'>
+          {{community.imgUrls.split(',')}}
+            <text wx:for="{{community.imgUrls.split(',')}}" wx:for-item="imgUrl" >{{imgUrl}}</text>
+            <image wx:for="{{community.imgUrls.split(',')}}" wx:for-item="imgUrl" src='imgUrl'>
+            </image>
+          </view>
+          <view class="contact">
+          </view>
+          <view class="date">
+          </view>
+        </view>
+      </van-card>
+  </refresh-scroll-view>
+</view>
 <!-- <view class="searchFilter">
   <view class="searchBlock">
     <van-search
