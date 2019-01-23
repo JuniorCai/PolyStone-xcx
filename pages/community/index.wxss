@@ -157,3 +157,8 @@ navigator{
   margin-left:10px;
   font-size:15px;
 }
+
+.thumbList image{
+  width:160rpx;
+  height: 160rpx
+}

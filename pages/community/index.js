@@ -17,16 +17,20 @@ Page({
     fileServer: config.baseHost.fileServer,
     tabTxt: [
       { 
-        title: '品牌',
-        tabs: [{ 'id': '1', 'title': '品牌1' }, { 'id': '2', 'title': '品牌2' }]
+        title: '默认排序',
+        key:'Sort',
+        tabs: [{ 'id': '1', 'title': '发布时间' }, { 'id': '2', 'title': '刷新时间' }]
       },
       {
-        title:'价格',
-        tabs: [{ 'id': '1', 'title': '58-88' }, { 'id': '2', 'title': '88-108' }, { 'id': '3', 'title': '108-188' }]
+        title:'分类',
+        key:'CommunityCategoryId',
+        tabs: [{ 'id': '1', 'title': '供应' }, { 'id': '2', 'title': '求购' }]
       },
       {
-        title: '销量',
-        tabs: [{ 'id': '1', 'title': '从高到低' }, { 'id': '2', 'title': '从低到高' }]
+        title: '时间段',
+        key: 'RefreshDate',
+        tabs: [{ 'id': '1', 'title': '3天前' }, { 'id': '2', 'title': '1周前' }
+          , { 'id': '3', 'title': '2周前' }, { 'id': '4', 'title': '1个月前' }]
       }],//分类
     resultList: {},
   },
@@ -64,8 +68,16 @@ Page({
     }
   },
   
-  filterData:function(){
-
+  filterData:function(e){
+    var that = this;
+    var selectedList = e.detail.tabSelectedList;
+    selectedList.forEach(function (item, index){
+      var itemInt = parseInt(item);
+      if (itemInt>0){
+        var tabSelected = that.data.tabTxt[index];
+        var filterValue = tabSelected[itemInt];
+      }
+    });
   },
 
   //加载数据

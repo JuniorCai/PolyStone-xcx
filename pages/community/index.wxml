@@ -1,4 +1,6 @@
-<search-filter-bar tabArray="{{tabTxt}}" bind-filterData="filterData" ></search-filter-bar>
+<wxs src="../../customWxs/commonMethod.wxs" module="commonMethod"/>
+
+<search-filter-bar tabArray="{{tabTxt}}" bind:filterData="filterData" ></search-filter-bar>
 <view class='list'>
   <refresh-scroll-view refreshing="{{refreshing}}" nomore="{{emptyFlag}}" bindpulldownrefresh="refreshList" bindloadmore="loadMore" catchscroll="onPageScroll">
     <van-card 
@@ -14,12 +16,14 @@
           {{community.detail}}
         </view>
         <view slot="footer">
-          <view style='width:100px;height:10px'></view>
           <view class="thumbList" style='display: flex;'>
-          {{community.imgUrls.split(',')}}
-            <text wx:for="{{community.imgUrls.split(',')}}" wx:for-item="imgUrl" >{{imgUrl}}</text>
-            <image wx:for="{{community.imgUrls.split(',')}}" wx:for-item="imgUrl" src='imgUrl'>
-            </image>
+            <view style='width:100px;height:80px'></view>
+
+            <block wx:for="{{commonMethod.split(community.imgUrls,',')}}" wx:for-item="imgUrl">
+              <image mode="aspectFit" src='{{fileServer+imgUrl}}'>
+              </image>
+            </block>
+            
           </view>
           <view class="contact">
           </view>

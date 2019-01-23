@@ -1,0 +1,10 @@
+var splitStr = function(originStr,separate){
+  
+  var array = originStr.split(separate); 
+  return array;
+}
+
+
+module.exports = {
+  split: splitStr
+}
