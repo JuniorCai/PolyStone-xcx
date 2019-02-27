@@ -85,13 +85,6 @@ Page({
 
   },
 
-  //加载数据
-  getDataList: function () {
-    //调用数据接口，获取数据
-
-
-  },
-  
   refreshList: function (e) {
     var param = {
       verifyStatus: 1,
@@ -167,5 +160,11 @@ Page({
       });
     })
   },
+  onSearch:function(e){
+    var searchValue = e.detail.value;
+    var t = searchValue;
+  },
+  onCancel:function(e){
 
+  }
 })

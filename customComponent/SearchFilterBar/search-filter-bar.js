@@ -22,7 +22,7 @@ Component({
             tab: tempTabVisible, 
             tabList: tempTabsList, 
             tabSelectedIndexList:tempSelectedIndexList,
-            originalTabArray: newVal
+            originalTabArray: JSON.parse(JSON.stringify(newVal))
           });
         }
       }
@@ -118,8 +118,26 @@ Component({
       this.triggerEvent(eventName, eventDetail, eventOption)
     },
 
-    onSearch:function(){
-
+    onChange:function(e){
+      var self = this;
+      self.setData({
+        searchValue: e.detail
+      });
+    },
+    onSearch:function(e){
+      var self = this;
+      var tempTabSelectedIndexList = new Array(self.data.originalTabArray.length);
+      for (var i = 0; i < tempTabSelectedIndexList.length; i++){
+        tempTabSelectedIndexList[i] = 0;
+      }
+      self.setData({
+        tabArray: JSON.parse(JSON.stringify(self.data.originalTabArray)),
+        tabSelectedIndexList: tempTabSelectedIndexList
+      });
+      //数据筛选
+      var eventDetail = { value: this.data.searchValue }
+      var eventOption = {}
+      this._triggerEvent("search", eventDetail, eventOption);
     },
 
     onCancel:function(){

@@ -7,10 +7,13 @@
       custom-class="searchBar"
       input-class="searchInput"
       cancel-class="searchCancel"
-      show-action
+      use-action-slot
+      bind:change="onChange"
       bind:search="onSearch"
       bind:cancel="onCancel"
-    />
+    >
+      <view slot="action" bind:tap="onSearch" class="searchCancel">搜索</view>
+    </van-search>
   </view>
   <view class="tabTit box">
     <view class="flex1{{!tab[index]?' active':''}}" wx:for="{{tabArray}}" wx:key="type" data-index="{{index}}" bindtap="filterTab">
