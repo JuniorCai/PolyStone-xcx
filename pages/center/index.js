@@ -1,5 +1,5 @@
 const app = getApp()
-
+var config = require("../../utils/config.js") 
 // pages/center/index.js
 Page({
 
@@ -9,7 +9,8 @@ Page({
   data: {
     hasListHead:false,
     hasUserInfo:false,
-    userInfo:{}
+    userInfo:{},
+    fileServer: config.baseHost.fileServer 
   },
 
   /**

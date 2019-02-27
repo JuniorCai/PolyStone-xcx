@@ -17,6 +17,8 @@ Page({
     userInfo: {},
     phoneNumberMix:"",
     showChangeNickName:false,
+    fileServer: config.baseHost.fileServer 
+
   },
 
   /**
