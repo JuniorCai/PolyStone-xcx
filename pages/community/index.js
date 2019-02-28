@@ -71,7 +71,9 @@ Page({
   filterData:function(e){
     var that = this;
     var selectedList = e.detail.tabSelectedList;
-    var params = { 'verifyStatus': 1,'releaseStatus':1};
+    var searchContent = e.detail.searchContent;
+
+    var params = { 'verifyStatus': 1, 'releaseStatus': 1,'title':""};
     selectedList.forEach(function (item, index){
       var itemInt = parseInt(item);
       if (itemInt>0){
@@ -161,8 +163,9 @@ Page({
     })
   },
   onSearch:function(e){
-    var searchValue = e.detail.value;
-    var t = searchValue;
+    var searchValue = e.detail.searchContent;
+    var params = { 'verifyStatus': 1, 'releaseStatus': 1, 'title': searchValue };
+    this.getListData(params, 1);
   },
   onCancel:function(e){
 

@@ -115,7 +115,7 @@ Component({
 
       
       //数据筛选
-      var eventDetail = { tabSelectedList: this.data.tabSelectedIndexList }
+      var eventDetail = { searchContent: "", tabSelectedList: this.data.tabSelectedIndexList }
       var eventOption = {}
       this._triggerEvent("filterData", eventDetail, eventOption);
     },
@@ -141,7 +141,7 @@ Component({
         tabSelectedIndexList: tempTabSelectedIndexList
       });
       //数据筛选
-      var eventDetail = { value: this.data.searchValue }
+      var eventDetail = { searchContent: this.data.searchValue, tabSelectedList: this.data.tabSelectedIndexList }
       var eventOption = {}
       this._triggerEvent("search", eventDetail, eventOption);
     },
