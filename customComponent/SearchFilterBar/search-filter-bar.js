@@ -87,16 +87,22 @@ Component({
     //筛选项点击操作
     filter: function (e) {
       var self = this;
-      var tabItemId = e.currentTarget.dataset.id;
+      var tabItemId = parseInt(e.currentTarget.dataset.id);
+      var tabIndex = e.currentTarget.dataset.index;
       var tabItemTitle = "";
+      var tabArray = this.data.tabArray;
+      var tabSelectedList = this.data.tabSelectedIndexList;
+      //判断是否重复点击
+      if (tabSelectedList[tabIndex] == tabItemId){
+        self.initTabVisible();
+        return ;
+      }
+
       if(tabItemId>0){
         tabItemTitle = e.currentTarget.dataset.title;
       }else{
         tabItemTitle = e.currentTarget.dataset.original;
       }
-      var tabIndex = e.currentTarget.dataset.index;
-      var tabArray = this.data.tabArray;
-      var tabSelectedList = this.data.tabSelectedIndexList;
 
       tabArray[tabIndex].title = tabItemTitle;
       tabSelectedList[tabIndex] = tabItemId;
