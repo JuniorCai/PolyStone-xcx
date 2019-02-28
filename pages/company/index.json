@@ -1,1 +1,10 @@
-{}
+{
+  "navigationBarTitleText": "公司",
+  "usingComponents": {
+    "van-card": "../../customComponent/VantWeapp/card/index",
+    "van-cell": "../../customComponent/VantWeapp/cell/index",
+    "refresh-scroll-view": "../../customComponent/RefreshScrollView/refresh-scroll-view",
+    "van-toast": "../../customComponent/VantWeapp/toast/index",
+    "search-filter-bar": "../../customComponent/SearchFilterBar/search-filter-bar"
+  }
+}
