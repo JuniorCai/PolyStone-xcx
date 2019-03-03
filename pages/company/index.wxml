@@ -3,36 +3,39 @@
 <search-filter-bar tabArray="{{tabTxt}}" bind:filterData="filterData" bind:search="onSearch" bind:cancel="onCancel"></search-filter-bar>
 <view class='list'>
   <refresh-scroll-view refreshing="{{refreshing}}" nomore="{{emptyFlag}}" bindpulldownrefresh="refreshList" bindloadmore="loadMore" catchscroll="onPageScroll">
+  <block wx:for="{{resultList.list}}" wx:for-item="company" wx:for-index="itemIndex" wx:key="{{company.id}}">
     <van-card 
-      wx:for="{{resultList.list}}"
-      wx:for-item="company" 
-      wx:for-index="itemIndex"
-      wx:key="{{company.id}}"
       title="{{company.companyName}}"
       thumb="{{fileServer+company.logo}}"
+      thumb-mode="scaleToFill"
+      thumb-class="thumb"
       >
         <view slot="desc">
           <view class='verifyTags'>
             认证企业
           </view>
-          所在地区：{{company.business}}
+          <view class="bussinessBlock">
+            所在地区：{{company.business}}
+          </view>
         </view>
         <view slot="footer">
           <view class="businessBlock" style='' ws:if="{{company.business.length>0}}">主营：{{company.business}}</view>
           <view class="thumbList" style='display: flex;'>
-            <view style='width:100px;height:80px'></view>
-
-            <block wx:for="{{commonMethod.split(company.imgUrls,',')}}" wx:for-item="imgUrl">
-              <image mode="aspectFit" src='{{fileServer+imgUrl}}'>
-              </image>
+            <block wx:if="{{company.products.length>0}}">
+              <block wx:for="{{company.products}}" wx:for-item="product" wx:for-index="pIndex">
+                <image wx:if="{{pIndex < 3}}" class='productCover' mode="scaleToFill" src='{{fileServer+product.coverPhoto}}'></image>
+              </block>
             </block>
-            
-          </view>
-          <view class="contact">
-          </view>
-          <view class="date">
+            <block wx:else>
+              <view  class="emptyTip">
+                <text>该企业暂未发布产品</text>
+              </view>
+            </block>
           </view>
         </view>
       </van-card>
+      <view class="cardFloor"></view>
+  </block>
+    
   </refresh-scroll-view>
 </view>

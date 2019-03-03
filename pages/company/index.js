@@ -41,7 +41,7 @@ Page({
       verifyStatus: 1,
       releaseStatus: 1
     };
-    pageHelper = new PagedHelper('/api/services/app/company/GetPagedCompanys', config.pageSizeType.centerPageSize);
+    pageHelper = new PagedHelper('/api/services/app/company/GetPagedCompanysWithProducts', config.pageSizeType.centerPageSize);
 
     this.getListData(param, 1);
   },
