@@ -6,19 +6,23 @@
   <block wx:for="{{resultList.list}}" wx:for-item="company" wx:for-index="itemIndex" wx:key="{{company.id}}">
     <van-card 
       title="{{company.companyName}}"
-      thumb="{{fileServer+company.logo}}"
       thumb-mode="scaleToFill"
       thumb-class="thumb"
       >
+        
+        <view slot="thumb" class="">
+          <image class="thumb" mode="scaleToFill"  src="{{fileServer+company.logo}}">
+          </image>
+        </view>
         <view slot="desc">
-          <view class='verifyTags'>
+          <view class='verifyTags' style='height:40rpx;line-height:40rpx'>
             认证企业
           </view>
-          <view class="bussinessBlock">
+          <view class="bussinessBlock" style='height:40rpx;line-height:40rpx'>
             所在地区：{{company.business}}
           </view>
         </view>
-        <view slot="footer">
+        <view slot="footer" style='margin-top:-40rpx'>
           <view class="businessBlock" style='' ws:if="{{company.business.length>0}}">主营：{{company.business}}</view>
           <view class="thumbList" style='display: flex;'>
             <block wx:if="{{company.products.length>0}}">

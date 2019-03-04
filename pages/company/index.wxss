@@ -160,9 +160,14 @@ navigator{
 
 .thumb{
   border: 2rpx solid #e6e6e6;
-
+  width:160rpx;
+  height: 120rpx;
 }
 
+.van-card__thumb{
+  width:160rpx;
+  height: 120rpx;
+}
 .thumbList{
   padding-bottom: 20rpx;
 }

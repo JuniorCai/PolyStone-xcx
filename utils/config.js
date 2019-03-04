@@ -2,11 +2,11 @@ var config =
 {
     baseHost: {
       requestHost: "http://localhost:6234",
-      //requestHost: "http://192.168.7.106",
+      //requestHost: "http://192.168.7.102",
       //requestHost: "http://192.168.0.105",
       //requestHost: "http://127.0.0.1"
       fileServer: "http://localhost:6234",
-      //fileServer: "http://192.168.7.106"
+      //fileServer: "http://192.168.7.102"
       //fileServer: "http://192.168.0.105"
       //fileServer: "http://127.0.0.1"
     },
