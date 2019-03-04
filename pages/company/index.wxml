@@ -19,7 +19,7 @@
             认证企业
           </view>
           <view class="bussinessBlock" style='height:40rpx;line-height:40rpx'>
-            所在地区：{{company.business}}
+            所在地区：{{company.region.parent.regionName+' '+company.region.regionName}}
           </view>
         </view>
         <view slot="footer" style='margin-top:-40rpx'>

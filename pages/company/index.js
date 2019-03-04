@@ -17,18 +17,13 @@ Page({
     fileServer: config.baseHost.fileServer,
     tabTxt: [
       {
-        title: '默认排序',
-        key: 'Sorting',
-        tabs: [{ 'id': '1', 'title': '发布时间', 'value': 'creationTime' }, { 'id': '2', 'title': '刷新时间', 'value': 'refreshDate' }]
-      },
-      {
         title: '分类',
-        key: 'CommunityCategoryId',
+        key: 'CompanyCategoryId',
         tabs: [{ 'id': '1', 'title': '供应', 'value': '1' }, { 'id': '2', 'title': '求购', 'value': '2' }]
       },
       {
-        title: '时间段',
-        key: 'RefreshExpire',
+        title: '地区',
+        key: 'RegionCode',
         tabs: [{ 'id': '1', 'title': '3天前', 'value': '3' }, { 'id': '2', 'title': '1周前', 'value': '7' }
           , { 'id': '3', 'title': '2周前', 'value': '14' }, { 'id': '4', 'title': '1个月前', 'value': '30' }]
       }],//分类

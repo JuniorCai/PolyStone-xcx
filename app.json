@@ -19,7 +19,8 @@
     "pages/center/communities/list/list",
     "pages/center/test/test1",
     "pages/search/index",
-    "pages/search/list/list"
+    "pages/search/list/list",
+    "pages/homePage/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
