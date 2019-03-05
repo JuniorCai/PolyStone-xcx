@@ -1,5 +1,3 @@
-<wxs src="../../customWxs/commonMethod.wxs" module="commonMethod"/>
-
 <search-filter-bar tabArray="{{tabTxt}}" bind:filterData="filterData" bind:search="onSearch" bind:cancel="onCancel"></search-filter-bar>
 <view class='list'>
   <refresh-scroll-view refreshing="{{refreshing}}" nomore="{{emptyFlag}}" bindpulldownrefresh="refreshList" bindloadmore="loadMore" catchscroll="onPageScroll">

@@ -1,0 +1,12 @@
+<wxs src="../../customWxs/commonMethod.wxs" module="commonMethod"/>
+<view class="bannerContainer">
+  <swiper
+    indicator-dots="{{true}}" autoplay="{{true}}" circular="{{true}}" 
+          interval="{{interval}}" duration="{{duration}}" >
+    <block wx:for="{{commonMethod.split(bannerList,',')}}" wx:for-item="banner" wx:key="*this">
+      <swiper-item item-id="{{index}}">
+        <image class='banner' src='{{banner}}'></image>
+      </swiper-item>
+    </block>
+  </swiper>
+</view>
