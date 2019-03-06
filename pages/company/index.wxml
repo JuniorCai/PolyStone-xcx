@@ -6,6 +6,8 @@
       title="{{company.companyName}}"
       thumb-mode="scaleToFill"
       thumb-class="thumb"
+      bind:tap="showDetail"
+      data-companyId="{{company.id}}"
       >
         
         <view slot="thumb" class="">

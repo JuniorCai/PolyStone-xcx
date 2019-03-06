@@ -1,1 +1,48 @@
-/* pages/homePage/index.wxss */
+.page{
+  background-color: f5f5f5;
+}
+
+.baseBar{
+  width: 100%;
+  display: flex;
+  padding: 10rpx;
+  background-color: #ffffff;
+  margin: 10rpx 0;
+}
+
+.baseBar .barItem{
+  flex-direction: row;
+  text-align: center;
+  font-size: 32rpx;
+  width: 50%;
+  line-height: 70rpx;
+}
+
+.baseBar .separateLine{
+  width:0;
+  border: solid 2rpx rgb(131, 128, 128);
+}
+
+.intro{
+  padding: 20rpx;
+  font-size: 28rpx;
+  font-weight: 700px;
+  background-color: #ffffff; 
+  height: 160rpx;
+   margin-bottom: 10rpx;
+}
+
+.intro text{
+
+}
+
+.baseInfo .baseName{
+  flex: none;
+  -webkit-flex:none;
+  width: 24%
+}
+
+.baseInfo .baseValue{
+  flex: none;
+  -webkit-flex:none;
+}

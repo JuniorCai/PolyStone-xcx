@@ -1,2 +1,41 @@
-<!--pages/homePage/index.wxml-->
-<text>pages/homePage/index.wxml</text>
+<view class='page'>
+  <view class='pageContent'>
+    <banner-view >
+
+    </banner-view>
+    <view class='baseBar'>
+      <view class='barItem'>
+      浏览：100
+      </view>
+      <view class='separateLine'></view>
+      <view class='barItem'>
+      收藏：10
+      </view>
+    </view>
+    <view class='intro'>
+      <text>公司简介：{{company.introduction==null?"":company.introduction}}</text>
+    </view>
+    <view class='baseInfo'>
+      <van-cell-group>
+        <van-cell 
+          title='主营：'
+          value='{{company.business==null?"":company.business}}'
+          title-class='baseName'
+          value-class='baseValue'
+        />
+        <van-cell 
+          title='联系方式：'
+          value="{{company.contacts.length>0?company.contacts[0].linkMan+'  '+company.contacts[0].phone:''}}"
+          title-class='baseName'
+          value-class='baseValue'
+        />
+        <van-cell 
+          title='地址：'
+          value="{{company.address}}"
+          title-class='baseName'
+          value-class='baseValue'
+        />
+      </van-cell-group>
+    </view>
+  </view>
+</view>

@@ -164,5 +164,13 @@ Page({
   },
   onCancel: function (e) {
 
+  },
+  showDetail:function(e){
+    var companyId = e.currentTarget.dataset.companyid;;
+    if(companyId>0){
+      wx.navigateTo({
+        url: '/pages/homePage/index?companyid='+companyId,
+      })
+    }
   }
 })

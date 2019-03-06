@@ -1,11 +1,11 @@
 <wxs src="../../customWxs/commonMethod.wxs" module="commonMethod"/>
 <view class="bannerContainer">
   <swiper
-    indicator-dots="{{true}}" autoplay="{{true}}" circular="{{true}}" 
+    indicator-dots="{{true}}" indicator-active-color="#333" indicator-color="#ffffff" autoplay="{{true}}" circular="{{true}}" 
           interval="{{interval}}" duration="{{duration}}" >
-    <block wx:for="{{commonMethod.split(bannerList,',')}}" wx:for-item="banner" wx:key="*this">
+    <block wx:for="{{bannerList}}" wx:for-item="banner" wx:key="*this">
       <swiper-item item-id="{{index}}">
-        <image class='banner' src='{{banner}}'></image>
+        <image class='banner' src='{{fileServer+banner}}'></image>
       </swiper-item>
     </block>
   </swiper>
