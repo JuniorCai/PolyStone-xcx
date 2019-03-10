@@ -37,5 +37,18 @@
         />
       </van-cell-group>
     </view>
+    <view class='tabContainer'>
+      <van-tabs sticky animated bind:change="onChange">
+        <van-tab title="产品">
+          <scroll-view scroll-y="{{true}}">
+            <van-cell wx:for="{{products}}" wx:for-item="product" wx:for-index="pIndex" title="{{product.title}}" value="" />
+            
+          </scroll-view>
+        </van-tab>
+        <van-tab title="圈子">圈子</van-tab>
+        <van-tab title="联系方式">联系方式</van-tab>
+      </van-tabs>
+    </view>
+
   </view>
 </view>

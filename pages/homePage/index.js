@@ -20,7 +20,8 @@ Page({
     communityList:[],
     contact: null,
     collectTimes:0,
-    viewTimes:0
+    viewTimes:0,
+    selectedIndex:0
   },
 
   /**
@@ -37,6 +38,7 @@ Page({
         companyId: options.companyid
       })
       this.bindCompanyInfo();
+      this.bindCompanyProducts();
     }
   },
 
@@ -95,7 +97,35 @@ Page({
     var param = { id: this.data.companyId};
     requestHelper.postRequest('/api/services/app/company/GetCompanyById', param).then(res => {
       if(res.data.result){
-        var companyBanners = res.data.result.split(',');
+        var companyBanners = res.data.result.banners == null ? [] : res.data.result.banners.split(',');
+        self.setData({ company: res.data.result, banners: companyBanners });
+      }
+    });
+  },
+  bindCompanyProducts:function(){
+    var self = this;
+    var requestHelper = new RequestHelper(false);
+    var param = { id: this.data.companyId };
+    requestHelper.postRequest('/api/services/app/product/GetProductById', param).then(res => {
+      if (res.data.result) {
+        var companyBanners = res.data.result.banners == null ? [] : res.data.result.banners.split(',');
+        self.setData({ company: res.data.result, banners: companyBanners });
+      }
+    });
+  },
+  onChange:function(e){
+    var self = this;
+    var chooseIndex = e.detail.index;
+    if (chooseIndex == self.data.selectedIndex){
+      return;
+    }
+    self.setData({ selectedIndex: chooseIndex});
+
+    var requestHelper = new RequestHelper(false);
+    var param = { id: this.data.companyId };
+    requestHelper.postRequest('/api/services/app/product/GetProductsByCompanyId', param).then(res => {
+      if (res.data.result) {
+        var companyBanners = res.data.result.banners == null ? [] : res.data.result.banners.split(',');
         self.setData({ company: res.data.result, banners: companyBanners });
       }
     });

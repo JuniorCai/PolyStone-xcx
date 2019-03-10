@@ -2,6 +2,8 @@
   "usingComponents": {
     "banner-view": "../../customComponent/Banner/banner-view",
     "van-cell": "../../customComponent/VantWeapp/cell/index",
-    "van-cell-group": "../../customComponent/VantWeapp/cell-group/index"
+    "van-cell-group": "../../customComponent/VantWeapp/cell-group/index",
+    "van-tab": "../../customComponent/VantWeapp/tab/index",
+    "van-tabs": "../../customComponent/VantWeapp/tabs/index"
   }
 }

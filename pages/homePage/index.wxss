@@ -35,6 +35,9 @@
 .intro text{
 
 }
+.baseInfo{
+  margin-bottom:10rpx;
+}
 
 .baseInfo .baseName{
   flex: none;
