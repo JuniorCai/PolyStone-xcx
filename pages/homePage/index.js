@@ -16,12 +16,13 @@ Page({
     companyId:0,
     company: null,
     banners:[],
-    productList:[],
-    communityList:[],
+    productList: { isfetched: false, items: [] },
+    communityList: { isfetched: false, items: [] },
     contact: null,
     collectTimes:0,
     viewTimes:0,
-    selectedIndex:0
+    selectedIndex:0,
+    fileServer: config.baseHost.fileServer
   },
 
   /**
@@ -106,28 +107,45 @@ Page({
     var self = this;
     var requestHelper = new RequestHelper(false);
     var param = { id: this.data.companyId };
-    requestHelper.postRequest('/api/services/app/product/GetProductById', param).then(res => {
+    requestHelper.postRequest('/api/services/app/product/GetProductByCompanyId', param).then(res => {
       if (res.data.result) {
-        var companyBanners = res.data.result.banners == null ? [] : res.data.result.banners.split(',');
-        self.setData({ company: res.data.result, banners: companyBanners });
+        self.setData({ "productList.isfetched":true,"productList.items": res.data.result });
       }
     });
   },
   onChange:function(e){
     var self = this;
     var chooseIndex = e.detail.index;
-    if (chooseIndex == self.data.selectedIndex){
-      return;
-    }
-    self.setData({ selectedIndex: chooseIndex});
-
     var requestHelper = new RequestHelper(false);
-    var param = { id: this.data.companyId };
-    requestHelper.postRequest('/api/services/app/product/GetProductsByCompanyId', param).then(res => {
-      if (res.data.result) {
-        var companyBanners = res.data.result.banners == null ? [] : res.data.result.banners.split(',');
-        self.setData({ company: res.data.result, banners: companyBanners });
+
+    self.setData({ selectedIndex: chooseIndex });
+    switch(chooseIndex){
+      case 0:
+      if(!self.data.productList.isfetched){
+        var param = { id: self.data.companyId };
+        requestHelper.postRequest('/api/services/app/product/GetProductsByCompanyId', param).then(res => {
+          if (res.data.result) {
+            self.setData({ "productList.isfetched": true, "productList.items": res.data.result });
+          }
+        });
       }
-    });
+      break;
+      case 1:
+        if (!self.data.communityList.isfetched) {
+          var param = { id: self.data.company.user.id };
+          requestHelper.postRequest('/api/services/app/community/GetCommunityByUserId', param).then(res => {
+            if (res.data.result) {
+              self.setData({ "communityList.isfetched": true, "communityList.items": res.data.result });
+            }
+          });
+        }
+      break;
+      case 2:
+      break;
+      default:
+      break;
+    }
+
+
   }
 })

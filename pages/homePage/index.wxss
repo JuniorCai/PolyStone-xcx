@@ -49,3 +49,13 @@
   flex: none;
   -webkit-flex:none;
 }
+.tabContainer{
+  background-color: #ffffff
+}
+
+.itemLeft{
+  padding: 10rpx 10rpx 10rpx 20rpx;
+}
+.itemRight{
+  padding: 10rpx 20rpx 10rpx 10rpx;
+}
