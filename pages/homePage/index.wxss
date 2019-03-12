@@ -53,6 +53,10 @@
   background-color: #ffffff
 }
 
+.scroll-view {
+  height:764px;/*  calc(100% + 40px); */
+}
+
 .itemLeft{
   padding: 10rpx 10rpx 10rpx 20rpx;
 }

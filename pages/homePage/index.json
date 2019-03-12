@@ -6,6 +6,7 @@
     "van-tab": "../../customComponent/VantWeapp/tab/index",
     "van-tabs": "../../customComponent/VantWeapp/tabs/index",
     "van-row": "../../customComponent/VantWeapp/row/index",
-    "van-col": "../../customComponent/VantWeapp/col/index"
+    "van-col": "../../customComponent/VantWeapp/col/index",
+    "refresh-scroll-view": "../../customComponent/RefreshScrollView/refresh-scroll-view"
   }
 }

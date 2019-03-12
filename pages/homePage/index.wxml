@@ -38,21 +38,17 @@
       </van-cell-group>
     </view>
     <view class='tabContainer'>
-      <van-tabs sticky animated bind:change="onChange">
+      <van-tabs sticky animated   active="{{ active }}" bind:change="onChange">
         <van-tab title="产品">
-          <scroll-view scroll-y="{{true}}" >
-
+          <scroll-view class='scroll-view' scroll-y="{{true}}" bindscrolltolower="loadMore">
             <block wx:for="{{productList.items}}" wx:for-item="product" wx:for-index="pIndex" >
               <van-col span="12" wx:if="{{pIndex%2==0}}" >
               <view class="itemLeft"><image style='width:100%;height:345rpx' src='{{fileServer+product.coverPhoto}}'></image></view>
-                
               </van-col>
               <van-col span="12" wx:else >
-              <view class="itemRight"><image style='width:100%;height:345rpx' src='{{fileServer+product.coverPhoto}}'></image></view>
-                
+              <view class="itemRight"><image style='width:100%;height:345rpx' src='{{fileServer+product.coverPhoto}}'></image></view>   
               </van-col>
             </block>
-
           </scroll-view>
         </van-tab>
         <van-tab title="圈子">
@@ -66,4 +62,4 @@
     </view>
 
   </view>
-</view>
+</view> 

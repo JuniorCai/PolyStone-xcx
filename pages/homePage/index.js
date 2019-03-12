@@ -22,7 +22,9 @@ Page({
     collectTimes:0,
     viewTimes:0,
     selectedIndex:0,
-    fileServer: config.baseHost.fileServer
+    fileServer: config.baseHost.fileServer,
+    scrollTop: 0,
+    active: 0
   },
 
   /**
@@ -91,7 +93,6 @@ Page({
   onShareAppMessage: function () {
 
   },
-
   bindCompanyInfo:function(){
     var self = this;
     var requestHelper = new RequestHelper(false);
