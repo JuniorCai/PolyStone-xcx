@@ -10,7 +10,6 @@
       wx:key="{{community.id}}"
       title="{{community.detail}}"
       thumb="{{fileServer+community.coverPhoto}}"
-      
       >
         <view slot="desc">
           {{community.detail}}
@@ -33,87 +32,3 @@
       </van-card>
   </refresh-scroll-view>
 </view>
-<!-- <view class="searchFilter">
-  <view class="searchBlock">
-    <van-search
-      value="{{ value }}"
-      background="#27AEFE"
-      placeholder="请输入搜索关键词"
-      custom-class="searchBar"
-      input-class="searchInput"
-      cancel-class="searchCancel"
-      show-action
-      bind:search="onSearch"
-      bind:cancel="onCancel"
-    />
-  </view>
-  <view class="tabTit box">
-    <view class="flex1{{!tab[index]?' active':''}}" wx:for="{{tabTxt}}" wx:key="type" data-index="{{index}}" bindtap="filterTab">
-      <text>{{item}}</text>
-      <image src="/img/arrow.png"></image>
-    </view>
-  </view>
-</view> -->
-
-<!--筛选项-->
-<!-- <view class="tabLayer" hidden="{{tab[0]}}">
-    <text class="{{pinpai_id==0?'active':''}}" data-id="0" data-index="0" data-txt="品牌" bindtap="filter">不限</text>
-    <text class="{{pinpai_id==item.id?'active':''}}" wx:for="{{pinpaiList}}" wx:key="pp" wx:for-item="item" data-id="{{item.id}}" data-index="0" data-txt="{{item.title}}" bindtap="filter">{{item.title}}</text>
-</view>
-<view class="tabLayer" hidden="{{tab[1]}}">
-    <text class="{{jiage_id==0?'active':''}}" data-id="0" data-index="1" data-txt="价格" bindtap="filter">不限</text>
-    <text class="{{jiage_id==1?'active':''}}" data-id="1" data-index="1" data-txt="58-88" bindtap="filter">58-88</text>
-    <text class="{{jiage_id==2?'active':''}}" data-id="2" data-index="1" data-txt="88-108" bindtap="filter">88-108</text>
-    <text class="{{jiage_id==3?'active':''}}" data-id="3" data-index="1" data-txt="108-188" bindtap="filter">108-188</text>
-</view>
-<view class="tabLayer" hidden="{{tab[2]}}">
-    <text class="{{xiaoliang_id==0?'active':''}}" data-id="0" data-index="2" data-txt="销量" bindtap="filter">不限</text>
-    <text class="{{xiaoliang_id==1?'active':''}}" data-id="1" data-index="2" data-txt="从高到低" bindtap="filter">从高到低</text>
-    <text class="{{xiaoliang_id==2?'active':''}}" data-id="2" data-index="2" data-txt="从低到高" bindtap="filter">从低到高</text>
-</view>
- <refresh-scroll-view refreshing="{{refreshing}}" nomore="{{emptyFlag}}" bindpulldownrefresh="refreshList" bindloadmore="loadMore" catchscroll="onPageScroll">
-    <van-swipe-cell 
-      wx:for="{{communityList.list}}"            
-      wx:for-item="community" 
-      wx:for-index="itemIndex"
-      wx:key="{{community.id}}"
-      data-index="{{itemIndex}}"
-      bindclose="onDeleteCell">
-      <van-card 
-        title="{{community.detail}}"
-        thumb="{{fileServer+community.coverPhoto}}"
-        thumb-class="thumbImg"
-        custom-class="cardCustom"
-      >
-        <view slot="desc">
-          {{community.detail}}
-        </view>
-        <view slot="footer">
-          <van-button size="mini" data-itemId="{{community.id}}" bind:click="showDetial">编辑</van-button>
-          <block wx:if="{{active==0}}">
-            <van-button size="mini" data-itemId="{{community.id}}" bind:click="offLineCommunity">下线</van-button>
-          </block>
-          <block wx:else>
-            <van-button size="mini" data-itemId="{{community.id}}" bind:click="onLineCommunity">上线</van-button>
-          </block>
-        </view>
-      </van-card>
-    </van-swipe-cell>
-  </refresh-scroll-view> -->
-<!-- <view class='list'>
-  <block wx:for='{{dataList}}' wx:key='list' wx:for-item="item">
-  <view class="list_item">
-      <navigator url='details?id={{item.goods_id}}'>
-      <view class='img'>
-        <image src="{{imghref}}{{item.goods_img}}"  mode="scaleToFill"/>
-      </view>
-      <view class='info'>
-        <view class='title'>{{item.goods_title}}</view>
-        <view class='price'>￥{{item.goods_price}}</view>
-        <view class='num'>销量{{item.goods_xiaoliang}}</view>
-      </view>
-       </navigator>
-      <view class='clear'></view>
-  </view>
-  </block>
-</view> -->

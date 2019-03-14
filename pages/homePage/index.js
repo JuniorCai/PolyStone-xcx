@@ -2,7 +2,8 @@ import RequestHelper from "../../utils/request.js";
 import Toast from "../../customComponent/VantWeapp/toast/toast";
 import PagedHelper from "../../utils/pagedHelper.js";
 var config = require("../../utils/config.js")
-var pageHelper = null;
+var productPageHelper = null;
+var communityPageHelper = null;
 const app = getApp()
 
 
@@ -16,21 +17,37 @@ Page({
     companyId:0,
     company: null,
     banners:[],
-    productList: { isfetched: false, items: [] },
-    communityList: { isfetched: false, items: [] },
+    productList: null,
+    communityList: null,
     contact: null,
     collectTimes:0,
     viewTimes:0,
     selectedIndex:0,
     fileServer: config.baseHost.fileServer,
     scrollTop: 0,
-    active: 0
+    scrollHeight: 0,
+    active: 0,
+    productEmptyFlag:false,
+    communityEmptyFlag:false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var self = this;
+    productPageHelper = new PagedHelper('/api/services/app/product/GetPagedProducts', config.pageSizeType.centerPageSize);
+    communityPageHelper = new PagedHelper('/api/services/app/community/GetPagedCommunitys', config.pageSizeType.centerPageSize);
+
+    wx.getSystemInfo({
+      success: function (res) {
+        console.info(res.windowHeight);
+        self.setData({
+          scrollHeight: res.windowHeight
+        });
+      }
+    });
+
     if (app.globalData.hasUserInfo && app.globalData.userInfo) {
       this.setData({
         loginUser: app.globalData.userInfo
@@ -97,6 +114,7 @@ Page({
     var self = this;
     var requestHelper = new RequestHelper(false);
     var param = { id: this.data.companyId};
+
     requestHelper.postRequest('/api/services/app/company/GetCompanyById', param).then(res => {
       if(res.data.result){
         var companyBanners = res.data.result.banners == null ? [] : res.data.result.banners.split(',');
@@ -106,47 +124,151 @@ Page({
   },
   bindCompanyProducts:function(){
     var self = this;
-    var requestHelper = new RequestHelper(false);
-    var param = { id: this.data.companyId };
-    requestHelper.postRequest('/api/services/app/product/GetProductByCompanyId', param).then(res => {
-      if (res.data.result) {
-        self.setData({ "productList.isfetched":true,"productList.items": res.data.result });
-      }
-    });
+    var params = {
+      companyId: self.data.companyId,
+      verifyStatus: 1,
+      releaseStatus: 1
+    };
+
+    self.getPagedProducts(1,params);
   },
   onChange:function(e){
     var self = this;
     var chooseIndex = e.detail.index;
-    var requestHelper = new RequestHelper(false);
 
     self.setData({ selectedIndex: chooseIndex });
     switch(chooseIndex){
       case 0:
-      if(!self.data.productList.isfetched){
-        var param = { id: self.data.companyId };
-        requestHelper.postRequest('/api/services/app/product/GetProductsByCompanyId', param).then(res => {
-          if (res.data.result) {
-            self.setData({ "productList.isfetched": true, "productList.items": res.data.result });
-          }
-        });
-      }
-      break;
-      case 1:
-        if (!self.data.communityList.isfetched) {
-          var param = { id: self.data.company.user.id };
-          requestHelper.postRequest('/api/services/app/community/GetCommunityByUserId', param).then(res => {
-            if (res.data.result) {
-              self.setData({ "communityList.isfetched": true, "communityList.items": res.data.result });
-            }
-          });
+        if (self.data.productList == null){
+          var params = {
+            companyId: self.data.companyId,
+            verifyStatus: 1,
+            releaseStatus: 1
+          };
+          self.getPagedProducts(1,params);
         }
       break;
-      case 2:
+      case 1:
+        if (self.data.communityList == null) {
+          var params = {
+            userId: self.data.company.user.id,
+            verifyStatus: 1,
+            releaseStatus: 1
+          };
+          self.getPagedCommunities(1, params);
+        }
       break;
       default:
       break;
     }
+  },
+  getPagedProducts:function(pageIndex,params){
+    var self = this;
+    productPageHelper.getPagedData(pageIndex, params).then(res => {
+      if (res.total == 0) {
+        self.setData({
+          productList: {},
+          productEmptyFlag: true
+        });
+      } else if (res.list.length == res.total) {
+        self.setData({
+          productList: res,
+          productEmptyFlag: true
+        });
+      }
+      else {
+        self.setData({
+          productList: res,
+        });
+      }
+    }, error => {
+      self.setData({
+        productList: error,
+        productEmptyFlag: true
+      });
+    })
+  },
+  getPagedCommunities: function (pageIndex, params) {
+    var self = this;
+    communityPageHelper.getPagedData(pageIndex, params).then(res => {
+      if (res.total == 0) {
+        self.setData({
+          communityList: {},
+          communityEmptyFlag: true
+        });
+      } else if (res.list.length == res.total) {
+        self.setData({
+          communityList: res,
+          communityEmptyFlag: true
+        });
+      }
+      else {
+        self.setData({
+          communityList: res,
+        });
+      }
+    }, error => {
+      self.setData({
+        communityList: error,
+        communityEmptyFlag: true
+      });
+    })
+  },
+  loadMore:function(e){
+    var self = this;
+    var chooseIndex = e.currentTarget.dataset.selectedindex;
 
+    switch (chooseIndex) {
+      case 0:
+        var nextPageIndex = self.data.productList.pageIndex + 1;
 
+        var params = {
+          companyId: self.data.companyId,
+          verifyStatus: 1,
+          releaseStatus: 1
+        };
+        productPageHelper.getPagedData(nextPageIndex, params).then(res => {
+          self.setData({
+            "productList.list": [...self.data.productList.list, ...res.list],
+            "productList.pageIndex": nextPageIndex
+          });
+          if (self.data.productList.list.length == res.total) {
+            self.setData({
+              productEmptyFlag: true
+            });
+            
+          }
+        }, error => {
+          self.setData({
+            productList: error
+          });
+        })
+        break;
+      case 1:
+        var nextPageIndex = self.data.communityList.pageIndex + 1;
+        var params = {
+          userId: self.data.company.user.id,
+          verifyStatus: 1,
+          releaseStatus: 1
+        };
+        communityPageHelper.getPagedData(nextPageIndex, params).then(res => {
+          self.setData({
+            "communityList.list": [...self.data.communityList.list, ...res.list],
+            "communityList.pageIndex": nextPageIndex
+          });
+          if (self.data.communityList.list.length == res.total) {
+            self.setData({
+              communityEmptyFlag: true
+            });
+          }
+        }, error => {
+          self.setData({
+            communityList: error
+          });
+        })
+        break;
+      default:
+        break;
+    }
   }
 })

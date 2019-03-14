@@ -54,7 +54,6 @@
 }
 
 .scroll-view {
-  height:764px;/*  calc(100% + 40px); */
 }
 
 .itemLeft{
@@ -62,4 +61,15 @@
 }
 .itemRight{
   padding: 10rpx 20rpx 10rpx 10rpx;
+}
+
+.loadmore {
+  height: 60px;
+  width: 100%;
+  line-height: 60px;
+  text-align: center;
+}
+
+.loadmore text {
+  color: #444;
 }
