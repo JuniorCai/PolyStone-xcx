@@ -9,7 +9,6 @@
       bind:tap="showDetail"
       data-companyId="{{company.id}}"
       >
-        
         <view slot="thumb" class="">
           <image class="thumb" mode="scaleToFill"  src="{{fileServer+company.logo}}">
           </image>

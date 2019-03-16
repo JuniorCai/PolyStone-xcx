@@ -110,7 +110,8 @@ Component({
       self.initTabVisible();
       self.setData({
         tabArray:tabArray,
-        tabSelectedIndexList:tabSelectedList
+        tabSelectedIndexList:tabSelectedList,
+        searchValue:""
       });
 
       

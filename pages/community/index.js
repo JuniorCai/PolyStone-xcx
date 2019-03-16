@@ -13,6 +13,7 @@ Page({
     reload: false,
     refreshing: false,
     emptyFlag: false,
+    searchValue:"",
     userInfo: {},
     fileServer: config.baseHost.fileServer,
     tabTxt: [
@@ -39,7 +40,8 @@ Page({
     var that = this;
     var param = {
       verifyStatus: 1,
-      releaseStatus: 1
+      releaseStatus: 1,
+      title: ""
     };
     pageHelper = new PagedHelper('/api/services/app/community/GetPagedCommunitys', config.pageSizeType.centerPageSize);
 
@@ -61,7 +63,8 @@ Page({
     if (that.data.reload) {
       var param = {
         verifyStatus: 1,
-        releaseStatus: 1
+        releaseStatus: 1,
+        title: ""
       };
       this.getListData(param, 1);
 
@@ -72,8 +75,9 @@ Page({
     var that = this;
     var selectedList = e.detail.tabSelectedList;
     var searchContent = e.detail.searchContent;
+    that.setData({ searchValue: searchContent});
 
-    var params = { 'verifyStatus': 1, 'releaseStatus': 1,'title':""};
+    var params = { 'verifyStatus': 1, 'releaseStatus': 1, 'title': searchContent};
     selectedList.forEach(function (item, index){
       var itemInt = parseInt(item);
       if (itemInt>0){
@@ -90,7 +94,8 @@ Page({
   refreshList: function (e) {
     var param = {
       verifyStatus: 1,
-      releaseStatus: 1
+      releaseStatus: 1,
+      title: this.data.searchValue
     };
     this.getListData(param, 1);
   },
@@ -140,7 +145,8 @@ Page({
     var nextPageIndex = that.data.resultList.pageIndex + 1;
     var param = {
       verifyStatus: 1,
-      releaseStatus:1
+      releaseStatus:1,
+      title: that.data.searchValue
     };
     pageHelper.getPagedData(nextPageIndex, param).then(res => {
       // var tempList = that.data.communityList.list.concat(res.list);
@@ -164,6 +170,8 @@ Page({
   },
   onSearch:function(e){
     var searchValue = e.detail.searchContent;
+    this.setData({ searchValue: searchValue });
+
     var params = { 'verifyStatus': 1, 'releaseStatus': 1, 'title': searchValue };
     this.getListData(params, 1);
   },

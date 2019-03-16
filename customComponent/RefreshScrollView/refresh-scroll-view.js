@@ -25,7 +25,7 @@ Component({
     },
     nomoreText: {
       type: String,
-      value: '已经全部加载完毕',
+      value: '-----已经到底啦-----',
     },
     pullDownHeight: {
       type: Number,
@@ -48,6 +48,19 @@ Component({
   data: {
     pullDownStatus: 0,
     lastScrollEnd: 0,
+    scrollHeight:0
+  },
+
+  ready:function(){
+    var self = this;
+    wx.getSystemInfo({
+      success: function (res) {
+        console.info(res.windowHeight);
+        self.setData({
+          scrollHeight: res.windowHeight-40
+        });
+      }
+    });
   },
 
   /**

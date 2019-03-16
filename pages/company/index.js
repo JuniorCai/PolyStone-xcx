@@ -10,6 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    searchValue:"",
     reload: false,
     refreshing: false,
     emptyFlag: false,
@@ -33,8 +34,9 @@ Page({
   onLoad: function (options) {
     var that = this;
     var param = {
-      verifyStatus: 1,
-      releaseStatus: 1
+      isAuthed: 1,
+      isActive: 1,
+      companyName: ""
     };
     pageHelper = new PagedHelper('/api/services/app/company/GetPagedCompanysWithProducts', config.pageSizeType.centerPageSize);
 
@@ -55,8 +57,9 @@ Page({
     var that = this;
     if (that.data.reload) {
       var param = {
-        verifyStatus: 1,
-        releaseStatus: 1
+        isAuthed: 1,
+        isActive: 1,
+        companyName: ""
       };
       this.getListData(param, 1);
 
@@ -67,8 +70,9 @@ Page({
     var that = this;
     var selectedList = e.detail.tabSelectedList;
     var searchContent = e.detail.searchContent;
-
-    var params = { 'verifyStatus': 1, 'releaseStatus': 1, 'title': "" };
+    that.setData({ searchValue: searchContent });
+    
+    var params = { 'isAuthed': 1, 'isActive': 1, 'companyName': "" };
     selectedList.forEach(function (item, index) {
       var itemInt = parseInt(item);
       if (itemInt > 0) {
@@ -84,8 +88,9 @@ Page({
 
   refreshList: function (e) {
     var param = {
-      verifyStatus: 1,
-      releaseStatus: 1
+      isAuthed: 1, 
+      isActive: 1,
+      companyName: this.data.searchValue
     };
     this.getListData(param, 1);
   },
@@ -134,8 +139,9 @@ Page({
 
     var nextPageIndex = that.data.resultList.pageIndex + 1;
     var param = {
-      verifyStatus: 1,
-      releaseStatus: 1
+      isAuthed: 1,
+      isActive: 1,
+      companyName: that.data.searchValue
     };
     pageHelper.getPagedData(nextPageIndex, param).then(res => {
       // var tempList = that.data.communityList.list.concat(res.list);
@@ -159,7 +165,8 @@ Page({
   },
   onSearch: function (e) {
     var searchValue = e.detail.searchContent;
-    var params = { 'verifyStatus': 1, 'releaseStatus': 1, 'title': searchValue };
+    this.setData({ searchValue: searchValue});
+    var params = { 'isAuthed': 1, 'isActive': 1, 'companyName': searchValue };
     this.getListData(params, 1);
   },
   onCancel: function (e) {
