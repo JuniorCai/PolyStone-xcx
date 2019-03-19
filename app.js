@@ -1,4 +1,4 @@
-import request from "/utils/request.js"
+import RequestHelper from "/utils/request.js";
 
 var config = require("/utils/config.js");
 var cache = require("/utils/cache.js");
@@ -51,7 +51,28 @@ App({
         }
       }
     })
-
+    this.cacheRegionList();
+    this.cacheIndustryList();
+  },
+  cacheIndustryList:function(){
+    var requestHelper = new RequestHelper(false);
+    requestHelper.postRequest("/api/services/app/industry/GetPagedIndustrys", { isActive: 1, isShow: 1 }).then(res => {
+      if (res.data.success) {
+        var r = res.data.result;
+        cache.setStorageSync("IndustryList", res.data.result.items,360);
+      }
+      return null;
+    })
+  },
+  cacheRegionList:function(){
+    var requestHelper = new RequestHelper(false);
+    requestHelper.postRequest("/api/services/app/region/GetPagedRegions", {}).then(res => {
+      if (res.data.success) {
+        var r = res.data.result;
+        cache.setStorageSync("RegionList", res.data.result.items, 360);
+      }
+      return null;
+    })
   },
   getUserInfo:function(){
     var app = this;

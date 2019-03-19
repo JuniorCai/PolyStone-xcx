@@ -17,17 +17,7 @@ Page({
     userInfo: {},
     fileServer: config.baseHost.fileServer,
     tabTxt: [
-      {
-        title: '分类',
-        key: 'CompanyCategoryId',
-        tabs: [{ 'id': '1', 'title': '供应', 'value': '1' }, { 'id': '2', 'title': '求购', 'value': '2' }]
-      },
-      {
-        title: '地区',
-        key: 'RegionCode',
-        tabs: [{ 'id': '1', 'title': '3天前', 'value': '3' }, { 'id': '2', 'title': '1周前', 'value': '7' }
-          , { 'id': '3', 'title': '2周前', 'value': '14' }, { 'id': '4', 'title': '1个月前', 'value': '30' }]
-      }],//分类
+      ],//分类
     resultList: {},
   },
 
@@ -41,6 +31,7 @@ Page({
     pageHelper = new PagedHelper('/api/services/app/company/GetPagedCompanysWithProducts', config.pageSizeType.centerPageSize);
 
     this.getListData(param, 1);
+    this.getCompanyIndustryList();
   },
 
   /**
@@ -54,18 +45,39 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    var that = this;
-    if (that.data.reload) {
-      var param = {
-        isAuthed: 1,
-        isActive: 1,
-        companyName: ""
-      };
-      this.getListData(param, 1);
+    // var that = this;
+    // if (that.data.reload) {
+    //   var param = {
+    //     isAuthed: 1,
+    //     isActive: 1,
+    //     companyName: ""
+    //   };
+    //   this.getListData(param, 1);
 
-    }
+    // }
   },
+  getCompanyIndustryList:function(){
+    var self = this;
+    var tabTxtIndustry = { title: "行业", key: "IndustryCode", tabs: [] };
+    var tabArray = [];
 
+    var requestHelper = new RequestHelper(false);
+    requestHelper.postRequest("/api/services/app/industry/GetPagedIndustrys", { isActive:1,isShow:1 }).then(res => {
+      if (res.data.success) {
+        var r = res.data.result;
+        res.data.result.items.forEach(function(item,index){
+          var tabObj = { id: item.id, title: item.industryName, value: item.industryCode};
+          tabArray.push(tabObj);
+        });
+        tabTxtIndustry.tabs = tabArray;
+        var newTabTxt = self.data.tabTxt.push(tabTxtIndustry);
+        self.setData({ tabTxt: newTabTxt});
+      }
+    })
+  },
+  getRegionList:function(){
+    
+  },
   filterData: function (e) {
     var that = this;
     var selectedList = e.detail.tabSelectedList;
