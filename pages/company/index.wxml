@@ -1,6 +1,6 @@
-<search-filter-bar tabArray="{{tabTxt}}" bind:filterData="filterData" bind:search="onSearch" bind:cancel="onCancel"></search-filter-bar>
+<search-filter-bar id="searchBar" tabArray="{{tabTxt}}" bind:filterData="filterData" bind:search="onSearch" bind:cancel="onCancel"></search-filter-bar>
 <view class='list'>
-  <refresh-scroll-view refreshing="{{refreshing}}" nomore="{{emptyFlag}}" bindpulldownrefresh="refreshList" bindloadmore="loadMore" catchscroll="onPageScroll">
+  <refresh-scroll-view  refreshing="{{refreshing}}" nomore="{{emptyFlag}}" bindpulldownrefresh="refreshList" bindloadmore="loadMore" catchscroll="onPageScroll">
   <block wx:for="{{resultList.list}}" wx:for-item="company" wx:for-index="itemIndex" wx:key="{{company.id}}">
     <van-card 
       title="{{company.companyName}}"

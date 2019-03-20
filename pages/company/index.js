@@ -3,6 +3,7 @@ import Toast from "../../customComponent/VantWeapp/toast/toast";
 import PagedHelper from "../../utils/pagedHelper.js";
 var config = require("../../utils/config.js")
 var pageHelper = null;
+const app = getApp()
 
 Page({
 
@@ -32,6 +33,7 @@ Page({
 
     this.getListData(param, 1);
     this.getCompanyIndustryList();
+    this.getRegionProvinceList();
   },
 
   /**
@@ -58,25 +60,34 @@ Page({
   },
   getCompanyIndustryList:function(){
     var self = this;
-    var tabTxtIndustry = { title: "行业", key: "IndustryCode", tabs: [] };
+    var tabTxtIndustry = { title: "行业", key: "IndustryId", tabs: [] };
     var tabArray = [];
 
-    var requestHelper = new RequestHelper(false);
-    requestHelper.postRequest("/api/services/app/industry/GetPagedIndustrys", { isActive:1,isShow:1 }).then(res => {
-      if (res.data.success) {
-        var r = res.data.result;
-        res.data.result.items.forEach(function(item,index){
-          var tabObj = { id: item.id, title: item.industryName, value: item.industryCode};
-          tabArray.push(tabObj);
-        });
-        tabTxtIndustry.tabs = tabArray;
-        var newTabTxt = self.data.tabTxt.push(tabTxtIndustry);
-        self.setData({ tabTxt: newTabTxt});
-      }
-    })
+    var list = app.getIndustryList();
+    list.forEach(function(item,index){
+      var tabObj = { id: (index + 1), title: item.industryName, value: item.id};
+      tabArray.push(tabObj);
+    });
+    tabTxtIndustry.tabs = tabArray;
+    self.data.tabTxt.push(tabTxtIndustry);
+    //在地区方法里进行赋值，避免重复赋值造成数据无法使用的问题
+    // var obj = this.selectComponent("#searchBar");
+    // obj.setData({ tabArray: self.data.tabTxt});   
   },
-  getRegionList:function(){
-    
+  getRegionProvinceList:function(){
+    var self = this;
+    var tabTxtRegion = { title: "地区", key: "RegionParentCode", tabs: [] };
+    var tabArray = [];
+
+    var regionList = app.getRegionList();
+    regionList.forEach(function(item,index){
+      var tabObj = { id: (index + 1), title: item.regionName, value: item.regionCode };
+      tabArray.push(tabObj);
+    });
+    tabTxtRegion.tabs = tabArray;
+    self.data.tabTxt.push(tabTxtRegion);
+    var obj = this.selectComponent("#searchBar");
+    obj.setData({ tabArray: JSON.parse(JSON.stringify(self.data.tabTxt)) });   
   },
   filterData: function (e) {
     var that = this;

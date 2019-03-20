@@ -51,28 +51,39 @@ App({
         }
       }
     })
-    this.cacheRegionList();
-    this.cacheIndustryList();
+    this.getIndustryList();
+    this.getRegionList();
   },
-  cacheIndustryList:function(){
-    var requestHelper = new RequestHelper(false);
-    requestHelper.postRequest("/api/services/app/industry/GetPagedIndustrys", { isActive: 1, isShow: 1 }).then(res => {
-      if (res.data.success) {
-        var r = res.data.result;
-        cache.setStorageSync("IndustryList", res.data.result.items,360);
-      }
-      return null;
-    })
+  getIndustryList:function(){
+    var industryList = cache.getStorageSync("IndustryList");
+    if (industryList == ""){
+      var requestHelper = new RequestHelper(false);
+      requestHelper.postRequest("/api/services/app/industry/GetPagedIndustrys", { isActive: 1, isShow: 1 }).then(res => {
+        if (res.data.success) {
+          cache.setStorageSync("IndustryList", res.data.result.items, 360);
+          return res.data.result.items;
+        }
+        return [];
+      })
+    }else{
+      return industryList;
+    }
+    
   },
-  cacheRegionList:function(){
-    var requestHelper = new RequestHelper(false);
-    requestHelper.postRequest("/api/services/app/region/GetPagedRegions", {}).then(res => {
-      if (res.data.success) {
-        var r = res.data.result;
-        cache.setStorageSync("RegionList", res.data.result.items, 360);
-      }
-      return null;
-    })
+  getRegionList:function(){
+    var regionList = cache.getStorageSync("RegionList");
+    if (regionList == "") {
+      var requestHelper = new RequestHelper(false);
+      requestHelper.postRequest("/api/services/app/region/GetPagedRegions", {}).then(res => {
+        if (res.data.success) {
+          cache.setStorageSync("RegionList", res.data.result.items, 360);
+          return res.data.result.items;
+        }
+        return [];
+      })
+    } else {
+      return regionList;
+    }
   },
   getUserInfo:function(){
     var app = this;
