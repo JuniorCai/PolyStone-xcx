@@ -15,7 +15,7 @@
     <view class='iconfont icon-shoucang1' style='color:#27AEFE;font-size:28px;'></view>
     <text class='quickNavTxt'>收藏</text>
   </navigator>
-  <navigator class='quickNav' url="test/test1">
+  <navigator class='quickNav' url="communities/list/list">
     <view class='iconfont icon-quanzi:' style='color:#101010;font-size:28px;'></view>
     <text class='quickNavTxt'>圈子</text>
   </navigator>

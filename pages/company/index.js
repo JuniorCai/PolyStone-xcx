@@ -63,13 +63,16 @@ Page({
     var tabTxtIndustry = { title: "行业", key: "IndustryId", tabs: [] };
     var tabArray = [];
 
-    var list = app.getIndustryList();
-    list.forEach(function(item,index){
-      var tabObj = { id: (index + 1), title: item.industryName, value: item.id};
-      tabArray.push(tabObj);
+    app.getIndustryList().then(res=>{
+      var list = res;
+      list.forEach(function (item, index) {
+        var tabObj = { id: (index + 1), title: item.industryName, value: item.id };
+        tabArray.push(tabObj);
+      });
+      tabTxtIndustry.tabs = tabArray;
+      self.data.tabTxt.push(tabTxtIndustry);
     });
-    tabTxtIndustry.tabs = tabArray;
-    self.data.tabTxt.push(tabTxtIndustry);
+    
     //在地区方法里进行赋值，避免重复赋值造成数据无法使用的问题
     // var obj = this.selectComponent("#searchBar");
     // obj.setData({ tabArray: self.data.tabTxt});   
@@ -79,15 +82,18 @@ Page({
     var tabTxtRegion = { title: "地区", key: "RegionParentCode", tabs: [] };
     var tabArray = [];
 
-    var regionList = app.getRegionList();
-    regionList.forEach(function(item,index){
-      var tabObj = { id: (index + 1), title: item.regionName, value: item.regionCode };
-      tabArray.push(tabObj);
+    app.getRegionList().then(res=>{
+      var regionList = res;
+      regionList.forEach(function (item, index) {
+        var tabObj = { id: (index + 1), title: item.regionName, value: item.regionCode };
+        tabArray.push(tabObj);
+      });
+      tabTxtRegion.tabs = tabArray;
+      self.data.tabTxt.push(tabTxtRegion);
+      var obj = this.selectComponent("#searchBar");
+      obj.setData({ tabArray: JSON.parse(JSON.stringify(self.data.tabTxt)) });   
     });
-    tabTxtRegion.tabs = tabArray;
-    self.data.tabTxt.push(tabTxtRegion);
-    var obj = this.selectComponent("#searchBar");
-    obj.setData({ tabArray: JSON.parse(JSON.stringify(self.data.tabTxt)) });   
+    
   },
   filterData: function (e) {
     var that = this;

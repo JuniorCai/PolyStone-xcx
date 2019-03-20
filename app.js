@@ -55,35 +55,40 @@ App({
     this.getRegionList();
   },
   getIndustryList:function(){
-    var industryList = cache.getStorageSync("IndustryList");
-    if (industryList == ""){
-      var requestHelper = new RequestHelper(false);
-      requestHelper.postRequest("/api/services/app/industry/GetPagedIndustrys", { isActive: 1, isShow: 1 }).then(res => {
-        if (res.data.success) {
-          cache.setStorageSync("IndustryList", res.data.result.items, 360);
-          return res.data.result.items;
-        }
-        return [];
-      })
-    }else{
-      return industryList;
-    }
+    return new Promise((resolve,reject)=>{
+      var industryList = cache.getStorageSync("IndustryList");
+      if (industryList == "") {
+        var requestHelper = new RequestHelper(false);
+        requestHelper.postRequest("/api/services/app/industry/GetPagedIndustrys", { isActive: 1, isShow: 1 }).then(res => {
+          if (res.data.success) {
+            cache.setStorageSync("IndustryList", res.data.result.items, 360);
+            return resolve(res.data.result.items);
+          }
+          return resolve([]);
+        })
+      } else {
+        return resolve(industryList);
+      }
+    })  
     
   },
   getRegionList:function(){
-    var regionList = cache.getStorageSync("RegionList");
-    if (regionList == "") {
-      var requestHelper = new RequestHelper(false);
-      requestHelper.postRequest("/api/services/app/region/GetPagedRegions", {}).then(res => {
-        if (res.data.success) {
-          cache.setStorageSync("RegionList", res.data.result.items, 360);
-          return res.data.result.items;
-        }
-        return [];
-      })
-    } else {
-      return regionList;
-    }
+    return new Promise((resolve, reject)=>{
+      var regionList = cache.getStorageSync("RegionList");
+      if (regionList == "") {
+        var requestHelper = new RequestHelper(false);
+        requestHelper.postRequest("/api/services/app/region/GetPagedRegions", {}).then(res => {
+          if (res.data.success) {
+            cache.setStorageSync("RegionList", res.data.result.items, 360);
+            return resolve(res.data.result.items);
+          }
+          return resolve([]);
+        })
+      } else {
+        return resolve(regionList);
+      }
+    })
+    
   },
   getUserInfo:function(){
     var app = this;
