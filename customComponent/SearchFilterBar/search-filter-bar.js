@@ -46,6 +46,10 @@ Component({
     dataList: {
       type:Array,
       value: []
+    },
+    placeHolderStr:{
+      type:String,
+      value:"请输入搜索关键词"
     }
 
   },
