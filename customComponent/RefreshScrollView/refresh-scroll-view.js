@@ -57,7 +57,7 @@ Component({
       success: function (res) {
         console.info(res.windowHeight);
         self.setData({
-          scrollHeight: res.windowHeight-40
+          scrollHeight: res.windowHeight
         });
       }
     });

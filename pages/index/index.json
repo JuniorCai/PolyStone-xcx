@@ -1,1 +1,6 @@
-{}
+{
+  "navigationBarTitleText": "聚石",
+  "usingComponents": {
+    "van-search": "../../customComponent/VantWeapp/search/index"
+  }
+}

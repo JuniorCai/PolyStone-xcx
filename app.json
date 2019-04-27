@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/index/index",
     "pages/company/index",
     "pages/community/index",
     "pages/community/menudown/menudown",
@@ -7,7 +8,7 @@
     "pages/center/userInfo/userInfo",
     "pages/account/login/login",
     "pages/account/register/registerOne",
-    "pages/index/index",
+    
     "pages/logs/logs",
     "pages/account/register/registerTwo",
     "pages/center/userInfo/changePhone/changePhone",
