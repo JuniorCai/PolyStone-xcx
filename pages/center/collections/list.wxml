@@ -1,90 +1,92 @@
 <wxs src="../../../customWxs/formatDate.wxs" module="dateFormatter"/>
 <van-tabs active="{{ active }}" bind:change="onTabChange">
   <van-tab title="{{moduleItem.name}}" code="{{moduleItem.id}}" wx:for="{{moduleList}}" wx:key="{{item.id}}" wx:for-item="moduleItem">
-    <refresh-scroll-view refreshing="{{refreshing}}" nomore="{{emptyFlag}}" bindpulldownrefresh="refreshList" bindloadmore="loadMore" catchscroll="onPageScroll">
-      <block wx:if="{{moduleList[active].name=='产品'}}">
-        <van-swipe-cell right-width="{{65}}" 
-          wx:for="{{resultList.list}}"            
-          wx:for-item="collection" 
-          wx:for-index="itemIndex"
-          wx:key="{{collection.id}}"
-          async-close
-          data-index="{{itemIndex}}"
-          bindclose="onDeleteCell">
-          <van-card 
-            title="{{collection.title}}"
-            thumb="{{fileServer+collection.product.coverPhoto}}"
-            thumb-class="thumbImg"
-          />
-          <view slot="right" class='van-swipe-cell__right'>删除</view>
-        </van-swipe-cell>
-      </block>
-      <block wx:elif="{{moduleList[active].name=='企业'}}">
-        <van-swipe-cell 
-          right-width="{{65}}" 
-          wx:for="{{resultList.list}}" 
-          wx:for-item="collection" 
-          wx:for-index="itemIndex"
-          wx:key="{{collection.id}}"
-          async-close
-          data-index="{{itemIndex}}"
-          bindclose="onDeleteCell">
-          <van-card 
-            title="{{collection.title}}"
-            thumb="{{fileServer+collection.company.logo}}"
-            desc="主营：{{collection.company.business}}"
-            thumb-class="thumbImg"
-          />
-          <view slot="right" class='van-swipe-cell__right'>删除</view>
-        </van-swipe-cell>
-      </block>
-      <block wx:elif="{{moduleList[active].name=='供应'}}">
-        <van-swipe-cell 
-          right-width="{{65}}" 
-          wx:for="{{resultList.list}}" 
-          wx:for-item="collection" 
-          wx:for-index="itemIndex"
-          wx:key="{{collection.id}}"
-          async-close
-          data-index="{{itemIndex}}"
-          bindclose="onDeleteCell">
-          <van-card 
-            title="{{collection.title}}"
-            thumb="{{fileServer+collection.community.coverPhoto}}"
-            thumb-class="thumbImg"
-          >
-            <view slot="desc" class="collectionDesc">
-              <view class="desc">发布人：{{collection.community.user.name.length==0?collection.community.user.nickname:collection.community.user.name}}</view>
-              <view class="publishTime">发布时间：{{dateFormatter.formatTime(collection.community.creationTime)}}</view>
-            </view>
-          </van-card>
-          <view slot="right" class='van-swipe-cell__right'>删除</view>
-        </van-swipe-cell>
-      </block>
-      <block wx:else="{{moduleList[active].name=='求购'}}">
-        <van-swipe-cell 
-          right-width="{{65}}" 
-          wx:for="{{resultList.list}}" 
-          wx:for-item="collection" 
-          wx:for-index="itemIndex"
-          wx:key="{{collection.id}}"
-          async-close
-          data-index="{{itemIndex}}"
-          bindclose="onDeleteCell">
-          <van-card 
-            title="{{collection.title}}"
-            thumb="{{fileServer+collection.community.coverPhoto}}"
-            thumb-class="thumbImg"
-          >
-            <view slot="desc" class="collectionDesc">
-              <view class="desc">发布人：{{collection.community.user.name.length==0?collection.community.user.nickname:collection.community.user.name}}</view>
-              <view class="publishTime">发布时间：{{dateFormatter.formatTime(collection.community.creationTime)}}</view>
-            </view>
-          </van-card>
-          <view slot="right" class='van-swipe-cell__right'>删除</view>
-        </van-swipe-cell>
-      </block>
-    </refresh-scroll-view>
+    <view class='list' style='height:680px;overflow-y: hidden;'>
+      <refresh-scroll-view refreshing="{{refreshing}}" nomore="{{emptyFlag}}" bindpulldownrefresh="refreshList" bindloadmore="loadMore" catchscroll="onPageScroll">
+        <block wx:if="{{moduleList[active].name=='产品'}}">
+          <van-swipe-cell right-width="{{65}}" 
+            wx:for="{{resultList.list}}"            
+            wx:for-item="collection" 
+            wx:for-index="itemIndex"
+            wx:key="{{collection.id}}"
+            async-close
+            data-index="{{itemIndex}}"
+            bindclose="onDeleteCell">
+            <van-card 
+              title="{{collection.title}}"
+              thumb="{{fileServer+collection.product.coverPhoto}}"
+              thumb-class="thumbImg"
+            />
+            <view slot="right" class='van-swipe-cell__right'>删除</view>
+          </van-swipe-cell>
+        </block>
+        <block wx:elif="{{moduleList[active].name=='企业'}}">
+          <van-swipe-cell 
+            right-width="{{65}}" 
+            wx:for="{{resultList.list}}" 
+            wx:for-item="collection" 
+            wx:for-index="itemIndex"
+            wx:key="{{collection.id}}"
+            async-close
+            data-index="{{itemIndex}}"
+            bindclose="onDeleteCell">
+            <van-card 
+              title="{{collection.title}}"
+              thumb="{{fileServer+collection.company.logo}}"
+              desc="主营：{{collection.company.business}}"
+              thumb-class="thumbImg"
+            />
+            <view slot="right" class='van-swipe-cell__right'>删除</view>
+          </van-swipe-cell>
+        </block>
+        <block wx:elif="{{moduleList[active].name=='供应'}}">
+          <van-swipe-cell 
+            right-width="{{65}}" 
+            wx:for="{{resultList.list}}" 
+            wx:for-item="collection" 
+            wx:for-index="itemIndex"
+            wx:key="{{collection.id}}"
+            async-close
+            data-index="{{itemIndex}}"
+            bindclose="onDeleteCell">
+            <van-card 
+              title="{{collection.title}}"
+              thumb="{{fileServer+collection.community.coverPhoto}}"
+              thumb-class="thumbImg"
+            >
+              <view slot="desc" class="collectionDesc">
+                <view class="desc">发布人：{{collection.community.user.name.length==0?collection.community.user.nickname:collection.community.user.name}}</view>
+                <view class="publishTime">发布时间：{{dateFormatter.formatTime(collection.community.creationTime)}}</view>
+              </view>
+            </van-card>
+            <view slot="right" class='van-swipe-cell__right'>删除</view>
+          </van-swipe-cell>
+        </block>
+        <block wx:else="{{moduleList[active].name=='求购'}}">
+          <van-swipe-cell 
+            right-width="{{65}}" 
+            wx:for="{{resultList.list}}" 
+            wx:for-item="collection" 
+            wx:for-index="itemIndex"
+            wx:key="{{collection.id}}"
+            async-close
+            data-index="{{itemIndex}}"
+            bindclose="onDeleteCell">
+            <van-card 
+              title="{{collection.title}}"
+              thumb="{{fileServer+collection.community.coverPhoto}}"
+              thumb-class="thumbImg"
+            >
+              <view slot="desc" class="collectionDesc">
+                <view class="desc">发布人：{{collection.community.user.name.length==0?collection.community.user.nickname:collection.community.user.name}}</view>
+                <view class="publishTime">发布时间：{{dateFormatter.formatTime(collection.community.creationTime)}}</view>
+              </view>
+            </van-card>
+            <view slot="right" class='van-swipe-cell__right'>删除</view>
+          </van-swipe-cell>
+        </block>
+      </refresh-scroll-view>
+    </view>
   </van-tab>
 </van-tabs>
 <van-toast id="van-toast" />
